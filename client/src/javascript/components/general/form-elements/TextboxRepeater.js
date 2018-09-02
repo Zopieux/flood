@@ -1,4 +1,4 @@
-import {FormElementAddon, FormRow, FormRowGroup, Textbox} from 'flood-ui-kit';
+import { FormElementAddon, FormRow, FormRowGroup, Textbox } from 'flood-ui-kit';
 import React from 'react';
 
 import AddMini from '../../icons/AddMini';
@@ -6,7 +6,7 @@ import RemoveMini from '../../icons/RemoveMini';
 
 export default class TextboxRepeater extends React.PureComponent {
   state = {
-    textboxes: [{id: 0, value: ''}]
+    textboxes: [{ id: 0, value: '' }],
   };
 
   _idCounter = 0;
@@ -21,7 +21,9 @@ export default class TextboxRepeater extends React.PureComponent {
 
       if (index > 0) {
         removeButton = (
-          <FormElementAddon onClick={this.handleTextboxRemove.bind(textbox, index)}>
+          <FormElementAddon
+            onClick={this.handleTextboxRemove.bind(textbox, index)}
+          >
             <RemoveMini size="mini" />
           </FormElementAddon>
         );
@@ -37,7 +39,9 @@ export default class TextboxRepeater extends React.PureComponent {
             placeholder={this.props.placeholder}
             wrapperClassName="textbox-repeater"
           >
-            <FormElementAddon onClick={this.handleTextboxAdd.bind(textbox, index)}>
+            <FormElementAddon
+              onClick={this.handleTextboxAdd.bind(textbox, index)}
+            >
               <AddMini size="mini" />
             </FormElementAddon>
             {removeButton}
@@ -47,23 +51,19 @@ export default class TextboxRepeater extends React.PureComponent {
     });
   };
 
-  handleTextboxAdd = (index) => {
+  handleTextboxAdd = index => {
     const textboxes = Object.assign([], this.state.textboxes);
-    textboxes.splice(index + 1, 0, {id: this.getID(), value: ''});
-    this.setState({textboxes});
+    textboxes.splice(index + 1, 0, { id: this.getID(), value: '' });
+    this.setState({ textboxes });
   };
 
-  handleTextboxRemove = (index) => {
+  handleTextboxRemove = index => {
     const textboxes = Object.assign([], this.state.textboxes);
     textboxes.splice(index, 1);
-    this.setState({textboxes});
+    this.setState({ textboxes });
   };
 
   render() {
-    return (
-      <FormRowGroup>
-        {this.getTextboxes()}
-      </FormRowGroup>
-    );
+    return <FormRowGroup>{this.getTextboxes()}</FormRowGroup>;
   }
 }

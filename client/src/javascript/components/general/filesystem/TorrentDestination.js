@@ -1,6 +1,14 @@
 import _ from 'lodash';
-import {Checkbox, ContextMenu, FormElementAddon, FormRow, FormRowGroup, Portal, Textbox} from 'flood-ui-kit';
-import {FormattedMessage, injectIntl} from 'react-intl';
+import {
+  Checkbox,
+  ContextMenu,
+  FormElementAddon,
+  FormRow,
+  FormRowGroup,
+  Portal,
+  Textbox,
+} from 'flood-ui-kit';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import React from 'react';
 
 import EventTypes from '../../../constants/EventTypes';
@@ -16,10 +24,11 @@ class NewTorrentDestination extends React.Component {
   constructor(props) {
     super(props);
 
-    const destination = props.suggested
-      || SettingsStore.getFloodSettings('torrentDestination')
-      || SettingsStore.getClientSettings('directoryDefault')
-      || '';
+    const destination =
+      props.suggested ||
+      SettingsStore.getFloodSettings('torrentDestination') ||
+      SettingsStore.getClientSettings('directoryDefault') ||
+      '';
 
     this.state = {
       destination,
@@ -28,7 +37,7 @@ class NewTorrentDestination extends React.Component {
       directories: null,
       files: null,
       isFetching: false,
-      isDirectoryListOpen: false
+      isDirectoryListOpen: false,
     };
 
     this.handleWindowResize = _.debounce(this.handleWindowResize, 100);
@@ -41,14 +50,17 @@ class NewTorrentDestination extends React.Component {
   componentWillUpdate(_nextProps, nextState) {
     if (!this.state.isDirectoryListOpen && nextState.isDirectoryListOpen) {
       this.addDestinationOpenEventListeners();
-    } else if (this.state.isDirectoryListOpen && !nextState.isDirectoryListOpen) {
-      this.removeDestinationOpenEventListeners()
+    } else if (
+      this.state.isDirectoryListOpen &&
+      !nextState.isDirectoryListOpen
+    ) {
+      this.removeDestinationOpenEventListeners();
     }
   }
 
   componentWillUnmount() {
     UIStore.unlisten(EventTypes.UI_MODAL_DISMISSED, this.handleModalDismiss);
-    this.removeDestinationOpenEventListeners()
+    this.removeDestinationOpenEventListeners();
   }
 
   addDestinationOpenEventListeners() {
@@ -58,7 +70,7 @@ class NewTorrentDestination extends React.Component {
 
   closeDirectoryList = () => {
     if (this.state.isDirectoryListOpen) {
-      this.setState({isDirectoryListOpen: false});
+      this.setState({ isDirectoryListOpen: false });
     }
   };
 
@@ -70,33 +82,33 @@ class NewTorrentDestination extends React.Component {
     return this.state.destination;
   }
 
-  handleBasePathCheckBoxCheck = (value) => {
-    this.setState({isBasePath: value});
+  handleBasePathCheckBoxCheck = value => {
+    this.setState({ isBasePath: value });
   };
 
-  handleDestinationChange = (event) => {
+  handleDestinationChange = event => {
     const destination = event.target.value;
 
     if (this.props.onChange) {
       this.props.onChange(destination);
     }
 
-    this.setState({destination});
+    this.setState({ destination });
   };
 
-  handleDirectoryListButtonClick = (event) => {
+  handleDirectoryListButtonClick = event => {
     const isOpening = !this.state.isDirectoryListOpen;
 
     this.setState({
       isDirectoryListOpen: isOpening,
-      isFetching: isOpening
+      isFetching: isOpening,
     });
   };
 
   handleDirectorySelection = destination => {
     // eslint-disable-next-line react/no-direct-mutation-state
     this.state.textboxRef.value = destination;
-    this.setState({destination});
+    this.setState({ destination });
   };
 
   handleDocumentClick = () => {
@@ -120,15 +132,15 @@ class NewTorrentDestination extends React.Component {
     global.removeEventListener('resize', this.handleWindowResize);
   }
 
-  setTextboxRef = (ref) => {
+  setTextboxRef = ref => {
     if (this.state.textboxRef !== ref) {
-      this.setState({textboxRef: ref});
+      this.setState({ textboxRef: ref });
     }
   };
 
   toggleOpenState = () => {
     this.setState({
-      isDirectoryListOpen: !this.state.isDirectoryListOpen
+      isDirectoryListOpen: !this.state.isDirectoryListOpen,
     });
   };
 
@@ -145,7 +157,7 @@ class NewTorrentDestination extends React.Component {
             onClick={event => event.nativeEvent.stopImmediatePropagation()}
             placeholder={this.props.intl.formatMessage({
               id: 'torrents.add.destination.placeholder',
-              defaultMessage: 'Destination'
+              defaultMessage: 'Destination',
             })}
             setRef={this.setTextboxRef}
           >
@@ -156,10 +168,10 @@ class NewTorrentDestination extends React.Component {
               <ContextMenu
                 in={this.state.isDirectoryListOpen}
                 onClick={event => event.nativeEvent.stopImmediatePropagation()}
-                overlayProps={{isInteractive: false}}
+                overlayProps={{ isInteractive: false }}
                 padding={false}
-                ref={ref => this.contextMenuInstanceRef = ref}
-                setRef={ref => this.contextMenuNodeRef = ref}
+                ref={ref => (this.contextMenuInstanceRef = ref)}
+                setRef={ref => (this.contextMenuNodeRef = ref)}
                 scrolling={false}
                 triggerRef={this.state.textboxRef}
               >
@@ -167,9 +179,9 @@ class NewTorrentDestination extends React.Component {
                   directory={this.state.destination}
                   intl={this.props.intl}
                   maxHeight={
-                    this.contextMenuInstanceRef
-                    && this.contextMenuInstanceRef.dropdownStyle
-                    && this.contextMenuInstanceRef.dropdownStyle.maxHeight
+                    this.contextMenuInstanceRef &&
+                    this.contextMenuInstanceRef.dropdownStyle &&
+                    this.contextMenuInstanceRef.dropdownStyle.maxHeight
                   }
                   onDirectorySelection={this.handleDirectorySelection}
                 />
@@ -190,4 +202,4 @@ class NewTorrentDestination extends React.Component {
   }
 }
 
-export default injectIntl(NewTorrentDestination, {withRef: true});
+export default injectIntl(NewTorrentDestination, { withRef: true });

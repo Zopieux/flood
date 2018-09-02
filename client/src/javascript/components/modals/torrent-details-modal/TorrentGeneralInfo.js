@@ -1,4 +1,4 @@
-import {FormattedMessage, FormattedNumber, injectIntl} from 'react-intl';
+import { FormattedMessage, FormattedNumber, injectIntl } from 'react-intl';
 import React from 'react';
 
 import Size from '../../general/Size';
@@ -7,7 +7,9 @@ class TorrentGeneralInfo extends React.Component {
   getTags(tags) {
     return tags.map((tag, index) => {
       return (
-        <span className="tag" key={index}>{tag}</span>
+        <span className="tag" key={index}>
+          {tag}
+        </span>
       );
     });
   }
@@ -27,8 +29,10 @@ class TorrentGeneralInfo extends React.Component {
 
     const VALUE_NOT_AVAILABLE = (
       <span className="not-available">
-        <FormattedMessage id="torrents.details.general.none"
-          defaultMessage="None" />
+        <FormattedMessage
+          id="torrents.details.general.none"
+          defaultMessage="None"
+        />
       </span>
     );
 
@@ -37,7 +41,10 @@ class TorrentGeneralInfo extends React.Component {
         <table className="torrent-details__table table">
           <tbody>
             <tr className="torrent-details__table__heading">
-              <td className="torrent-details__table__heading--tertiary" colSpan="2">
+              <td
+                className="torrent-details__table__heading--tertiary"
+                colSpan="2"
+              >
                 <FormattedMessage
                   id="torrents.details.general.heading.general"
                   defaultMessage="General"
@@ -54,9 +61,11 @@ class TorrentGeneralInfo extends React.Component {
               <td className="torrent-details__detail__value">
                 {dateAdded
                   ? this.props.intl.formatDate(dateAdded, {
-                    year: 'numeric',
-                    month: 'long',
-                    day: '2-digit'}) + ' ' +
+                      year: 'numeric',
+                      month: 'long',
+                      day: '2-digit',
+                    }) +
+                    ' ' +
                     this.props.intl.formatTime(dateAdded)
                   : VALUE_NOT_AVAILABLE}
               </td>
@@ -82,11 +91,13 @@ class TorrentGeneralInfo extends React.Component {
               <td className="torrent-details__detail__value">
                 {torrent.ignoreScheduler === '1'
                   ? this.props.intl.formatMessage({
-                    id: 'torrents.details.general.scheduler.ignored',
-                    defaultMessage: 'Ignored'})
+                      id: 'torrents.details.general.scheduler.ignored',
+                      defaultMessage: 'Ignored',
+                    })
                   : this.props.intl.formatMessage({
-                    id: 'torrents.details.general.scheduler.obeyed',
-                    defaultMessage: 'Obeyed'})}
+                      id: 'torrents.details.general.scheduler.obeyed',
+                      defaultMessage: 'Obeyed',
+                    })}
               </td>
             </tr>
             <tr className="torrent-details__detail torrent-details__detail--tags">
@@ -97,13 +108,16 @@ class TorrentGeneralInfo extends React.Component {
                 />
               </td>
               <td className="torrent-details__detail__value">
-                {(torrent.tags.length
+                {torrent.tags.length
                   ? this.getTags(torrent.tags)
-                  : VALUE_NOT_AVAILABLE)}
+                  : VALUE_NOT_AVAILABLE}
               </td>
             </tr>
             <tr className="torrent-details__table__heading">
-              <td className="torrent-details__table__heading--tertiary" colSpan="2">
+              <td
+                className="torrent-details__table__heading--tertiary"
+                colSpan="2"
+              >
                 <FormattedMessage
                   id="torrents.details.general.heading.transfer"
                   defaultMessage="Transfer"
@@ -135,8 +149,10 @@ class TorrentGeneralInfo extends React.Component {
                   defaultMessage="{connected} connected of {total}"
                   values={{
                     connectedCount: torrent.peersConnected,
-                    connected: <FormattedNumber value={torrent.peersConnected} />,
-                    total: <FormattedNumber value={torrent.peersTotal} />
+                    connected: (
+                      <FormattedNumber value={torrent.peersConnected} />
+                    ),
+                    total: <FormattedNumber value={torrent.peersTotal} />,
                   }}
                 />
               </td>
@@ -154,14 +170,19 @@ class TorrentGeneralInfo extends React.Component {
                   defaultMessage="{connected} connected of {total}"
                   values={{
                     connectedCount: torrent.seedsConnected,
-                    connected: <FormattedNumber value={torrent.seedsConnected} />,
-                    total: <FormattedNumber value={torrent.seedsTotal} />
+                    connected: (
+                      <FormattedNumber value={torrent.seedsConnected} />
+                    ),
+                    total: <FormattedNumber value={torrent.seedsTotal} />,
                   }}
                 />
               </td>
             </tr>
             <tr className="torrent-details__table__heading">
-              <td className="torrent-details__table__heading--tertiary" colSpan="2">
+              <td
+                className="torrent-details__table__heading--tertiary"
+                colSpan="2"
+              >
                 <FormattedMessage
                   id="torrents.details.general.heading.torrent"
                   defaultMessage="Torrent"
@@ -189,9 +210,11 @@ class TorrentGeneralInfo extends React.Component {
               <td className="torrent-details__detail__value">
                 {creation
                   ? this.props.intl.formatDate(creation, {
-                    year: 'numeric',
-                    month: 'long',
-                    day: '2-digit'}) + ' ' +
+                      year: 'numeric',
+                      month: 'long',
+                      day: '2-digit',
+                    }) +
+                    ' ' +
                     this.props.intl.formatTime(creation)
                   : VALUE_NOT_AVAILABLE}
               </td>
@@ -203,9 +226,7 @@ class TorrentGeneralInfo extends React.Component {
                   defaultMessage="Hash"
                 />
               </td>
-              <td className="torrent-details__detail__value">
-                {torrent.hash}
-              </td>
+              <td className="torrent-details__detail__value">{torrent.hash}</td>
             </tr>
             <tr className="torrent-details__detail torrent-details__detail--size">
               <td className="torrent-details__detail__label">
@@ -228,15 +249,20 @@ class TorrentGeneralInfo extends React.Component {
               <td className="torrent-details__detail__value">
                 {torrent.isPrivate === '0'
                   ? this.props.intl.formatMessage({
-                    id: 'torrents.details.general.type.public',
-                    defaultMessage: 'Public'})
+                      id: 'torrents.details.general.type.public',
+                      defaultMessage: 'Public',
+                    })
                   : this.props.intl.formatMessage({
-                    id: 'torrents.details.general.type.private',
-                    defaultMessage: 'Private'})}
+                      id: 'torrents.details.general.type.private',
+                      defaultMessage: 'Private',
+                    })}
               </td>
             </tr>
             <tr className="torrent-details__table__heading">
-              <td className="torrent-details__table__heading--tertiary" colSpan="2">
+              <td
+                className="torrent-details__table__heading--tertiary"
+                colSpan="2"
+              >
                 <FormattedMessage
                   id="torrents.details.general.heading.tracker"
                   defaultMessage="Tracker"
@@ -251,7 +277,7 @@ class TorrentGeneralInfo extends React.Component {
                 />
               </td>
               <td className="torrent-details__detail__value">
-                {(torrent.message ? torrent.message : VALUE_NOT_AVAILABLE)}
+                {torrent.message ? torrent.message : VALUE_NOT_AVAILABLE}
               </td>
             </tr>
           </tbody>

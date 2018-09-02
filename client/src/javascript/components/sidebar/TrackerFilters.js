@@ -1,4 +1,4 @@
-import {FormattedMessage} from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import React from 'react';
 
 import EventTypes from '../../constants/EventTypes';
@@ -10,7 +10,7 @@ const METHODS_TO_BIND = [
   'getFilters',
   'handleClick',
   'onTrackerFilterChange',
-  'onTorrentTaxonomyChange'
+  'onTorrentTaxonomyChange',
 ];
 
 export default class TrackerFilters extends React.Component {
@@ -19,26 +19,34 @@ export default class TrackerFilters extends React.Component {
 
     this.state = {
       trackerCount: {},
-      trackerFilter: TorrentFilterStore.getTrackerFilter()
+      trackerFilter: TorrentFilterStore.getTrackerFilter(),
     };
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
 
   componentDidMount() {
-    TorrentFilterStore.listen(EventTypes.CLIENT_FETCH_TORRENT_TAXONOMY_SUCCESS,
-      this.onTorrentTaxonomyChange);
-    TorrentFilterStore.listen(EventTypes.UI_TORRENTS_FILTER_TRACKER_CHANGE,
-      this.onTrackerFilterChange);
+    TorrentFilterStore.listen(
+      EventTypes.CLIENT_FETCH_TORRENT_TAXONOMY_SUCCESS,
+      this.onTorrentTaxonomyChange
+    );
+    TorrentFilterStore.listen(
+      EventTypes.UI_TORRENTS_FILTER_TRACKER_CHANGE,
+      this.onTrackerFilterChange
+    );
   }
 
   componentWillUnmount() {
-    TorrentFilterStore.unlisten(EventTypes.CLIENT_FETCH_TORRENT_TAXONOMY_SUCCESS,
-      this.onTorrentTaxonomyChange);
-    TorrentFilterStore.unlisten(EventTypes.UI_TORRENTS_FILTER_TRACKER_CHANGE,
-      this.onTrackerFilterChange);
+    TorrentFilterStore.unlisten(
+      EventTypes.CLIENT_FETCH_TORRENT_TAXONOMY_SUCCESS,
+      this.onTorrentTaxonomyChange
+    );
+    TorrentFilterStore.unlisten(
+      EventTypes.UI_TORRENTS_FILTER_TRACKER_CHANGE,
+      this.onTrackerFilterChange
+    );
   }
 
   getFilters() {
@@ -54,12 +62,14 @@ export default class TrackerFilters extends React.Component {
 
     let filterElements = filterItems.map((filter, index) => {
       return (
-        <SidebarFilter handleClick={this.handleClick}
+        <SidebarFilter
+          handleClick={this.handleClick}
           count={this.state.trackerCount[filter] || 0}
           key={filter}
           isActive={filter === this.state.trackerFilter}
           name={filter}
-          slug={filter} />
+          slug={filter}
+        />
       );
     });
 
@@ -77,12 +87,12 @@ export default class TrackerFilters extends React.Component {
   }
 
   onTrackerFilterChange() {
-    this.setState({trackerFilter: TorrentFilterStore.getTrackerFilter()});
+    this.setState({ trackerFilter: TorrentFilterStore.getTrackerFilter() });
   }
 
   onTorrentTaxonomyChange() {
     let trackerCount = TorrentFilterStore.getTorrentTrackerCount();
-    this.setState({trackerCount});
+    this.setState({ trackerCount });
   }
 
   render() {

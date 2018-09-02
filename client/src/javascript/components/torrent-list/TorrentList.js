@@ -1,5 +1,5 @@
-import {Button} from 'flood-ui-kit';
-import {defineMessages, FormattedMessage, injectIntl} from 'react-intl';
+import { Button } from 'flood-ui-kit';
+import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
 import _ from 'lodash';
 import Dropzone from 'react-dropzone';
 import React from 'react';
@@ -24,8 +24,8 @@ import UIStore from '../../stores/UIStore';
 const MESSAGES = defineMessages({
   torrentListDependency: {
     id: 'dependency.loading.torrent.list',
-    defaultMessage: 'Torrent List'
-  }
+    defaultMessage: 'Torrent List',
+  },
 });
 
 const METHODS_TO_BIND = [
@@ -47,13 +47,13 @@ const METHODS_TO_BIND = [
   'onTorrentSelectionChange',
   'updateVerticalThumbPosition',
   'renderListItem',
-  'updateTorrentListViewWidth'
+  'updateTorrentListViewWidth',
 ];
 
 const defaultWidth = 100;
 const defaultPropWidths = {
   name: 200,
-  eta: 100
+  eta: 100,
 };
 
 class TorrentListContainer extends React.Component {
@@ -69,38 +69,37 @@ class TorrentListContainer extends React.Component {
       tableScrollLeft: 0,
       torrentCount: 0,
       torrentHeight: null,
-      torrentListColumnWidths:
-        SettingsStore.getFloodSettings('torrentListColumnWidths'),
-      torrentListViewSize:
-        SettingsStore.getFloodSettings('torrentListViewSize'),
+      torrentListColumnWidths: SettingsStore.getFloodSettings(
+        'torrentListColumnWidths'
+      ),
+      torrentListViewSize: SettingsStore.getFloodSettings(
+        'torrentListViewSize'
+      ),
       torrentListViewportSize: null,
       torrents: [],
       torrentRequestError: false,
       torrentRequestSuccess: false,
-      viewportHeight: 0
+      viewportHeight: 0,
     };
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
 
     UIStore.registerDependency({
       id: 'torrent-list',
-      message: props.intl.formatMessage(MESSAGES.torrentListDependency)
+      message: props.intl.formatMessage(MESSAGES.torrentListDependency),
     });
 
     this.updateTorrentListViewWidth = _.debounce(
       this.updateTorrentListViewWidth,
       100,
-      {trailing: true}
+      { trailing: true }
     );
   }
 
   componentDidMount() {
-    SettingsStore.listen(
-      EventTypes.SETTINGS_CHANGE,
-      this.handleSettingsChange
-    );
+    SettingsStore.listen(EventTypes.SETTINGS_CHANGE, this.handleSettingsChange);
     TorrentStore.listen(
       EventTypes.UI_TORRENT_SELECTION_CHANGE,
       this.onTorrentSelectionChange
@@ -153,19 +152,23 @@ class TorrentListContainer extends React.Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    if (nextState.torrentListViewSize !== this.state.torrentListViewSize
-      && this.listViewportRef != null) {
+    if (
+      nextState.torrentListViewSize !== this.state.torrentListViewSize &&
+      this.listViewportRef != null
+    ) {
       this.listViewportRef.measureItemHeight();
     }
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const {torrentListViewSize} = this.state;
+    const { torrentListViewSize } = this.state;
     const isCondensed = torrentListViewSize === 'condensed';
     const wasCondensed = prevState.torrentListViewSize === 'condensed';
 
-    if (this.horizontalScrollRef != null
-      && this.state.torrentListViewportSize == null) {
+    if (
+      this.horizontalScrollRef != null &&
+      this.state.torrentListViewportSize == null
+    ) {
       this.updateTorrentListViewWidth();
     }
 
@@ -174,99 +177,117 @@ class TorrentListContainer extends React.Component {
         this.updateVerticalThumbPosition(0);
       } else if (isCondensed) {
         this.updateVerticalThumbPosition(
-          (this.getTotalCellWidth() - this.listContainer.clientWidth) * -1
-          + this.lastScrollLeft
+          (this.getTotalCellWidth() - this.listContainer.clientWidth) * -1 +
+            this.lastScrollLeft
         );
       }
     }
   }
 
   bindExternalPriorityChangeHandler(eventHandler) {
-    this.setState({handleTorrentPriorityChange: eventHandler});
+    this.setState({ handleTorrentPriorityChange: eventHandler });
   }
 
   getContextMenuItems(torrent) {
     const clickHandler = this.handleContextMenuItemClick;
 
-    return [{
-      action: 'start',
-      clickHandler,
-      label: this.props.intl.formatMessage({
-        id: 'torrents.list.context.start',
-        defaultMessage: 'Start'
-      })
-    }, {
-      action: 'stop',
-      clickHandler,
-      label: this.props.intl.formatMessage({
-        id: 'torrents.list.context.stop',
-        defaultMessage: 'Stop'
-      })
-    }, {
-      action: 'remove',
-      clickHandler,
-      label: this.props.intl.formatMessage({
-        id: 'torrents.list.context.remove',
-        defaultMessage: 'Remove'
-      })
-    }, {
-      action: 'check-hash',
-      clickHandler,
-      label: this.props.intl.formatMessage({
-        id: 'torrents.list.context.check.hash',
-        defaultMessage: 'Check Hash'
-      })
-    }, {
-      type: 'separator'
-    }, {
-      action: 'set-taxonomy',
-      clickHandler,
-      label: this.props.intl.formatMessage({
-        id: 'torrents.list.context.set.tags',
-        defaultMessage: 'Set Tags'
-      })
-    }, {
-      action: 'move',
-      clickHandler,
-      label: this.props.intl.formatMessage({
-        id: 'torrents.list.context.move',
-        defaultMessage: 'Set Torrent Location'
-      })
-    }, {
-      type: 'separator'
-    }, {
-      action: 'torrent-details',
-      clickHandler: (action, event) => {
-        clickHandler(action, event, torrent);
+    return [
+      {
+        action: 'start',
+        clickHandler,
+        label: this.props.intl.formatMessage({
+          id: 'torrents.list.context.start',
+          defaultMessage: 'Start',
+        }),
       },
-      label: this.props.intl.formatMessage({
-        id: 'torrents.list.context.details',
-        defaultMessage: 'Torrent Details'
-      })
-    }, {
-      action: 'torrent-download-tar',
-      clickHandler: (action, event) => {
-        clickHandler(action, event, torrent);
+      {
+        action: 'stop',
+        clickHandler,
+        label: this.props.intl.formatMessage({
+          id: 'torrents.list.context.stop',
+          defaultMessage: 'Stop',
+        }),
       },
-      label: this.props.intl.formatMessage({
-        id: 'torrents.list.context.download',
-        defaultMessage: 'Download'
-      })
-    }, {
-      action: 'set-priority',
-      clickHandler,
-      dismissMenu: false,
-      label: this.props.intl.formatMessage({
-        id: 'torrents.list.context.priority',
-        defaultMessage: 'Priority'
-      }),
-      labelAction: (
-        <PriorityMeter id={torrent.hash} key={torrent.hash}
-          bindExternalChangeHandler={this.bindExternalPriorityChangeHandler}
-          level={torrent.priority} maxLevel={3} priorityType="torrent"
-          onChange={this.handleTorrentPriorityChange} showLabel={false} />
-      )
-    }];
+      {
+        action: 'remove',
+        clickHandler,
+        label: this.props.intl.formatMessage({
+          id: 'torrents.list.context.remove',
+          defaultMessage: 'Remove',
+        }),
+      },
+      {
+        action: 'check-hash',
+        clickHandler,
+        label: this.props.intl.formatMessage({
+          id: 'torrents.list.context.check.hash',
+          defaultMessage: 'Check Hash',
+        }),
+      },
+      {
+        type: 'separator',
+      },
+      {
+        action: 'set-taxonomy',
+        clickHandler,
+        label: this.props.intl.formatMessage({
+          id: 'torrents.list.context.set.tags',
+          defaultMessage: 'Set Tags',
+        }),
+      },
+      {
+        action: 'move',
+        clickHandler,
+        label: this.props.intl.formatMessage({
+          id: 'torrents.list.context.move',
+          defaultMessage: 'Set Torrent Location',
+        }),
+      },
+      {
+        type: 'separator',
+      },
+      {
+        action: 'torrent-details',
+        clickHandler: (action, event) => {
+          clickHandler(action, event, torrent);
+        },
+        label: this.props.intl.formatMessage({
+          id: 'torrents.list.context.details',
+          defaultMessage: 'Torrent Details',
+        }),
+      },
+      {
+        action: 'torrent-download-tar',
+        clickHandler: (action, event) => {
+          clickHandler(action, event, torrent);
+        },
+        label: this.props.intl.formatMessage({
+          id: 'torrents.list.context.download',
+          defaultMessage: 'Download',
+        }),
+      },
+      {
+        action: 'set-priority',
+        clickHandler,
+        dismissMenu: false,
+        label: this.props.intl.formatMessage({
+          id: 'torrents.list.context.priority',
+          defaultMessage: 'Priority',
+        }),
+        labelAction: (
+          <PriorityMeter
+            id={torrent.hash}
+            key={torrent.hash}
+            bindExternalChangeHandler={this.bindExternalPriorityChangeHandler}
+            level={torrent.priority}
+            maxLevel={3}
+            priorityType="torrent"
+            onChange={this.handleTorrentPriorityChange}
+            showLabel={false}
+          />
+        ),
+      },
+    ];
   }
 
   handleContextMenuItemClick(action, event, torrent) {
@@ -276,7 +297,7 @@ class TorrentListContainer extends React.Component {
         TorrentActions.checkHash(selectedTorrents);
         break;
       case 'set-taxonomy':
-        UIActions.displayModal({id: 'set-taxonomy'});
+        UIActions.displayModal({ id: 'set-taxonomy' });
         break;
       case 'start':
         TorrentActions.startTorrents(selectedTorrents);
@@ -285,10 +306,10 @@ class TorrentListContainer extends React.Component {
         TorrentActions.stopTorrents(selectedTorrents);
         break;
       case 'remove':
-        UIActions.displayModal({id: 'remove-torrents'});
+        UIActions.displayModal({ id: 'remove-torrents' });
         break;
       case 'move':
-        UIActions.displayModal({id: 'move-torrents'});
+        UIActions.displayModal({ id: 'move-torrents' });
         break;
       case 'torrent-details':
         this.handleDetailsClick(torrent, event);
@@ -307,12 +328,12 @@ class TorrentListContainer extends React.Component {
   handleDetailsClick(torrent, event) {
     UIActions.handleDetailsClick({
       hash: torrent.hash,
-      event
+      event,
     });
 
     UIActions.displayModal({
       id: 'torrent-details',
-      options: {hash: torrent.hash}
+      options: { hash: torrent.hash },
     });
   }
 
@@ -338,18 +359,19 @@ class TorrentListContainer extends React.Component {
       id: 'torrent-list-item',
       clickPosition: {
         x: event.clientX,
-        y: event.clientY
+        y: event.clientY,
       },
-      items: this.getContextMenuItems(torrent)
+      items: this.getContextMenuItems(torrent),
     });
   }
 
   handleFileDrop(files) {
-    this.setState({isAddingTorrents: true});
+    this.setState({ isAddingTorrents: true });
 
-    const destination = SettingsStore.getFloodSettings('torrentDestination')
-      || SettingsStore.getClientSettings('directoryDefault')
-      || '';
+    const destination =
+      SettingsStore.getFloodSettings('torrentDestination') ||
+      SettingsStore.getClientSettings('directoryDefault') ||
+      '';
 
     const isBasePath = false;
 
@@ -373,10 +395,12 @@ class TorrentListContainer extends React.Component {
     this.setState({
       displayedProperties: SettingsStore.getFloodSettings('torrentDetails'),
       floodSettingsFetched: true,
-      torrentListColumnWidths:
-        SettingsStore.getFloodSettings('torrentListColumnWidths'),
-      torrentListViewSize:
-        SettingsStore.getFloodSettings('torrentListViewSize')
+      torrentListColumnWidths: SettingsStore.getFloodSettings(
+        'torrentListColumnWidths'
+      ),
+      torrentListViewSize: SettingsStore.getFloodSettings(
+        'torrentListViewSize'
+      ),
     });
   }
 
@@ -391,15 +415,15 @@ class TorrentListContainer extends React.Component {
 
     const sortBy = {
       property: slug,
-      direction: nextDirection
+      direction: nextDirection,
     };
 
-    SettingsStore.saveFloodSettings({id: 'sortTorrents', data: sortBy});
+    SettingsStore.saveFloodSettings({ id: 'sortTorrents', data: sortBy });
     UIActions.setTorrentsSort(sortBy);
   }
 
   handleTorrentClick(hash, event) {
-    UIActions.handleTorrentClick({hash, event});
+    UIActions.handleTorrentClick({ hash, event });
   }
 
   handleTorrentPriorityChange(hash, level) {
@@ -407,7 +431,7 @@ class TorrentListContainer extends React.Component {
   }
 
   onReceiveTorrentsError() {
-    this.setState({torrentRequestError: true, torrentRequestSuccess: false});
+    this.setState({ torrentRequestError: true, torrentRequestSuccess: false });
   }
 
   onReceiveTorrentsSuccess() {
@@ -417,13 +441,16 @@ class TorrentListContainer extends React.Component {
   onTorrentListChange(setStateCallback) {
     let torrents = TorrentStore.getTorrents();
 
-    this.setState({
-      emptyTorrentList: torrents.length === 0,
-      torrents,
-      torrentCount: torrents.length,
-      torrentRequestError: false,
-      torrentRequestSuccess: true
-    }, setStateCallback);
+    this.setState(
+      {
+        emptyTorrentList: torrents.length === 0,
+        torrents,
+        torrentCount: torrents.length,
+        torrentRequestError: false,
+        torrentRequestSuccess: true,
+      },
+      setStateCallback
+    );
   }
 
   onTorrentFilterChange() {
@@ -442,10 +469,7 @@ class TorrentListContainer extends React.Component {
     if (TorrentFilterStore.isFilterActive()) {
       clearFilters = (
         <div className="torrents__alert__action">
-          <Button
-            onClick={this.handleClearFiltersClick}
-            priority="tertiary"
-          >
+          <Button onClick={this.handleClearFiltersClick} priority="tertiary">
             <FormattedMessage
               id="torrents.list.clear.filters"
               defaultMessage="Clear filters"
@@ -469,9 +493,10 @@ class TorrentListContainer extends React.Component {
   }
 
   getCellWidth(slug) {
-    const value = this.state.torrentListColumnWidths[slug]
-      || defaultPropWidths[slug]
-      || defaultWidth;
+    const value =
+      this.state.torrentListColumnWidths[slug] ||
+      defaultPropWidths[slug] ||
+      defaultWidth;
 
     return value;
   }
@@ -481,7 +506,7 @@ class TorrentListContainer extends React.Component {
       const totalCellWidth = this.getTotalCellWidth();
 
       if (totalCellWidth >= this.state.torrentListViewportSize) {
-        return {width: `${totalCellWidth}px`};
+        return { width: `${totalCellWidth}px` };
       }
     }
 
@@ -494,7 +519,7 @@ class TorrentListContainer extends React.Component {
 
   getTotalCellWidth() {
     return this.state.displayedProperties.reduce(
-      (accumulator, {id, visible}) => {
+      (accumulator, { id, visible }) => {
         if (!visible) {
           return accumulator;
         }
@@ -508,9 +533,11 @@ class TorrentListContainer extends React.Component {
   getVerticalScrollbarThumb(props, onMouseUp) {
     return (
       <div {...props}>
-        <div className="scrollbars__thumb scrollbars__thumb--horizontal scrollbars__thumb--surrogate"
+        <div
+          className="scrollbars__thumb scrollbars__thumb--horizontal scrollbars__thumb--surrogate"
           onMouseUp={onMouseUp}
-          ref={ref => this.verticalScrollbarThumb = ref }/>
+          ref={ref => (this.verticalScrollbarThumb = ref)}
+        />
       </div>
     );
   }
@@ -521,7 +548,7 @@ class TorrentListContainer extends React.Component {
 
   handleHorizontalScroll(event) {
     if (this.verticalScrollbarThumb != null) {
-      const {clientWidth, scrollLeft, scrollWidth} = event.target;
+      const { clientWidth, scrollLeft, scrollWidth } = event.target;
       this.lastScrollLeft = scrollLeft;
       this.updateVerticalThumbPosition(
         (scrollWidth - clientWidth) * -1 + scrollLeft
@@ -530,28 +557,37 @@ class TorrentListContainer extends React.Component {
   }
 
   handleHorizontalScrollStop() {
-    this.setState({tableScrollLeft: this.lastScrollLeft});
+    this.setState({ tableScrollLeft: this.lastScrollLeft });
   }
 
   handlePropWidthChange(newPropWidths) {
-    const nextPropWidths = {...this.state.torrentListColumnWidths, ...newPropWidths};
+    const nextPropWidths = {
+      ...this.state.torrentListColumnWidths,
+      ...newPropWidths,
+    };
 
     SettingsStore.saveFloodSettings({
       id: 'torrentListColumnWidths',
-      data: nextPropWidths
+      data: nextPropWidths,
     });
 
-    this.setState({torrentListColumnWidths: nextPropWidths});
+    this.setState({ torrentListColumnWidths: nextPropWidths });
   }
 
   renderListItem(index) {
     const selectedTorrents = TorrentStore.getSelectedTorrents();
-    const {displayedProperties, torrentListViewSize, torrentListColumnWidths, torrents} = this.state;
+    const {
+      displayedProperties,
+      torrentListViewSize,
+      torrentListColumnWidths,
+      torrents,
+    } = this.state;
     const torrent = torrents[index];
-    const {hash} = torrent;
+    const { hash } = torrent;
 
     return (
-      <Torrent defaultPropWidths={defaultPropWidths}
+      <Torrent
+        defaultPropWidths={defaultPropWidths}
         defaultWidth={defaultWidth}
         handleClick={this.handleTorrentClick}
         handleDetailsClick={this.handleDetailsClick}
@@ -563,15 +599,15 @@ class TorrentListContainer extends React.Component {
         columns={displayedProperties}
         propWidths={torrentListColumnWidths}
         selected={selectedTorrents.includes(hash)}
-        torrent={torrent} />
+        torrent={torrent}
+      />
     );
   }
 
   updateTorrentListViewWidth() {
     if (this.horizontalScrollRef != null) {
       this.setState({
-        torrentListViewportSize:
-          this.horizontalScrollRef.scrollbarRef.getClientWidth()
+        torrentListViewportSize: this.horizontalScrollRef.scrollbarRef.getClientWidth(),
       });
     }
   }
@@ -588,35 +624,39 @@ class TorrentListContainer extends React.Component {
     let content = null;
     let torrentListHeading = null;
     const isCondensed = this.state.torrentListViewSize === 'condensed';
-    const isListEmpty = this.state.emptyTorrentList
-      || this.state.torrents.length === 0;
+    const isListEmpty =
+      this.state.emptyTorrentList || this.state.torrents.length === 0;
     const listWrapperStyle = this.getListWrapperStyle({
       isCondensed,
-      isListEmpty
+      isListEmpty,
     });
 
     if (isListEmpty) {
       content = this.getEmptyTorrentListNotification();
     } else if (this.state.torrentRequestSuccess) {
       content = (
-        <ListViewport getVerticalThumb={this.getVerticalScrollbarThumb}
+        <ListViewport
+          getVerticalThumb={this.getVerticalScrollbarThumb}
           itemRenderer={this.renderListItem}
           listClass="torrent__list"
           listLength={this.state.torrentCount}
-          ref={ref => this.listViewportRef = ref}
-          scrollContainerClass="torrent__list__scrollbars--vertical" />
+          ref={ref => (this.listViewportRef = ref)}
+          scrollContainerClass="torrent__list__scrollbars--vertical"
+        />
       );
 
       if (isCondensed) {
         torrentListHeading = (
-          <TableHeading columns={this.state.displayedProperties}
+          <TableHeading
+            columns={this.state.displayedProperties}
             defaultWidth={defaultWidth}
             defaultPropWidths={defaultPropWidths}
             onCellClick={this.handleTableHeadingCellClick}
             onWidthsChange={this.handlePropWidthChange}
             propWidths={this.state.torrentListColumnWidths}
             scrollOffset={this.state.tableScrollLeft}
-            sortProp={TorrentFilterStore.getTorrentsSort()} />
+            sortProp={TorrentFilterStore.getTorrentsSort()}
+          />
         );
       }
     } else {
@@ -627,17 +667,18 @@ class TorrentListContainer extends React.Component {
       <Dropzone
         activeClassName="dropzone--is-dragging"
         className="dropzone dropzone--with-overlay torrents"
-        ref={ref => this.listContainer = ref}
+        ref={ref => (this.listContainer = ref)}
         onDrop={this.handleFileDrop}
         disableClick
         disablePreview
       >
-        <CustomScrollbars className="torrent__list__scrollbars--horizontal"
+        <CustomScrollbars
+          className="torrent__list__scrollbars--horizontal"
           onScrollStop={this.handleHorizontalScrollStop}
           nativeScrollHandler={this.handleHorizontalScroll}
-          ref={ref => this.horizontalScrollRef = ref}>
-          <div className="torrent__list__wrapper"
-            style={listWrapperStyle}>
+          ref={ref => (this.horizontalScrollRef = ref)}
+        >
+          <div className="torrent__list__wrapper" style={listWrapperStyle}>
             <GlobalContextMenuMountPoint id="torrent-list-item" />
             {torrentListHeading}
             {content}

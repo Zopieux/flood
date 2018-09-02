@@ -12,13 +12,13 @@ export default class SettingsTab extends React.Component {
   }
 
   handleClientSettingFieldChange(fieldName, event) {
-    let {value} = event.target;
+    let { value } = event.target;
 
     if (event.target.type === 'checkbox') {
       value = event.target.checked ? '1' : '0';
     }
 
-    const nextState = {[fieldName]: value};
+    const nextState = { [fieldName]: value };
 
     this.setState(nextState);
     this.props.onClientSettingsChange(nextState);

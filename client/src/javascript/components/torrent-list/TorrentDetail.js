@@ -1,4 +1,4 @@
-import {FormattedDate, FormattedMessage, FormattedNumber} from 'react-intl';
+import { FormattedDate, FormattedMessage, FormattedNumber } from 'react-intl';
 import React from 'react';
 
 import CalendarCreatedIcon from '../icons/CalendarCreatedIcon';
@@ -22,7 +22,7 @@ import Size from '../general/Size';
 import TrackerMessageIcon from '../icons/TrackerMessageIcon';
 import UploadThickIcon from '../icons/UploadThickIcon';
 
-const booleanRenderer = (value) => {
+const booleanRenderer = value => {
   return value ? icons.checkmark : null;
 };
 const dateRenderer = date => <FormattedDate value={date * 1000} />;
@@ -35,19 +35,21 @@ const peersRenderer = (peersConnected, totalPeers) => {
         connected: <FormattedNumber value={peersConnected} />,
         of: (
           <em className="unit">
-            <FormattedMessage id="torrent.list.peers.of"
-              defaultMessage="of" />
+            <FormattedMessage id="torrent.list.peers.of" defaultMessage="of" />
           </em>
         ),
-        total: <FormattedNumber value={totalPeers} />
-      }} />
+        total: <FormattedNumber value={totalPeers} />,
+      }}
+    />
   );
 };
 const speedRenderer = value => <Size value={value} isSpeed={true} />;
 const sizeRenderer = value => <Size value={value} />;
 
 const icons = {
-  checkmark: <Checkmark className="torrent__detail__icon torrent__detail__icon--checkmark" />,
+  checkmark: (
+    <Checkmark className="torrent__detail__icon torrent__detail__icon--checkmark" />
+  ),
   comment: <CommentIcon />,
   eta: <ClockIcon />,
   sizeBytes: <DiskIcon />,
@@ -64,7 +66,7 @@ const icons = {
   seeds: <SeedsIcon />,
   trackerURIs: <RadarIcon />,
   upRate: <UploadThickIcon />,
-  upTotal: <UploadThickIcon />
+  upTotal: <UploadThickIcon />,
 };
 
 const transformers = {
@@ -91,7 +93,9 @@ const transformers = {
       <ul className="torrent__tags tag">
         {tags.map((tag, index) => {
           return (
-            <li className="torrent__tag" key={index}>{tag}</li>
+            <li className="torrent__tag" key={index}>
+              {tag}
+            </li>
           );
         })}
       </ul>
@@ -108,7 +112,7 @@ const transformers = {
     }
 
     return <Duration value={eta} />;
-  }
+  },
 };
 
 class TorrentDetail extends React.PureComponent {
@@ -120,7 +124,7 @@ class TorrentDetail extends React.PureComponent {
       secondaryValue,
       slug,
       value,
-      width
+      width,
     } = this.props;
 
     if (!preventTransform && slug in transformers) {
@@ -136,8 +140,10 @@ class TorrentDetail extends React.PureComponent {
     }
 
     return (
-      <div className={`torrent__detail torrent__detail--${slug} ${className}`}
-        style={{width: `${width}px`}}>
+      <div
+        className={`torrent__detail torrent__detail--${slug} ${className}`}
+        style={{ width: `${width}px` }}
+      >
         {icon}
         {value}
       </div>
@@ -147,7 +153,7 @@ class TorrentDetail extends React.PureComponent {
 
 TorrentDetail.defaultProps = {
   preventTransform: false,
-  className: ''
+  className: '',
 };
 
 export default TorrentDetail;

@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import classnames from 'classnames';
-import {DragSource, DropTarget} from 'react-dnd';
-import {getEmptyImage} from 'react-dnd-html5-backend';
+import { DragSource, DropTarget } from 'react-dnd';
+import { getEmptyImage } from 'react-dnd-html5-backend';
 import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -9,13 +9,13 @@ import ReactDOM from 'react-dom';
 import LockIcon from '../icons/LockIcon';
 
 const itemSource = {
-  beginDrag({id, index, isVisible}) {
-    return {id, index, isVisible};
+  beginDrag({ id, index, isVisible }) {
+    return { id, index, isVisible };
   },
 
-  canDrag({isLocked}) {
+  canDrag({ isLocked }) {
     return !isLocked;
-  }
+  },
 };
 
 const itemTarget = {
@@ -27,7 +27,7 @@ const itemTarget = {
 
   hover(props, monitor, component) {
     const dragIndex = monitor.getItem().index;
-    const {index: hoverIndex, isLocked} = props;
+    const { index: hoverIndex, isLocked } = props;
 
     // Don't replace items with themselves
     if (isLocked || dragIndex === hoverIndex) {
@@ -35,8 +35,9 @@ const itemTarget = {
     }
 
     // Determine rectangle on screen
-    const hoverBoundingRect = ReactDOM.findDOMNode(component)
-      .getBoundingClientRect();
+    const hoverBoundingRect = ReactDOM.findDOMNode(
+      component
+    ).getBoundingClientRect();
 
     // Determine mouse position
     const clientOffset = monitor.getClientOffset();
@@ -52,25 +53,27 @@ const itemTarget = {
       : hoverBoundingRect.height * 0.15;
 
     // Return early if we haven't dragged more than halfway past the next item.
-    if ((isDraggingUp && hoverClientY < dragThreshhold)
-      || (isDraggingDown && hoverClientY > dragThreshhold)) {
+    if (
+      (isDraggingUp && hoverClientY < dragThreshhold) ||
+      (isDraggingDown && hoverClientY > dragThreshhold)
+    ) {
       return;
     }
 
     props.onMove(dragIndex, hoverIndex);
     monitor.getItem().index = hoverIndex;
-  }
+  },
 };
 
 class SortableListItem extends React.Component {
   static propTypes = {
-    id: PropTypes.string
+    id: PropTypes.string,
   };
 
   componentDidMount() {
     // Replace the native drag preview with an empty image.
     this.props.connectDragPreview(getEmptyImage(), {
-      captureDraggingState: true
+      captureDraggingState: true,
     });
   }
 
@@ -80,7 +83,7 @@ class SortableListItem extends React.Component {
       isDragging,
       isLocked,
       connectDragSource,
-      connectDropTarget
+      connectDropTarget,
     } = this.props;
 
     let lockedIcon = null;
@@ -91,17 +94,15 @@ class SortableListItem extends React.Component {
 
     const classes = classnames('sortable-list__item', {
       'sortable-list__item--is-dragging': isDragging,
-      'sortable-list__item--is-locked': isLocked
+      'sortable-list__item--is-locked': isLocked,
     });
 
     return connectDragSource(
       connectDropTarget(
-        (
-          <div className={classes}>
-            {lockedIcon}
-            {children}
-          </div>
-        )
+        <div className={classes}>
+          {lockedIcon}
+          {children}
+        </div>
       )
     );
   }
@@ -112,12 +113,12 @@ export default _.flow([
     return {
       connectDragPreview: connect.dragPreview(),
       connectDragSource: connect.dragSource(),
-      isDragging: monitor.isDragging()
+      isDragging: monitor.isDragging(),
     };
   }),
   DropTarget('globally-draggable-item', itemTarget, connect => {
     return {
-      connectDropTarget: connect.dropTarget()
+      connectDropTarget: connect.dropTarget(),
     };
-  })
+  }),
 ])(SortableListItem);

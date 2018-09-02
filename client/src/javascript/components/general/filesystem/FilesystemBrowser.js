@@ -1,5 +1,5 @@
 import React from 'react';
-import {defineMessages} from 'react-intl';
+import { defineMessages } from 'react-intl';
 
 import ArrowIcon from '../../../components/icons/ArrowIcon';
 import CustomScrollbars from '../../../components/general/CustomScrollbars';
@@ -11,20 +11,20 @@ import UIStore from '../../../stores/UIStore';
 const MESSAGES = defineMessages({
   EACCES: {
     id: 'filesystem.error.eacces',
-    defaultMessage: 'Flood does not have permission to read this directory.'
+    defaultMessage: 'Flood does not have permission to read this directory.',
   },
   ENOENT: {
     id: 'filesystem.error.enoent',
-    defaultMessage: 'This path does not exist. It will be created.'
+    defaultMessage: 'This path does not exist. It will be created.',
   },
   emptyDirectory: {
     id: 'filesystem.empty.directory',
-    defaultMessage: 'Empty directory.'
+    defaultMessage: 'Empty directory.',
   },
   fetching: {
     id: 'filesystem.fetching',
-    defaultMessage: 'Fetching directory structure...'
-  }
+    defaultMessage: 'Fetching directory structure...',
+  },
 });
 
 class FilesystemBrowser extends React.PureComponent {
@@ -33,7 +33,7 @@ class FilesystemBrowser extends React.PureComponent {
 
     this.state = {
       directory: props.directory,
-      separator: '/'
+      separator: '/',
     };
   }
 
@@ -46,13 +46,13 @@ class FilesystemBrowser extends React.PureComponent {
       EventTypes.FLOOD_FETCH_DIRECTORY_LIST_SUCCESS,
       this.handleDirectoryListFetchSuccess
     );
-    UIStore.fetchDirectoryList({path: this.state.directory});
+    UIStore.fetchDirectoryList({ path: this.state.directory });
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.directory !== this.props.directory) {
-      this.setState({directory: nextProps.directory});
-      UIStore.fetchDirectoryList({path: nextProps.directory});
+      this.setState({ directory: nextProps.directory });
+      UIStore.fetchDirectoryList({ path: nextProps.directory });
     }
   }
 
@@ -68,7 +68,7 @@ class FilesystemBrowser extends React.PureComponent {
   }
 
   getNewDestination(nextDirectorySegment) {
-    const {directory, separator} = this.state;
+    const { directory, separator } = this.state;
 
     if (directory.endsWith(separator)) {
       return `${directory}${nextDirectorySegment}`;
@@ -77,12 +77,12 @@ class FilesystemBrowser extends React.PureComponent {
     return `${directory}${separator}${nextDirectorySegment}`;
   }
 
-  handleDirectoryClick = (directory) => {
+  handleDirectoryClick = directory => {
     const nextDirectory = this.getNewDestination(directory);
 
     this.setState({
       directory: nextDirectory,
-      isFetching: true
+      isFetching: true,
     });
 
     if (this.props.onDirectorySelection) {
@@ -90,25 +90,25 @@ class FilesystemBrowser extends React.PureComponent {
     }
   };
 
-  handleDirectoryListFetchError = (error) => {
+  handleDirectoryListFetchError = error => {
     this.setState({
       error,
-      isFetching: false
+      isFetching: false,
     });
   };
 
-  handleDirectoryListFetchSuccess = (response) => {
+  handleDirectoryListFetchSuccess = response => {
     // response includes hasParent, separator, and an array of directories.
     this.setState({
       ...response,
       directory: response.path,
       error: null,
-      isFetching: false
+      isFetching: false,
     });
   };
 
   handleParentDirectoryClick = () => {
-    let {directory, separator} = this.state;
+    let { directory, separator } = this.state;
 
     if (directory.endsWith(separator)) {
       directory = directory.substring(0, directory.length - 1);
@@ -121,7 +121,7 @@ class FilesystemBrowser extends React.PureComponent {
 
     this.setState({
       directory,
-      isFetching: true
+      isFetching: true,
     });
 
     if (this.props.onDirectorySelection) {
@@ -130,12 +130,7 @@ class FilesystemBrowser extends React.PureComponent {
   };
 
   render() {
-    const {
-      directories,
-      error,
-      files = [],
-      hasParent
-    } = this.state;
+    const { directories, error, files = [], hasParent } = this.state;
     let errorMessage = null;
     let listItems = null;
     let parentDirectory = null;
@@ -146,9 +141,7 @@ class FilesystemBrowser extends React.PureComponent {
       shouldShowDirectoryList = false;
       errorMessage = (
         <div className="filesystem__directory-list__item filesystem__directory-list__item--message">
-          <em>
-            {this.props.intl.formatMessage(MESSAGES.fetching)}
-          </em>
+          <em>{this.props.intl.formatMessage(MESSAGES.fetching)}</em>
         </div>
       );
     }
@@ -162,9 +155,7 @@ class FilesystemBrowser extends React.PureComponent {
 
       errorMessage = (
         <div className="filesystem__directory-list__item filesystem__directory-list__item--message">
-          <em>
-            {this.props.intl.formatMessage(MESSAGES[error.data.code])}
-          </em>
+          <em>{this.props.intl.formatMessage(MESSAGES[error.data.code])}</em>
         </div>
       );
     }
@@ -178,7 +169,7 @@ class FilesystemBrowser extends React.PureComponent {
           <ArrowIcon />
           {this.props.intl.formatMessage({
             id: 'filesystem.parent.directory',
-            defaultMessage: 'Parent Directory'
+            defaultMessage: 'Parent Directory',
           })}
         </li>
       );
@@ -187,10 +178,12 @@ class FilesystemBrowser extends React.PureComponent {
     if (shouldShowDirectoryList) {
       const directoryList = directories.map((directory, index) => {
         return (
-          <li className="filesystem__directory-list__item
+          <li
+            className="filesystem__directory-list__item
             filesystem__directory-list__item--directory"
             key={index}
-            onClick={() => this.handleDirectoryClick(directory)}>
+            onClick={() => this.handleDirectoryClick(directory)}
+          >
             <FolderClosedSolid />
             {directory}
           </li>
@@ -215,9 +208,7 @@ class FilesystemBrowser extends React.PureComponent {
     if ((!listItems || listItems.length === 0) && !errorMessage) {
       errorMessage = (
         <div className="filesystem__directory-list__item filesystem__directory-list__item--message">
-          <em>
-            {this.props.intl.formatMessage(MESSAGES.emptyDirectory)}
-          </em>
+          <em>{this.props.intl.formatMessage(MESSAGES.emptyDirectory)}</em>
         </div>
       );
     }
@@ -227,7 +218,7 @@ class FilesystemBrowser extends React.PureComponent {
         autoHeight={true}
         autoHeightMin={0}
         autoHeightMax={this.props.maxHeight}
-        >
+      >
         <div className="filesystem__directory-list context-menu__items__padding-surrogate">
           {parentDirectory}
           {errorMessage}

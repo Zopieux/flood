@@ -1,5 +1,5 @@
-import {FormattedMessage, injectIntl} from 'react-intl';
-import {Form, FormRow, FormRowItem, Textbox} from 'flood-ui-kit';
+import { FormattedMessage, injectIntl } from 'react-intl';
+import { Form, FormRow, FormRowItem, Textbox } from 'flood-ui-kit';
 import Dropzone from 'react-dropzone';
 import React from 'react';
 
@@ -20,7 +20,7 @@ class AddTorrentsByFile extends React.Component {
     isAddingTorrents: false,
     files: [],
     tags: '',
-    startTorrents: SettingsStore.getFloodSettings('startTorrentsOnLoad')
+    startTorrents: SettingsStore.getFloodSettings('startTorrentsOnLoad'),
   };
 
   getFileDropzone() {
@@ -37,9 +37,7 @@ class AddTorrentsByFile extends React.Component {
             <span className="interactive-list__icon">
               <File />
             </span>
-            <span className="interactive-list__label">
-              {file.name}
-            </span>
+            <span className="interactive-list__label">{file.name}</span>
             <span
               className="interactive-list__icon interactive-list__icon--action interactive-list__icon--action--warning"
               onClick={() => this.handleFileRemove(index)}
@@ -83,14 +81,14 @@ class AddTorrentsByFile extends React.Component {
             <FormattedMessage
               id="torrents.add.tab.file.drop"
               defaultMessage="Drop some files here,"
-            />
-            {' '}
+            />{' '}
             <span className="dropzone__browse-button">
               <FormattedMessage
                 id="torrents.add.tab.file.browse"
                 defaultMessage="or click to browse"
               />
-            </span>.
+            </span>
+            .
           </div>
         </Dropzone>
       </FormRowItem>
@@ -110,9 +108,9 @@ class AddTorrentsByFile extends React.Component {
   };
 
   handleFileRemove = fileIndex => {
-    const {files} = this.state;
+    const { files } = this.state;
     files.splice(fileIndex, 1);
-    this.setState({files});
+    this.setState({ files });
   };
 
   handleFilesClick(event) {
@@ -121,10 +119,10 @@ class AddTorrentsByFile extends React.Component {
 
   handleAddTorrents = () => {
     const formData = this._formRef.getFormData();
-    this.setState({isAddingTorrents: true});
+    this.setState({ isAddingTorrents: true });
 
     const fileData = new FormData();
-    const {destination, start, tags, useBasePath} = formData;
+    const { destination, start, tags, useBasePath } = formData;
 
     this.state.files.forEach(file => {
       fileData.append('torrents', file);
@@ -139,31 +137,36 @@ class AddTorrentsByFile extends React.Component {
     fileData.append('start', start);
 
     TorrentActions.addTorrentsByFiles(fileData, destination);
-    SettingsStore.updateOptimisticallyOnly({id: 'startTorrentsOnLoad', data: start});
+    SettingsStore.updateOptimisticallyOnly({
+      id: 'startTorrentsOnLoad',
+      data: start,
+    });
   };
 
-  handleFormChange = ({event, formData}) => {
+  handleFormChange = ({ event, formData }) => {
     this._formData = formData;
   };
 
   render() {
     return (
-      <Form className="inverse" onChange={this.handleFormChange} ref={ref => this._formRef = ref}>
-        <FormRow>
-          {this.getFileDropzone()}
-        </FormRow>
+      <Form
+        className="inverse"
+        onChange={this.handleFormChange}
+        ref={ref => (this._formRef = ref)}
+      >
+        <FormRow>{this.getFileDropzone()}</FormRow>
         <TorrentDestination
           id="destination"
           label={this.props.intl.formatMessage({
             id: 'torrents.add.destination.label',
-            defaultMessage: 'Destination'
+            defaultMessage: 'Destination',
           })}
         />
         <FormRow>
           <Textbox
             label={this.props.intl.formatMessage({
               id: 'torrents.add.tags',
-              defaultMessage: 'Tags'
+              defaultMessage: 'Tags',
             })}
             defaultValue={this.state.tags}
             id="tags"
@@ -179,4 +182,4 @@ class AddTorrentsByFile extends React.Component {
   }
 }
 
-export default injectIntl(AddTorrentsByFile, {withRef: true});
+export default injectIntl(AddTorrentsByFile, { withRef: true });

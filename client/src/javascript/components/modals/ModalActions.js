@@ -1,4 +1,4 @@
-import {Button, Checkbox} from 'flood-ui-kit';
+import { Button, Checkbox } from 'flood-ui-kit';
 import classnames from 'classnames';
 import React from 'react';
 
@@ -8,7 +8,7 @@ export default class ModalActions extends React.Component {
   getModalButtons(actions) {
     let buttons = actions.map((action, index) => {
       let classes = classnames('button', {
-        [action.supplementalClassName]: action.supplementalClassName
+        [action.supplementalClassName]: action.supplementalClassName,
       });
 
       if (action.type === 'checkbox') {
@@ -38,15 +38,11 @@ export default class ModalActions extends React.Component {
       );
     });
 
-    return (
-      <div className="modal__button-group">
-        {buttons}
-      </div>
-    );
+    return <div className="modal__button-group">{buttons}</div>;
   }
 
   getClickHandler(action) {
-    return (event) => {
+    return event => {
       if (action.clickHandler) {
         action.clickHandler(event);
       }
@@ -67,5 +63,5 @@ export default class ModalActions extends React.Component {
 }
 
 ModalActions.defaultProps = {
-  alignment: 'left'
+  alignment: 'left',
 };

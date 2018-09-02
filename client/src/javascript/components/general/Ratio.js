@@ -1,4 +1,4 @@
-import {FormattedNumber} from 'react-intl';
+import { FormattedNumber } from 'react-intl';
 import React from 'react';
 
 export default class Ratio extends React.Component {
@@ -16,8 +16,6 @@ export default class Ratio extends React.Component {
 
     ratio = ratio.toFixed(precision);
 
-    return (
-      <FormattedNumber value={ratio} />
-    );
+    return <FormattedNumber value={ratio} />;
   }
 }

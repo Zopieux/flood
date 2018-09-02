@@ -1,4 +1,4 @@
-import {FormattedMessage} from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import React from 'react';
 
 import Badge from '../../general/Badge';
@@ -13,12 +13,8 @@ export default class TorrentTrackrs extends React.Component {
     let trackerDetails = trackers.map((tracker, index) => {
       return (
         <tr key={index}>
-          <td>
-            {tracker.url}
-          </td>
-          <td>
-            {trackerTypes[tracker.type - 1]}
-          </td>
+          <td>{tracker.url}</td>
+          <td>{trackerTypes[tracker.type - 1]}</td>
         </tr>
       );
     });
@@ -34,21 +30,17 @@ export default class TorrentTrackrs extends React.Component {
                     id="torrents.details.trackers"
                     defaultMessage="Trackers"
                   />
-                  <Badge>
-                    {trackerCount}
-                  </Badge>
+                  <Badge>{trackerCount}</Badge>
                 </th>
                 <th className="torrent-details__table__heading--secondary">
-                <FormattedMessage
-                  id="torrents.details.trackers.type"
-                  defaultMessage="Type"
-                />
+                  <FormattedMessage
+                    id="torrents.details.trackers.type"
+                    defaultMessage="Type"
+                  />
                 </th>
               </tr>
             </thead>
-            <tbody>
-              {trackerDetails}
-            </tbody>
+            <tbody>{trackerDetails}</tbody>
           </table>
         </div>
       );

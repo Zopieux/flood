@@ -38,25 +38,29 @@ global.document.addEventListener(
 );
 
 const FloodActions = {
-  clearNotifications: (options) => {
-    return axios.delete(`${baseURI}api/notifications`)
+  clearNotifications: options => {
+    return axios
+      .delete(`${baseURI}api/notifications`)
       .then((json = {}) => json.data)
-      .then((response = {}) => {
-        AppDispatcher.dispatchServerAction({
-          type: ActionTypes.FLOOD_CLEAR_NOTIFICATIONS_SUCCESS,
-          data: {
-            ...response,
-            ...options
-          }
-        });
-      }, (error) => {
-        AppDispatcher.dispatchServerAction({
-          type: ActionTypes.FLOOD_CLEAR_NOTIFICATIONS_ERROR,
-          data: {
-            error
-          }
-        });
-      });
+      .then(
+        (response = {}) => {
+          AppDispatcher.dispatchServerAction({
+            type: ActionTypes.FLOOD_CLEAR_NOTIFICATIONS_SUCCESS,
+            data: {
+              ...response,
+              ...options,
+            },
+          });
+        },
+        error => {
+          AppDispatcher.dispatchServerAction({
+            type: ActionTypes.FLOOD_CLEAR_NOTIFICATIONS_ERROR,
+            data: {
+              error,
+            },
+          });
+        }
+      );
   },
 
   closeActivityStream() {
@@ -106,130 +110,142 @@ const FloodActions = {
   },
 
   fetchDirectoryList: (options = {}) => {
-    return axios.get(`${baseURI}api/directory-list`, {
-        params: options
+    return axios
+      .get(`${baseURI}api/directory-list`, {
+        params: options,
       })
       .then((json = {}) => json.data)
-      .then((response) => {
-        AppDispatcher.dispatchServerAction({
-          type: ActionTypes.FLOOD_FETCH_DIRECTORY_LIST_SUCCESS,
-          data: {
-            ...options,
-            ...response
-          }
-        });
-      }, (error = {}) => {
-        const {response: errorData} = error;
+      .then(
+        response => {
+          AppDispatcher.dispatchServerAction({
+            type: ActionTypes.FLOOD_FETCH_DIRECTORY_LIST_SUCCESS,
+            data: {
+              ...options,
+              ...response,
+            },
+          });
+        },
+        (error = {}) => {
+          const { response: errorData } = error;
 
-        AppDispatcher.dispatchServerAction({
-          type: ActionTypes.FLOOD_FETCH_DIRECTORY_LIST_ERROR,
-          error: errorData
-        });
-      });
-  },
-
-  fetchMediainfo: (options) => {
-    return axios.get(`${baseURI}api/mediainfo`, {
-        params: {
-          hash: options.hash
+          AppDispatcher.dispatchServerAction({
+            type: ActionTypes.FLOOD_FETCH_DIRECTORY_LIST_ERROR,
+            error: errorData,
+          });
         }
-      })
-      .then((json = {}) => json.data)
-      .then((response) => {
-        AppDispatcher.dispatchServerAction({
-          type: ActionTypes.FLOOD_FETCH_MEDIAINFO_SUCCESS,
-          data: {
-            ...response,
-            ...options
-          }
-        });
-      }, (error) => {
-        AppDispatcher.dispatchServerAction({
-          type: ActionTypes.FLOOD_FETCH_MEDIAINFO_ERROR,
-          error
-        });
-      });
+      );
   },
 
-  fetchNotifications: (options) => {
-    return axios.get(`${baseURI}api/notifications`, {
+  fetchMediainfo: options => {
+    return axios
+      .get(`${baseURI}api/mediainfo`, {
+        params: {
+          hash: options.hash,
+        },
+      })
+      .then((json = {}) => json.data)
+      .then(
+        response => {
+          AppDispatcher.dispatchServerAction({
+            type: ActionTypes.FLOOD_FETCH_MEDIAINFO_SUCCESS,
+            data: {
+              ...response,
+              ...options,
+            },
+          });
+        },
+        error => {
+          AppDispatcher.dispatchServerAction({
+            type: ActionTypes.FLOOD_FETCH_MEDIAINFO_ERROR,
+            error,
+          });
+        }
+      );
+  },
+
+  fetchNotifications: options => {
+    return axios
+      .get(`${baseURI}api/notifications`, {
         params: {
           limit: options.limit,
-          start: options.start
-        }
+          start: options.start,
+        },
       })
       .then((json = {}) => json.data)
-      .then((response) => {
-        AppDispatcher.dispatchServerAction({
-          type: ActionTypes.FLOOD_FETCH_NOTIFICATIONS_SUCCESS,
-          data: {
-            ...response,
-            ...options
-          }
-        });
-      }, (error) => {
-        AppDispatcher.dispatchServerAction({
-          type: ActionTypes.FLOOD_FETCH_NOTIFICATIONS_ERROR,
-          data: {
-            error
-          }
-        });
-      });
+      .then(
+        response => {
+          AppDispatcher.dispatchServerAction({
+            type: ActionTypes.FLOOD_FETCH_NOTIFICATIONS_SUCCESS,
+            data: {
+              ...response,
+              ...options,
+            },
+          });
+        },
+        error => {
+          AppDispatcher.dispatchServerAction({
+            type: ActionTypes.FLOOD_FETCH_NOTIFICATIONS_ERROR,
+            data: {
+              error,
+            },
+          });
+        }
+      );
   },
 
   handleNotificationCountChange(event) {
     AppDispatcher.dispatchServerAction({
       type: ActionTypes.NOTIFICATION_COUNT_CHANGE,
-      data: JSON.parse(event.data)
+      data: JSON.parse(event.data),
     });
   },
 
   handleTorrentListDiffChange(event) {
     AppDispatcher.dispatchServerAction({
       type: ActionTypes.TORRENT_LIST_DIFF_CHANGE,
-      data: JSON.parse(event.data)
+      data: JSON.parse(event.data),
     });
   },
 
   handleTorrentListFullUpdate(event) {
     AppDispatcher.dispatchServerAction({
       type: ActionTypes.TORRENT_LIST_FULL_UPDATE,
-      data: JSON.parse(event.data)
+      data: JSON.parse(event.data),
     });
   },
 
   handleTaxonomyDiffChange(event) {
     AppDispatcher.dispatchServerAction({
       type: ActionTypes.TAXONOMY_DIFF_CHANGE,
-      data: JSON.parse(event.data)
+      data: JSON.parse(event.data),
     });
   },
 
   handleTaxonomyFullUpdate(event) {
     AppDispatcher.dispatchServerAction({
       type: ActionTypes.TAXONOMY_FULL_UPDATE,
-      data: JSON.parse(event.data)
+      data: JSON.parse(event.data),
     });
   },
 
   handleTransferSummaryDiffChange(event) {
     AppDispatcher.dispatchServerAction({
       type: ActionTypes.TRANSFER_SUMMARY_DIFF_CHANGE,
-      data: JSON.parse(event.data)
+      data: JSON.parse(event.data),
     });
   },
 
   handleTransferSummaryFullUpdate(event) {
     AppDispatcher.dispatchServerAction({
       type: ActionTypes.TRANSFER_SUMMARY_FULL_UPDATE,
-      data: JSON.parse(event.data)
+      data: JSON.parse(event.data),
     });
   },
 
   handleTransferHistoryFullUpdate(event) {
     AppDispatcher.dispatchServerAction({
       type: ActionTypes.TRANSFER_HISTORY_FULL_UPDATE,
-      data: JSON.parse(event.data)
+      data: JSON.parse(event.data),
     });
   },
 
@@ -239,11 +255,10 @@ const FloodActions = {
   },
 
   startActivityStream(options = {}) {
-    const {historySnapshot = historySnapshotTypes.FIVE_MINUTE} = options;
-    const didHistorySnapshotChange = (
-      lastActivityStreamOptions
-      && lastActivityStreamOptions.historySnapshot !== historySnapshot
-    );
+    const { historySnapshot = historySnapshotTypes.FIVE_MINUTE } = options;
+    const didHistorySnapshotChange =
+      lastActivityStreamOptions &&
+      lastActivityStreamOptions.historySnapshot !== historySnapshot;
 
     lastActivityStreamOptions = options;
 

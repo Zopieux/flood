@@ -1,4 +1,4 @@
-import {FormattedMessage} from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import classnames from 'classnames';
 import React from 'react';
 import stringUtil from 'universally-shared-code/util/stringUtil';
@@ -15,32 +15,28 @@ import Size from '../../general/Size';
 import StartIcon from '../../icons/StartIcon';
 import StopIcon from '../../icons/StopIcon';
 import TorrentActions from '../../../actions/TorrentActions';
-import {torrentStatusClasses} from '../../../util/torrentStatusClasses';
-import {torrentStatusIcons} from '../../../util/torrentStatusIcons';
+import { torrentStatusClasses } from '../../../util/torrentStatusClasses';
+import { torrentStatusIcons } from '../../../util/torrentStatusIcons';
 import UploadThickIcon from '../../icons/UploadThickIcon';
 
-const METHODS_TO_BIND = [
-  'getCurrentStatus',
-  'handleStart',
-  'handleStop'
-];
+const METHODS_TO_BIND = ['getCurrentStatus', 'handleStart', 'handleStop'];
 
 export default class TorrentHeading extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      optimisticData: {currentStatus: null}
+      optimisticData: { currentStatus: null },
     };
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.state.optimisticData.currentStatus) {
-      this.setState({optimisticData: {currentStatus: null}});
+      this.setState({ optimisticData: { currentStatus: null } });
     }
   }
 
@@ -53,32 +49,46 @@ export default class TorrentHeading extends React.Component {
   }
 
   getTorrentActions(torrent) {
-    let currentStatus = this.state.optimisticData.currentStatus
-      || this.getCurrentStatus(torrent.status);
+    let currentStatus =
+      this.state.optimisticData.currentStatus ||
+      this.getCurrentStatus(torrent.status);
     let statusIcons = {
-      'start': <StartIcon />,
-      'stop': <StopIcon />
+      start: <StartIcon />,
+      stop: <StopIcon />,
     };
     let torrentActions = ['start', 'stop'];
     let torrentActionElements = [
-      <li className="torrent-details__sub-heading__tertiary"
-        key={torrentActions.length + 1}>
-        <PriorityMeter id={torrent.hash} level={torrent.priority} maxLevel={3}
-          priorityType="torrent" onChange={this.handlePriorityChange}
-          showLabel={true} />
-      </li>
+      <li
+        className="torrent-details__sub-heading__tertiary"
+        key={torrentActions.length + 1}
+      >
+        <PriorityMeter
+          id={torrent.hash}
+          level={torrent.priority}
+          maxLevel={3}
+          priorityType="torrent"
+          onChange={this.handlePriorityChange}
+          showLabel={true}
+        />
+      </li>,
     ];
 
     torrentActions.forEach((torrentAction, index) => {
       let capitalizedAction = stringUtil.capitalize(torrentAction);
-      let classes = classnames('torrent-details__sub-heading__tertiary',
-        'torrent-details__action', {
-          'is-active': torrentAction === currentStatus
-        });
+      let classes = classnames(
+        'torrent-details__sub-heading__tertiary',
+        'torrent-details__action',
+        {
+          'is-active': torrentAction === currentStatus,
+        }
+      );
 
       torrentActionElements.push(
-        <li className={classes} key={index}
-          onClick={this[`handle${capitalizedAction}`]}>
+        <li
+          className={classes}
+          key={index}
+          onClick={this[`handle${capitalizedAction}`]}
+        >
           {statusIcons[torrentAction]}
           <FormattedMessage
             id={`torrents.details.actions.${torrentAction}`}
@@ -96,24 +106,29 @@ export default class TorrentHeading extends React.Component {
   }
 
   handleStart() {
-    this.setState({optimisticData: {currentStatus: 'start'}});
+    this.setState({ optimisticData: { currentStatus: 'start' } });
     TorrentActions.startTorrents([this.props.torrent.hash]);
   }
 
   handleStop() {
-    this.setState({optimisticData: {currentStatus: 'stop'}});
+    this.setState({ optimisticData: { currentStatus: 'stop' } });
     TorrentActions.stopTorrents([this.props.torrent.hash]);
   }
 
   render() {
     let torrent = this.props.torrent;
 
-    let torrentClasses = torrentStatusClasses(torrent, 'torrent-details__header');
+    let torrentClasses = torrentStatusClasses(
+      torrent,
+      'torrent-details__header'
+    );
     let torrentStatusIcon = torrentStatusIcons(torrent.status);
 
     return (
       <div className={torrentClasses}>
-        <h1 className="torrent-details__heading torrent-details--name">{torrent.name}</h1>
+        <h1 className="torrent-details__heading torrent-details--name">
+          {torrent.name}
+        </h1>
         <div className="torrent-details__sub-heading">
           <ul className="torrent-details__sub-heading__secondary">
             <li className="torrent-details__sub-heading__tertiary torrent-details__sub-heading__tertiary--download">
@@ -141,7 +156,10 @@ export default class TorrentHeading extends React.Component {
             {this.getTorrentActions(torrent)}
           </ul>
         </div>
-        <ProgressBar percent={torrent.percentComplete} icon={torrentStatusIcon} />
+        <ProgressBar
+          percent={torrent.percentComplete}
+          icon={torrentStatusIcon}
+        />
       </div>
     );
   }

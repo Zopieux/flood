@@ -1,5 +1,5 @@
-import {FormattedMessage, IntlProvider} from 'react-intl';
-import {IndexRoute, Router, Route, browserHistory} from 'react-router';
+import { FormattedMessage, IntlProvider } from 'react-intl';
+import { IndexRoute, Router, Route, browserHistory } from 'react-router';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -33,29 +33,28 @@ class FloodApp extends React.Component {
     super();
 
     this.state = {
-      locale: SettingsStore.getFloodSettings('language')
+      locale: SettingsStore.getFloodSettings('language'),
     };
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
 
     UIStore.registerDependency({
       id: 'flood-settings',
       message: (
-        <FormattedMessage id="dependency.loading.flood.settings"
-          defaultMessage="Flood Settings" />
-      )
+        <FormattedMessage
+          id="dependency.loading.flood.settings"
+          defaultMessage="Flood Settings"
+        />
+      ),
     });
 
     FloodActions.startActivityStream();
   }
 
   componentDidMount() {
-    SettingsStore.listen(
-      EventTypes.SETTINGS_CHANGE,
-      this.handleSettingsChange
-    );
+    SettingsStore.listen(EventTypes.SETTINGS_CHANGE, this.handleSettingsChange);
   }
 
   componentWillUnmount() {
@@ -67,14 +66,14 @@ class FloodApp extends React.Component {
 
   handleSettingsChange() {
     if (SettingsStore.getFloodSettings('language') !== this.state.language) {
-      this.setState({locale: SettingsStore.getFloodSettings('language')});
+      this.setState({ locale: SettingsStore.getFloodSettings('language') });
     }
 
     UIStore.satisfyDependency('flood-settings');
   }
 
   render() {
-    let {locale} = this.state;
+    let { locale } = this.state;
 
     return (
       <IntlProvider locale={locale} messages={i18n[locale]}>

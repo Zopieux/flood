@@ -9,7 +9,7 @@ class TransferDataStoreClass extends BaseStore {
   constructor() {
     super();
 
-    this.transferRates = {download: [], upload: [], timestamps: []};
+    this.transferRates = { download: [], upload: [], timestamps: [] };
     this.transferSummary = {};
   }
 
@@ -18,12 +18,12 @@ class TransferDataStoreClass extends BaseStore {
     // just replaces the last transfer rate values from the history service with
     // the most recent speed.
     if (this.transferRates.download.length > 0) {
-      this.transferRates.download[this.transferRates.download.length - 1] = (
-        this.transferSummary.downRate
-      );
-      this.transferRates.upload[this.transferRates.upload.length - 1] = (
-        this.transferSummary.upRate
-      );
+      this.transferRates.download[
+        this.transferRates.download.length - 1
+      ] = this.transferSummary.downRate;
+      this.transferRates.upload[
+        this.transferRates.upload.length - 1
+      ] = this.transferSummary.upRate;
     }
 
     this.emit(EventTypes.CLIENT_TRANSFER_HISTORY_REQUEST_SUCCESS);
@@ -61,7 +61,7 @@ class TransferDataStoreClass extends BaseStore {
       } else {
         this.transferSummary = {
           ...this.transferSummary,
-          ...change.data
+          ...change.data,
         };
       }
     });
@@ -80,8 +80,8 @@ class TransferDataStoreClass extends BaseStore {
 
 let TransferDataStore = new TransferDataStoreClass();
 
-TransferDataStore.dispatcherID = AppDispatcher.register((payload) => {
-  const {action} = payload;
+TransferDataStore.dispatcherID = AppDispatcher.register(payload => {
+  const { action } = payload;
 
   switch (action.type) {
     case ActionTypes.TRANSFER_SUMMARY_DIFF_CHANGE:

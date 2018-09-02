@@ -13,7 +13,7 @@ class SettingsStoreClass extends BaseStore {
 
     this.fetchStatus = {
       clientSettingsFetched: false,
-      floodSettingsFetched: false
+      floodSettingsFetched: false,
     };
 
     this.clientSettings = {};
@@ -23,37 +23,57 @@ class SettingsStoreClass extends BaseStore {
       language: 'en',
       sortTorrents: {
         direction: 'desc',
-        property: 'dateAdded'
+        property: 'dateAdded',
       },
       torrentDetails: [
-        {id: 'name', visible: true},
-        {id: 'percentComplete', visible: true},
-        {id: 'downTotal', visible: true},
-        {id: 'downRate', visible: true},
-        {id: 'upTotal', visible: true},
-        {id: 'upRate', visible: true},
-        {id: 'eta', visible: true},
-        {id: 'ratio', visible: true},
-        {id: 'sizeBytes', visible: true},
-        {id: 'peers', visible: true},
-        {id: 'seeds', visible: true},
-        {id: 'dateAdded', visible: true},
-        {id: 'dateCreated', visible: false},
-        {id: 'basePath', visible: false},
-        {id: 'comment', visible: false},
-        {id: 'hash', visible: false},
-        {id: 'isPrivate', visible: false},
-        {id: 'message', visible: false},
-        {id: 'trackerURIs', visible: false},
-        {id: 'tags', visible: true}
+        { id: 'name', visible: true },
+        { id: 'percentComplete', visible: true },
+        { id: 'downTotal', visible: true },
+        { id: 'downRate', visible: true },
+        { id: 'upTotal', visible: true },
+        { id: 'upRate', visible: true },
+        { id: 'eta', visible: true },
+        { id: 'ratio', visible: true },
+        { id: 'sizeBytes', visible: true },
+        { id: 'peers', visible: true },
+        { id: 'seeds', visible: true },
+        { id: 'dateAdded', visible: true },
+        { id: 'dateCreated', visible: false },
+        { id: 'basePath', visible: false },
+        { id: 'comment', visible: false },
+        { id: 'hash', visible: false },
+        { id: 'isPrivate', visible: false },
+        { id: 'message', visible: false },
+        { id: 'trackerURIs', visible: false },
+        { id: 'tags', visible: true },
       ],
       torrentListColumnWidths: {},
       torrentListViewSize: 'condensed',
       speedLimits: {
-        download: [1024, 10240, 102400, 512000, 1048576, 2097152, 5242880, 10485760, 0],
-        upload: [1024, 10240, 102400, 512000, 1048576, 2097152, 5242880, 10485760, 0]
+        download: [
+          1024,
+          10240,
+          102400,
+          512000,
+          1048576,
+          2097152,
+          5242880,
+          10485760,
+          0,
+        ],
+        upload: [
+          1024,
+          10240,
+          102400,
+          512000,
+          1048576,
+          2097152,
+          5242880,
+          10485760,
+          0,
+        ],
       },
-      startTorrentsOnLoad: false
+      startTorrentsOnLoad: false,
     };
   }
 
@@ -101,7 +121,7 @@ class SettingsStoreClass extends BaseStore {
 
     if (options.alert) {
       AlertStore.add({
-        id: 'alert.settings.saved'
+        id: 'alert.settings.saved',
       });
     }
 
@@ -117,7 +137,7 @@ class SettingsStoreClass extends BaseStore {
   handleSettingsFetchSuccess(settings) {
     this.fetchStatus.floodSettingsFetched = true;
 
-    Object.keys(settings).forEach((property) => {
+    Object.keys(settings).forEach(property => {
       const incomingSettingsValue = settings[property];
 
       if (incomingSettingsValue != null) {
@@ -138,7 +158,7 @@ class SettingsStoreClass extends BaseStore {
 
     if (options.alert) {
       AlertStore.add({
-        id: 'alert.settings.saved'
+        id: 'alert.settings.saved',
       });
     }
 
@@ -148,8 +168,10 @@ class SettingsStoreClass extends BaseStore {
   }
 
   processSettingsState() {
-    if (this.fetchStatus.clientSettingsFetched
-      && this.fetchStatus.floodSettingsFetched) {
+    if (
+      this.fetchStatus.clientSettingsFetched &&
+      this.fetchStatus.floodSettingsFetched
+    ) {
       this.emit(EventTypes.SETTINGS_CHANGE);
     }
   }
@@ -183,7 +205,7 @@ class SettingsStoreClass extends BaseStore {
   }
 
   updateLocalSettings(settings, settingsType) {
-    settings.forEach((setting) => {
+    settings.forEach(setting => {
       if (setting.overrideLocalSetting) {
         this[settingsType][setting.overrideID] = setting.overrideData;
       } else {
@@ -195,8 +217,8 @@ class SettingsStoreClass extends BaseStore {
 
 let SettingsStore = new SettingsStoreClass();
 
-SettingsStore.dispatcherID = AppDispatcher.register((payload) => {
-  const {action} = payload;
+SettingsStore.dispatcherID = AppDispatcher.register(payload => {
+  const { action } = payload;
 
   switch (action.type) {
     case ActionTypes.CLIENT_SETTINGS_FETCH_REQUEST_ERROR:
@@ -218,13 +240,19 @@ SettingsStore.dispatcherID = AppDispatcher.register((payload) => {
       SettingsStore.handleSettingsSaveRequestError(action.error);
       break;
     case ActionTypes.SETTINGS_SAVE_REQUEST_SUCCESS:
-      SettingsStore.handleSettingsSaveRequestSuccess(action.data, action.options);
+      SettingsStore.handleSettingsSaveRequestSuccess(
+        action.data,
+        action.options
+      );
       break;
     case ActionTypes.CLIENT_SETTINGS_SAVE_ERROR:
       SettingsStore.handleClientSettingsSaveRequestError(action.error);
       break;
     case ActionTypes.CLIENT_SETTINGS_SAVE_SUCCESS:
-      SettingsStore.handleClientSettingsSaveRequestSuccess(action.data, action.options);
+      SettingsStore.handleClientSettingsSaveRequestSuccess(
+        action.data,
+        action.options
+      );
       break;
     default:
       break;

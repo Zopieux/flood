@@ -17,7 +17,7 @@ import UIStore from '../../stores/UIStore';
 const METHODS_TO_BIND = [
   'handleKeyPress',
   'handleOverlayClick',
-  'onModalChange'
+  'onModalChange',
 ];
 
 export default class Modals extends React.Component {
@@ -32,14 +32,14 @@ export default class Modals extends React.Component {
       'remove-torrents': RemoveTorrentsModal,
       'set-taxonomy': SetTagsModal,
       settings: SettingsModal,
-      'torrent-details': TorrentDetailsModal
+      'torrent-details': TorrentDetailsModal,
     };
 
     this.state = {
-      activeModal: null
+      activeModal: null,
     };
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
 
@@ -64,8 +64,10 @@ export default class Modals extends React.Component {
     let ActiveModal = this.modals[this.state.activeModal.id];
 
     return (
-      <ActiveModal dismiss={this.dismissModal}
-        options={this.state.activeModal.options} />
+      <ActiveModal
+        dismiss={this.dismissModal}
+        options={this.state.activeModal.options}
+      />
     );
   }
 
@@ -84,7 +86,7 @@ export default class Modals extends React.Component {
   }
 
   onModalChange() {
-    this.setState({activeModal: UIStore.getActiveModal()});
+    this.setState({ activeModal: UIStore.getActiveModal() });
   }
 
   render() {
@@ -103,7 +105,8 @@ export default class Modals extends React.Component {
       <CSSTransitionGroup
         transitionName="modal__animation"
         transitionEnterTimeout={500}
-        transitionLeaveTimeout={500}>
+        transitionLeaveTimeout={500}
+      >
         {modal}
       </CSSTransitionGroup>
     );

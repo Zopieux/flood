@@ -1,5 +1,5 @@
-import {Checkbox, Form, FormRow, Textbox} from 'flood-ui-kit';
-import {FormattedMessage} from 'react-intl';
+import { Checkbox, Form, FormRow, Textbox } from 'flood-ui-kit';
+import { FormattedMessage } from 'react-intl';
 import React from 'react';
 
 import ModalFormSectionHeader from '../ModalFormSectionHeader';
@@ -8,7 +8,7 @@ import SettingsTab from './SettingsTab';
 export default class ResourcesTab extends SettingsTab {
   state = {};
 
-  handleFormChange = ({event, formData}) => {
+  handleFormChange = ({ event, formData }) => {
     this.handleClientSettingFieldChange(event.target.name, event);
   };
 
@@ -25,24 +25,24 @@ export default class ResourcesTab extends SettingsTab {
           <Textbox
             defaultValue={this.getFieldValue('directoryDefault')}
             id="directoryDefault"
-            label={(
+            label={
               <FormattedMessage
                 id="settings.resources.disk.download.location.label"
                 defaultMessage="Default Download Directory"
               />
-            )}
+            }
           />
         </FormRow>
         <FormRow>
           <Textbox
             defaultValue={this.getFieldValue('networkMaxOpenFiles')}
             id="networkMaxOpenFiles"
-            label={(
+            label={
               <FormattedMessage
                 id="settings.resources.max.open.files"
                 defaultMessage="Maximum Open Files"
               />
-            )}
+            }
             width="one-half"
           />
           <Checkbox
@@ -68,14 +68,15 @@ export default class ResourcesTab extends SettingsTab {
           <Textbox
             defaultValue={this.getFieldValue('piecesMemoryMax')}
             id="piecesMemoryMax"
-            label={(
+            label={
               <div>
                 <FormattedMessage
                   id="settings.resources.memory.max.label"
                   defaultMessage="Max Memory Usage"
-                /> <em className="unit">(MB)</em>
+                />{' '}
+                <em className="unit">(MB)</em>
               </div>
-            )}
+            }
             width="one-half"
           />
         </FormRow>

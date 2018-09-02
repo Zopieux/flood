@@ -1,5 +1,5 @@
-import {Form} from 'flood-ui-kit';
-import {injectIntl} from 'react-intl';
+import { Form } from 'flood-ui-kit';
+import { injectIntl } from 'react-intl';
 import React from 'react';
 
 import EventTypes from '../../../constants/EventTypes';
@@ -15,7 +15,7 @@ class MoveTorrents extends React.Component {
     isExpanded: false,
     isSettingDownloadPath: false,
     moveTorrents: false,
-    originalSource: null
+    originalSource: null,
   };
 
   componentWillMount() {
@@ -23,21 +23,30 @@ class MoveTorrents extends React.Component {
     const sources = TorrentStore.getSelectedTorrentsDownloadLocations();
 
     if (sources.length === 1) {
-      const originalSource = this.removeTrailingFilename(sources[0], filenames[0]);
-      this.setState({originalSource});
+      const originalSource = this.removeTrailingFilename(
+        sources[0],
+        filenames[0]
+      );
+      this.setState({ originalSource });
     }
   }
 
   componentDidMount() {
-    TorrentStore.listen(EventTypes.CLIENT_MOVE_TORRENTS_REQUEST_ERROR, this.onMoveError);
+    TorrentStore.listen(
+      EventTypes.CLIENT_MOVE_TORRENTS_REQUEST_ERROR,
+      this.onMoveError
+    );
   }
 
   componentWillUnmount() {
-    TorrentStore.unlisten(EventTypes.CLIENT_MOVE_TORRENTS_REQUEST_ERROR, this.onMoveError);
+    TorrentStore.unlisten(
+      EventTypes.CLIENT_MOVE_TORRENTS_REQUEST_ERROR,
+      this.onMoveError
+    );
   }
 
   onMoveError = () => {
-    this.setState({isSettingDownloadPath: false});
+    this.setState({ isSettingDownloadPath: false });
   };
 
   getActions() {
@@ -46,57 +55,64 @@ class MoveTorrents extends React.Component {
         checked: false,
         content: this.props.intl.formatMessage({
           id: 'torrents.move.data.label',
-          defaultMessage: 'Move data'
+          defaultMessage: 'Move data',
         }),
         id: 'moveFiles',
-        type: 'checkbox'
+        type: 'checkbox',
       },
       {
         content: this.props.intl.formatMessage({
           id: 'button.cancel',
-          defaultMessage: 'Cancel'
+          defaultMessage: 'Cancel',
         }),
         triggerDismiss: true,
-        type: 'tertiary'
+        type: 'tertiary',
       },
       {
         content: this.props.intl.formatMessage({
           id: 'torrents.move.button.set.location',
-          defaultMessage: 'Set Location'
+          defaultMessage: 'Set Location',
         }),
         isLoading: this.state.isSettingDownloadPath,
         submit: true,
-        type: 'primary'
-      }
+        type: 'primary',
+      },
     ];
   }
 
   getContent() {
     return (
       <div className="modal__content">
-        <Form className="inverse" onChange={this.handleFormChange} onSubmit={this.handleFormSubmit}>
+        <Form
+          className="inverse"
+          onChange={this.handleFormChange}
+          onSubmit={this.handleFormSubmit}
+        >
           <TorrentDestination
             id="destination"
             suggested={this.state.originalSource}
           />
-          <ModalActions actions={this.getActions()} dismiss={this.props.dismiss} />
+          <ModalActions
+            actions={this.getActions()}
+            dismiss={this.props.dismiss}
+          />
         </Form>
       </div>
     );
   }
 
-  handleFormSubmit = ({formData}) => {
+  handleFormSubmit = ({ formData }) => {
     const filenames = TorrentStore.getSelectedTorrentsFilename();
     const sources = TorrentStore.getSelectedTorrentsDownloadLocations();
 
     if (sources.length) {
-      this.setState({isSettingDownloadPath: true});
+      this.setState({ isSettingDownloadPath: true });
       TorrentActions.moveTorrents(TorrentStore.getSelectedTorrents(), {
         destination: formData.destination,
         isBasePath: formData.useBasePath,
         filenames,
         moveFiles: formData.moveFiles,
-        sources
+        sources,
       });
     }
   };
@@ -104,7 +120,10 @@ class MoveTorrents extends React.Component {
   removeTrailingFilename(path, filename) {
     let directoryPath = path.substring(0, path.length - filename.length);
 
-    if (directoryPath.charAt(directoryPath.length - 1) === '/' || directoryPath.charAt(directoryPath.length - 1) === '\\') {
+    if (
+      directoryPath.charAt(directoryPath.length - 1) === '/' ||
+      directoryPath.charAt(directoryPath.length - 1) === '\\'
+    ) {
       directoryPath = directoryPath.substring(0, directoryPath.length - 1);
     }
 
@@ -118,8 +137,9 @@ class MoveTorrents extends React.Component {
         dismiss={this.props.dismiss}
         heading={this.props.intl.formatMessage({
           id: 'torrents.move.heading',
-          defaultMessage: 'Set Torrent Location'
-        })} />
+          defaultMessage: 'Set Torrent Location',
+        })}
+      />
     );
   }
 }

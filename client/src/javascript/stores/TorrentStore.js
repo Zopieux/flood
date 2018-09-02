@@ -6,12 +6,12 @@ import AppDispatcher from '../dispatcher/AppDispatcher';
 import BaseStore from './BaseStore';
 import ConfigStore from './ConfigStore';
 import EventTypes from '../constants/EventTypes';
-import {filterTorrents} from '../util/filterTorrents';
+import { filterTorrents } from '../util/filterTorrents';
 import FloodActions from '../actions/FloodActions';
-import {searchTorrents} from '../util/searchTorrents';
-import {selectTorrents} from '../util/selectTorrents';
+import { searchTorrents } from '../util/searchTorrents';
+import { selectTorrents } from '../util/selectTorrents';
 import SettingsStore from './SettingsStore';
-import {sortTorrents} from '../util/sortTorrents';
+import { sortTorrents } from '../util/sortTorrents';
 import TorrentActions from '../actions/TorrentActions';
 import TorrentFilterStore from './TorrentFilterStore';
 import UIStore from './UIStore';
@@ -31,12 +31,14 @@ class TorrentStoreClass extends BaseStore {
   }
 
   fetchMediainfo(hash) {
-    FloodActions.fetchMediainfo({hash});
+    FloodActions.fetchMediainfo({ hash });
   }
 
   fetchTorrentDetails(options = {}) {
-    if (!this.isRequestPending('fetch-torrent-details')
-      || options.forceUpdate) {
+    if (
+      !this.isRequestPending('fetch-torrent-details') ||
+      options.forceUpdate
+    ) {
       this.beginRequest('fetch-torrent-details');
       TorrentActions.fetchTorrentDetails(UIStore.getTorrentDetailsHash());
     }
@@ -61,21 +63,21 @@ class TorrentStoreClass extends BaseStore {
     if (statusFilter && statusFilter !== 'all') {
       filteredTorrents = filterTorrents(filteredTorrents, {
         type: 'status',
-        filter: statusFilter
+        filter: statusFilter,
       });
     }
 
     if (tagFilter && tagFilter !== 'all') {
       filteredTorrents = filterTorrents(filteredTorrents, {
         type: 'tag',
-        filter: tagFilter
+        filter: tagFilter,
       });
     }
 
     if (trackerFilter && trackerFilter !== 'all') {
       filteredTorrents = filterTorrents(filteredTorrents, {
         type: 'tracker',
-        filter: trackerFilter
+        filter: trackerFilter,
       });
     }
 
@@ -91,19 +93,19 @@ class TorrentStoreClass extends BaseStore {
   }
 
   getSelectedTorrentsDownloadLocations() {
-    return this.selectedTorrents.map((hash) => {
+    return this.selectedTorrents.map(hash => {
       return this.torrents[hash].basePath;
     });
   }
 
   getSelectedTorrentsFilename() {
-    return this.selectedTorrents.map((hash) => {
+    return this.selectedTorrents.map(hash => {
       return this.torrents[hash].baseFilename;
     });
   }
 
   getSelectedTorrentsTags() {
-    return this.selectedTorrents.map((hash) => {
+    return this.selectedTorrents.map(hash => {
       return this.torrents[hash].tags;
     });
   }
@@ -117,15 +119,15 @@ class TorrentStoreClass extends BaseStore {
 
     SettingsStore.saveFloodSettings({
       id: 'torrentDestination',
-      data: response.destination
+      data: response.destination,
     });
 
     AlertStore.add({
       accumulation: {
         id: 'alert.torrent.add',
-        value: response.count || 1
+        value: response.count || 1,
       },
-      id: 'alert.torrent.add'
+      id: 'alert.torrent.add',
     });
   }
 
@@ -165,7 +167,7 @@ class TorrentStoreClass extends BaseStore {
     AlertStore.add({
       accumulation: {
         id: 'alert.torrent.move',
-        value: response.count
+        value: response.count,
       },
       id: 'alert.torrent.move',
     });
@@ -177,9 +179,9 @@ class TorrentStoreClass extends BaseStore {
     AlertStore.add({
       accumulation: {
         id: 'alert.torrent.move.failed',
-        value: error.count
+        value: error.count,
       },
-      id: 'alert.torrent.move.failed'
+      id: 'alert.torrent.move.failed',
     });
   }
 
@@ -188,7 +190,7 @@ class TorrentStoreClass extends BaseStore {
       event,
       hash,
       selectedTorrents: this.selectedTorrents,
-      torrentList: this.filteredTorrents
+      torrentList: this.filteredTorrents,
     });
     this.emit(EventTypes.UI_TORRENT_SELECTION_CHANGE);
   }
@@ -196,15 +198,15 @@ class TorrentStoreClass extends BaseStore {
   handleRemoveTorrentsSuccess(response) {
     SettingsStore.saveFloodSettings({
       id: 'deleteTorrentData',
-      data: response.deleteData
+      data: response.deleteData,
     });
 
     AlertStore.add({
       accumulation: {
         id: 'alert.torrent.remove',
-        value: response.count
+        value: response.count,
       },
-      id: 'alert.torrent.remove'
+      id: 'alert.torrent.remove',
     });
   }
 
@@ -212,20 +214,20 @@ class TorrentStoreClass extends BaseStore {
     AlertStore.add({
       accumulation: {
         id: 'alert.torrent.remove.failed',
-        value: error.count
+        value: error.count,
       },
-      id: 'alert.torrent.remove.failed'
+      id: 'alert.torrent.remove.failed',
     });
   }
 
   handleSetFilePrioritySuccess() {
     this.emit(EventTypes.CLIENT_SET_FILE_PRIORITY_SUCCESS);
-    this.fetchTorrentDetails({forceUpdate: true});
+    this.fetchTorrentDetails({ forceUpdate: true });
   }
 
   handleTorrentListDiffChange(torrentListDiff) {
     Object.keys(torrentListDiff).forEach(torrentHash => {
-      const {action, data} = torrentListDiff[torrentHash];
+      const { action, data } = torrentListDiff[torrentHash];
 
       switch (action) {
         case serverEventTypes.TORRENT_LIST_ACTION_TORRENT_ADDED:
@@ -307,12 +309,15 @@ class TorrentStoreClass extends BaseStore {
 
 const TorrentStore = new TorrentStoreClass();
 
-TorrentStore.dispatcherID = AppDispatcher.register((payload) => {
-  const {action} = payload;
+TorrentStore.dispatcherID = AppDispatcher.register(payload => {
+  const { action } = payload;
 
   switch (action.type) {
     case ActionTypes.CLIENT_FETCH_TORRENT_DETAILS_SUCCESS:
-      TorrentStore.setTorrentDetails(action.data.hash, action.data.torrentDetails);
+      TorrentStore.setTorrentDetails(
+        action.data.hash,
+        action.data.torrentDetails
+      );
       break;
     case ActionTypes.CLIENT_ADD_TORRENT_ERROR:
       TorrentStore.handleAddTorrentError(action.error);

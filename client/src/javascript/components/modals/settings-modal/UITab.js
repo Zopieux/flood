@@ -1,5 +1,12 @@
-import {Checkbox, Form, FormRow, Select, SelectItem, Radio} from 'flood-ui-kit';
-import {FormattedMessage, injectIntl} from 'react-intl';
+import {
+  Checkbox,
+  Form,
+  FormRow,
+  Select,
+  SelectItem,
+  Radio,
+} from 'flood-ui-kit';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import React from 'react';
 
 import ErrorIcon from '../../icons/ErrorIcon';
@@ -16,11 +23,11 @@ class UITab extends SettingsTab {
   state = {
     torrentDetails: SettingsStore.getFloodSettings('torrentDetails'),
     torrentListViewSize: SettingsStore.getFloodSettings('torrentListViewSize'),
-    selectedLanguage: SettingsStore.getFloodSettings('language')
+    selectedLanguage: SettingsStore.getFloodSettings('language'),
   };
 
   getLanguageSelectOptions() {
-    return Object.keys(Languages).map((languageID) => {
+    return Object.keys(Languages).map(languageID => {
       const selectedLanguageDefinition = Languages[languageID];
 
       return (
@@ -40,7 +47,7 @@ class UITab extends SettingsTab {
   }
 
   handleDetailCheckboxValueChange = (id, value) => {
-    let {torrentDetails} = this.state;
+    let { torrentDetails } = this.state;
 
     torrentDetails = torrentDetails.map(detail => {
       if (detail.id === id) {
@@ -50,23 +57,23 @@ class UITab extends SettingsTab {
       return detail;
     });
 
-    this.props.onSettingsChange({torrentDetails});
-    this.setState({torrentDetails});
+    this.props.onSettingsChange({ torrentDetails });
+    this.setState({ torrentDetails });
   };
 
-  handleFormChange = ({event, formData}) => {
+  handleFormChange = ({ event, formData }) => {
     if (event.target.type === 'radio') {
-      const newState = {torrentListViewSize: formData['ui-torrent-size']};
+      const newState = { torrentListViewSize: formData['ui-torrent-size'] };
 
       this.props.onSettingsChange(newState);
       this.setState(newState);
     }
 
     if (event.target.name === 'language') {
-      const {language} = formData;
+      const { language } = formData;
 
-      this.setState({selectedLanguage: language});
-      this.props.onSettingsChange({language});
+      this.setState({ selectedLanguage: language });
+      this.props.onSettingsChange({ language });
     }
   };
 
@@ -76,13 +83,13 @@ class UITab extends SettingsTab {
     }
   };
 
-  handleTorrentDetailsMove = (items) => {
-    this.setState({torrentDetails: items});
-    this.props.onSettingsChange({torrentDetails: items});
+  handleTorrentDetailsMove = items => {
+    this.setState({ torrentDetails: items });
+    this.props.onSettingsChange({ torrentDetails: items });
   };
 
   renderTorrentDetailItem = (item, index) => {
-    const {id, visible} = item;
+    const { id, visible } = item;
     let checkbox = null;
     let warning = null;
 
@@ -91,7 +98,9 @@ class UITab extends SettingsTab {
         <span className="sortable-list__content sortable-list__content--secondary">
           <Checkbox
             checked={visible}
-            onChange={event => this.handleDetailCheckboxValueChange(id, event.target.checked)}
+            onChange={event =>
+              this.handleDetailCheckboxValueChange(id, event.target.checked)
+            }
             modifier="dark"
           >
             Enabled
@@ -101,24 +110,28 @@ class UITab extends SettingsTab {
     }
 
     if (
-      id === 'tags'
-      && this.state.torrentListViewSize === 'expanded'
-      && index < this.state.torrentDetails.length - 1
+      id === 'tags' &&
+      this.state.torrentListViewSize === 'expanded' &&
+      index < this.state.torrentDetails.length - 1
     ) {
       const tooltipContent = (
-        <FormattedMessage id="settings.ui.torrent.details.tags.placement"
-          defaultMessage="In the expanded view, tags work best at the end of the list." />
+        <FormattedMessage
+          id="settings.ui.torrent.details.tags.placement"
+          defaultMessage="In the expanded view, tags work best at the end of the list."
+        />
       );
 
       warning = (
-        <Tooltip className="tooltip tooltip--is-error"
+        <Tooltip
+          className="tooltip tooltip--is-error"
           content={tooltipContent}
           offset={-5}
-          ref={ref => this.tooltipRef = ref}
+          ref={ref => (this.tooltipRef = ref)}
           scrollContainer={this.props.scrollContainer}
           width={200}
           wrapperClassName="sortable-list__content sortable-list__content--secondary tooltip__wrapper"
-          wrapText={true}>
+          wrapText={true}
+        >
           <ErrorIcon />
         </Tooltip>
       );
@@ -128,19 +141,17 @@ class UITab extends SettingsTab {
       <div className="sortable-list__content sortable-list__content__wrapper">
         {warning}
         <span className="sortable-list__content sortable-list__content--primary">
-          <FormattedMessage id={TorrentProperties[id].id}
-            defaultMessage={TorrentProperties[id].defaultMessage} />
+          <FormattedMessage
+            id={TorrentProperties[id].id}
+            defaultMessage={TorrentProperties[id].defaultMessage}
+          />
         </span>
         {checkbox}
       </div>
     );
 
     if (item.dragIndicator) {
-      return (
-        <div className="sortable-list__item">
-          {content}
-        </div>
-      );
+      return <div className="sortable-list__item">{content}</div>;
     }
 
     return content;
@@ -153,8 +164,8 @@ class UITab extends SettingsTab {
     if (this.state.torrentListViewSize === 'expanded') {
       let nextUnlockedIndex = lockedIDs.length;
 
-      torrentDetailItems = torrentDetailItems.reduce(
-        (accumulator, detail, index) => {
+      torrentDetailItems = torrentDetailItems
+        .reduce((accumulator, detail, index) => {
           let lockedIDIndex = lockedIDs.indexOf(detail.id);
 
           if (lockedIDIndex > -1) {
@@ -164,25 +175,25 @@ class UITab extends SettingsTab {
           }
 
           return accumulator;
-        }, []).filter(item => item != null);
+        }, [])
+        .filter(item => item != null);
     }
 
     return (
       <Form onChange={this.handleFormChange}>
         <ModalFormSectionHeader>
-          <FormattedMessage
-            defaultMessage="Locale"
-            id="settings.ui.locale" />
+          <FormattedMessage defaultMessage="Locale" id="settings.ui.locale" />
         </ModalFormSectionHeader>
         <FormRow>
           <Select
             defaultID={this.state.selectedLanguage}
             id="language"
-            label={(
+            label={
               <FormattedMessage
                 defaultMessage="Language"
-                id="settings.ui.language"  />
-            )}
+                id="settings.ui.language"
+              />
+            }
           >
             {this.getLanguageSelectOptions()}
           </Select>
@@ -190,7 +201,8 @@ class UITab extends SettingsTab {
         <ModalFormSectionHeader>
           <FormattedMessage
             defaultMessage="Torrent List Display"
-            id="settings.ui.torrent.list" />
+            id="settings.ui.torrent.list"
+          />
         </ModalFormSectionHeader>
         <FormRow>
           <Radio
@@ -201,7 +213,8 @@ class UITab extends SettingsTab {
           >
             <FormattedMessage
               id="settings.ui.torrent.size.expanded"
-              defaultMessage="Expanded View" />
+              defaultMessage="Expanded View"
+            />
           </Radio>
           <Radio
             checked={this.state.torrentListViewSize === 'condensed'}
@@ -209,14 +222,17 @@ class UITab extends SettingsTab {
             id="condensed"
             width="auto"
           >
-            <FormattedMessage id="settings.ui.torrent.size.condensed"
-              defaultMessage="Condensed View" />
+            <FormattedMessage
+              id="settings.ui.torrent.size.condensed"
+              defaultMessage="Condensed View"
+            />
           </Radio>
         </FormRow>
         <ModalFormSectionHeader>
           <FormattedMessage
             defaultMessage="Torrent Detail Columns"
-            id="settings.ui.displayed.details"  />
+            id="settings.ui.displayed.details"
+          />
         </ModalFormSectionHeader>
         <FormRow>
           <SortableList

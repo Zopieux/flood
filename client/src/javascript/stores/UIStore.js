@@ -19,11 +19,9 @@ class UIStoreClass extends BaseStore {
     this.torrentDetailsHash = null;
     this.createStyleElement();
 
-    this.fetchDirectoryList = _.debounce(
-      this.fetchDirectoryList,
-      100,
-      {leading: true}
-    );
+    this.fetchDirectoryList = _.debounce(this.fetchDirectoryList, 100, {
+      leading: true,
+    });
   }
 
   addGlobalStyle(cssString) {
@@ -32,7 +30,7 @@ class UIStoreClass extends BaseStore {
   }
 
   applyStyles() {
-    const {globalStyles, styleElement} = this;
+    const { globalStyles, styleElement } = this;
     const nextStyleString = globalStyles.join('');
 
     while (styleElement.firstChild) {
@@ -42,9 +40,7 @@ class UIStoreClass extends BaseStore {
     if (styleElement.styleSheet) {
       styleElement.styleSheet.cssText = nextStyleString;
     } else {
-      styleElement.appendChild(
-        global.document.createTextNode(nextStyleString)
-      );
+      styleElement.appendChild(global.document.createTextNode(nextStyleString));
     }
   }
 
@@ -123,9 +119,7 @@ class UIStoreClass extends BaseStore {
   }
 
   removeGlobalStyle(cssString) {
-    this.globalStyles = this.globalStyles.filter(
-      style => style !== cssString
-    );
+    this.globalStyles = this.globalStyles.filter(style => style !== cssString);
 
     this.applyStyles();
   }
@@ -135,11 +129,11 @@ class UIStoreClass extends BaseStore {
       dependencies = [dependencies];
     }
 
-    dependencies.forEach((dependency) => {
-      let {id} = dependency;
+    dependencies.forEach(dependency => {
+      let { id } = dependency;
 
       if (!this.dependencies[id]) {
-        this.dependencies[id] = {...dependency, satisfied: false};
+        this.dependencies[id] = { ...dependency, satisfied: false };
       }
     });
 
@@ -147,8 +141,10 @@ class UIStoreClass extends BaseStore {
   }
 
   satisfyDependency(dependencyID) {
-    if (this.dependencies[dependencyID]
-      && !this.dependencies[dependencyID].satisfied) {
+    if (
+      this.dependencies[dependencyID] &&
+      !this.dependencies[dependencyID].satisfied
+    ) {
       this.dependencies[dependencyID].satisfied = true;
       this.emit(EventTypes.UI_DEPENDENCIES_CHANGE);
       this.verifyDependencies();
@@ -175,7 +171,7 @@ class UIStoreClass extends BaseStore {
   }
 
   verifyDependencies() {
-    let isDependencyLoading = Object.keys(this.dependencies).some((id) => {
+    let isDependencyLoading = Object.keys(this.dependencies).some(id => {
       return this.dependencies[id].satisfied === false;
     });
 
@@ -187,8 +183,8 @@ class UIStoreClass extends BaseStore {
 
 let UIStore = new UIStoreClass();
 
-UIStore.dispatcherID = AppDispatcher.register((payload) => {
-  const {action} = payload;
+UIStore.dispatcherID = AppDispatcher.register(payload => {
+  const { action } = payload;
 
   switch (action.type) {
     case ActionTypes.FLOOD_FETCH_DIRECTORY_LIST_ERROR:

@@ -14,7 +14,7 @@ const METHODS_TO_BIND = [
   'handleTooltipMouseEnter',
   'handleTooltipMouseLeave',
   'isOpen',
-  'triggerClose'
+  'triggerClose',
 ];
 
 class Tooltip extends React.Component {
@@ -27,20 +27,18 @@ class Tooltip extends React.Component {
     content: PropTypes.node.isRequired,
     elementTag: PropTypes.string,
     interactive: PropTypes.bool,
-    maxWidth: PropTypes.oneOfType([PropTypes.number,
-      PropTypes.string]),
+    maxWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     onMouseLeave: PropTypes.func,
     offset: PropTypes.number,
     onClose: PropTypes.func,
     onOpen: PropTypes.func,
     position: PropTypes.oneOf(['top', 'bottom', 'right', 'left']),
-    scrollContainer: PropTypes.oneOfType([PropTypes.object,
-      PropTypes.string]),
+    scrollContainer: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
     stayOpen: PropTypes.bool,
     suppress: PropTypes.bool,
     width: PropTypes.number,
     wrapperClassName: PropTypes.string,
-    wrapText: PropTypes.bool
+    wrapText: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -56,18 +54,18 @@ class Tooltip extends React.Component {
     stayOpen: false,
     suppress: false,
     wrapperClassName: 'tooltip__wrapper',
-    wrapText: false
+    wrapText: false,
   };
 
   constructor() {
     super();
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
 
     this.container = null;
-    this.state = {isOpen: false, wasTriggeredClose: false};
+    this.state = { isOpen: false, wasTriggeredClose: false };
   }
 
   componentWillUnmount() {
@@ -75,13 +73,13 @@ class Tooltip extends React.Component {
   }
 
   handleMouseEnter(options = {}) {
-    let {props} = this;
+    let { props } = this;
 
     if (props.suppress && !options.forceOpen) {
       return;
     }
 
-    let {anchor, position, coordinates} = this.getIdealLocation(
+    let { anchor, position, coordinates } = this.getIdealLocation(
       props.anchor,
       props.position
     );
@@ -91,7 +89,7 @@ class Tooltip extends React.Component {
       isOpen: true,
       position,
       coordinates,
-      wasTriggeredClose: false
+      wasTriggeredClose: false,
     });
     this.addScrollListener();
 
@@ -110,7 +108,7 @@ class Tooltip extends React.Component {
 
   handleTooltipMouseEnter() {
     if (this.props.interactive && !this.state.wasTriggeredClose) {
-      this.setState({isOpen: true});
+      this.setState({ isOpen: true });
       this.addScrollListener();
     }
   }
@@ -129,7 +127,7 @@ class Tooltip extends React.Component {
 
   dismissTooltip(options = {}) {
     if ((!this.props.stayOpen || options.forceClose) && this.state.isOpen) {
-      this.setState({isOpen: false});
+      this.setState({ isOpen: false });
       this.removeScrollListener();
 
       if (this.props.onClose) {
@@ -139,18 +137,27 @@ class Tooltip extends React.Component {
   }
 
   getAnchor(isVertical, anchor, clearance, tooltipWidth, tooltipHeight) {
-
     if (isVertical) {
-      return this.transformAnchor(anchor, clearance.left, clearance.right,
-        tooltipWidth, clearance.boundingRect.width);
+      return this.transformAnchor(
+        anchor,
+        clearance.left,
+        clearance.right,
+        tooltipWidth,
+        clearance.boundingRect.width
+      );
     }
 
-    return this.transformAnchor(anchor, clearance.top, clearance.bottom,
-      tooltipHeight, clearance.boundingRect.height);
+    return this.transformAnchor(
+      anchor,
+      clearance.top,
+      clearance.bottom,
+      tooltipHeight,
+      clearance.boundingRect.height
+    );
   }
 
   getCoordinates(position, clearance, tooltipWidth, tooltipHeight) {
-    let {align, offset} = this.props;
+    let { align, offset } = this.props;
     let left = null;
     let top = null;
 
@@ -160,7 +167,10 @@ class Tooltip extends React.Component {
       } else if (align === 'start') {
         left = clearance.boundingRect.left;
       } else if (align === 'end') {
-        left = clearance.boundingRect.left + clearance.boundingRect.width - tooltipWidth;
+        left =
+          clearance.boundingRect.left +
+          clearance.boundingRect.width -
+          tooltipWidth;
       }
     } else {
       top = clearance.boundingRect.top + clearance.boundingRect.height / 2;
@@ -176,7 +186,7 @@ class Tooltip extends React.Component {
       left = clearance.boundingRect.left - tooltipWidth + ARROW_SIZE + offset;
     }
 
-    return {left, top};
+    return { left, top };
   }
 
   isVertical(position) {
@@ -194,9 +204,9 @@ class Tooltip extends React.Component {
     if (position === 'top' && clearance.top < tooltipHeight) {
       position = 'bottom';
     } else if (
-      position === 'bottom'
-      && clearance.bottom < tooltipHeight
-      && clearance.top > clearance.bottom
+      position === 'bottom' &&
+      clearance.bottom < tooltipHeight &&
+      clearance.top > clearance.bottom
     ) {
       position = 'top';
     }
@@ -211,22 +221,39 @@ class Tooltip extends React.Component {
     let tooltipHeight = tooltipRect.height + ARROW_SIZE;
     let tooltipWidth = tooltipRect.width + ARROW_SIZE;
 
-    anchor = this.getAnchor(isVertical, anchor, clearance, tooltipWidth,
-      tooltipHeight);
-    position = this.getPosition(position, clearance, tooltipWidth,
-      tooltipHeight);
+    anchor = this.getAnchor(
+      isVertical,
+      anchor,
+      clearance,
+      tooltipWidth,
+      tooltipHeight
+    );
+    position = this.getPosition(
+      position,
+      clearance,
+      tooltipWidth,
+      tooltipHeight
+    );
 
-    let coordinates = this.getCoordinates(position, clearance, tooltipWidth,
-      tooltipHeight);
+    let coordinates = this.getCoordinates(
+      position,
+      clearance,
+      tooltipWidth,
+      tooltipHeight
+    );
 
-    return {anchor, position, coordinates};
+    return { anchor, position, coordinates };
   }
 
   getNodeClearance(domNode) {
-    let viewportHeight = Math.max(document.documentElement.clientHeight || 0,
-      window.innerHeight || 0);
-    let viewportWidth = Math.max(document.documentElement.clientWidth || 0,
-      window.innerWidth || 0);
+    let viewportHeight = Math.max(
+      document.documentElement.clientHeight || 0,
+      window.innerHeight || 0
+    );
+    let viewportWidth = Math.max(
+      document.documentElement.clientWidth || 0,
+      window.innerWidth || 0
+    );
     let boundingRect = domNode.getBoundingClientRect();
 
     return {
@@ -234,7 +261,7 @@ class Tooltip extends React.Component {
       left: boundingRect.left,
       right: viewportWidth - boundingRect.right,
       top: boundingRect.top,
-      boundingRect
+      boundingRect,
     };
   }
 
@@ -249,16 +276,21 @@ class Tooltip extends React.Component {
   }
 
   triggerClose() {
-    this.setState({wasTriggeredClose: true});
-    this.dismissTooltip({forceClose: true});
+    this.setState({ wasTriggeredClose: true });
+    this.dismissTooltip({ forceClose: true });
   }
 
   triggerOpen() {
-    this.handleMouseEnter({forceOpen: true});
+    this.handleMouseEnter({ forceOpen: true });
   }
 
-  transformAnchor(anchor, clearanceStart, clearanceEnd, tooltipDimension,
-    triggerDimension) {
+  transformAnchor(
+    anchor,
+    clearanceStart,
+    clearanceEnd,
+    tooltipDimension,
+    triggerDimension
+  ) {
     // Change the provided anchor based on the clearance available.
     if (anchor === 'start' && clearanceEnd < tooltipDimension) {
       return 'end';
@@ -284,7 +316,7 @@ class Tooltip extends React.Component {
   }
 
   render() {
-    let {props, state} = this;
+    let { props, state } = this;
     let tooltipStyle = {};
 
     let align = props.align;
@@ -295,19 +327,22 @@ class Tooltip extends React.Component {
     // Pass along any props that aren't specific to the Tooltip.
     let elementProps = _.omit(props, Object.keys(Tooltip.propTypes));
 
-    let tooltipClasses = classnames(props.className,
-      `tooltip--anchor--${anchor}`, `tooltip--position--${position}`,
-      `tooltip--align--${align}`, {
+    let tooltipClasses = classnames(
+      props.className,
+      `tooltip--anchor--${anchor}`,
+      `tooltip--position--${position}`,
+      `tooltip--align--${align}`,
+      {
         'is-interactive': props.interactive,
         'is-open': state.isOpen,
-        'tooltip--no-wrap': !props.wrapText
+        'tooltip--no-wrap': !props.wrapText,
       }
     );
 
     if (state.coordinates) {
       tooltipStyle = {
         left: state.coordinates.left,
-        top: state.coordinates.top
+        top: state.coordinates.top,
       };
     }
 
@@ -320,18 +355,23 @@ class Tooltip extends React.Component {
     }
 
     return (
-      <props.elementTag className={props.wrapperClassName}
+      <props.elementTag
+        className={props.wrapperClassName}
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
-        {...elementProps} ref="triggerNode">
+        {...elementProps}
+        ref="triggerNode"
+      >
         {props.children}
         <Portal>
-          <div className={tooltipClasses} ref="tooltipNode"
-            style={tooltipStyle} onMouseEnter={this.handleTooltipMouseEnter}
-            onMouseLeave={this.handleTooltipMouseLeave}>
-            <div className={props.contentClassName}>
-              {props.content}
-            </div>
+          <div
+            className={tooltipClasses}
+            ref="tooltipNode"
+            style={tooltipStyle}
+            onMouseEnter={this.handleTooltipMouseEnter}
+            onMouseLeave={this.handleTooltipMouseLeave}
+          >
+            <div className={props.contentClassName}>{props.content}</div>
           </div>
         </Portal>
       </props.elementTag>

@@ -1,4 +1,4 @@
-import {defineMessages, injectIntl} from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 import React from 'react';
 
 import AuthActions from '../../actions/AuthActions';
@@ -8,8 +8,8 @@ import Tooltip from '../general/Tooltip';
 const MESSAGES = defineMessages({
   logOut: {
     id: 'sidebar.button.log.out',
-    defaultMessage: 'Log Out'
-  }
+    defaultMessage: 'Log Out',
+  },
 });
 
 class LogoutButton extends React.Component {
@@ -27,7 +27,8 @@ class LogoutButton extends React.Component {
         position="bottom"
         wrapperClassName="sidebar__action sidebar__action--last
           sidebar__icon-button sidebar__icon-button--interactive
-          tooltip__wrapper">
+          tooltip__wrapper"
+      >
         <Logout />
       </Tooltip>
     );

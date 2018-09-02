@@ -1,4 +1,4 @@
-import {injectIntl} from 'react-intl';
+import { injectIntl } from 'react-intl';
 import React from 'react';
 
 import Modal from '../Modal';
@@ -13,10 +13,7 @@ import TorrentTrackers from './TorrentTrackers';
 import UIActions from '../../../actions/UIActions';
 import UIStore from '../../../stores/UIStore';
 
-const METHODS_TO_BIND = [
-  'onTorrentDetailsChange',
-  'onReceiveTorrentsSuccess'
-];
+const METHODS_TO_BIND = ['onTorrentDetailsChange', 'onReceiveTorrentsSuccess'];
 
 class TorrentDetailsModal extends React.Component {
   constructor() {
@@ -24,10 +21,10 @@ class TorrentDetailsModal extends React.Component {
 
     this.state = {
       torrent: null,
-      torrentDetails: null
+      torrentDetails: null,
     };
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
@@ -36,36 +33,46 @@ class TorrentDetailsModal extends React.Component {
     this.setState({
       torrent: TorrentStore.getTorrent(UIStore.getTorrentDetailsHash()),
       torrentDetails: TorrentStore.getTorrentDetails(
-        UIStore.getTorrentDetailsHash())
+        UIStore.getTorrentDetailsHash()
+      ),
     });
   }
 
   componentDidMount() {
-    TorrentStore.listen(EventTypes.CLIENT_TORRENT_DETAILS_CHANGE,
-      this.onTorrentDetailsChange);
-    TorrentStore.listen(EventTypes.CLIENT_TORRENTS_REQUEST_SUCCESS,
-      this.onReceiveTorrentsSuccess);
+    TorrentStore.listen(
+      EventTypes.CLIENT_TORRENT_DETAILS_CHANGE,
+      this.onTorrentDetailsChange
+    );
+    TorrentStore.listen(
+      EventTypes.CLIENT_TORRENTS_REQUEST_SUCCESS,
+      this.onReceiveTorrentsSuccess
+    );
     TorrentStore.fetchTorrentDetails();
   }
 
   componentWillUnmount() {
-    TorrentStore.unlisten(EventTypes.CLIENT_TORRENT_DETAILS_CHANGE,
-      this.onTorrentDetailsChange);
-    TorrentStore.unlisten(EventTypes.CLIENT_TORRENTS_REQUEST_SUCCESS,
-      this.onReceiveTorrentsSuccess);
+    TorrentStore.unlisten(
+      EventTypes.CLIENT_TORRENT_DETAILS_CHANGE,
+      this.onTorrentDetailsChange
+    );
+    TorrentStore.unlisten(
+      EventTypes.CLIENT_TORRENTS_REQUEST_SUCCESS,
+      this.onReceiveTorrentsSuccess
+    );
     TorrentStore.stopPollingTorrentDetails();
   }
 
   onReceiveTorrentsSuccess() {
     this.setState({
-      torrent: TorrentStore.getTorrent(UIStore.getTorrentDetailsHash())
+      torrent: TorrentStore.getTorrent(UIStore.getTorrentDetailsHash()),
     });
   }
 
   onTorrentDetailsChange() {
     this.setState({
       torrentDetails: TorrentStore.getTorrentDetails(
-        UIStore.getTorrentDetailsHash())
+        UIStore.getTorrentDetailsHash()
+      ),
     });
   }
 
@@ -75,8 +82,7 @@ class TorrentDetailsModal extends React.Component {
 
   getModalHeading() {
     return (
-      <TorrentHeading torrent={this.state.torrent}
-        key="torrent-heading" />
+      <TorrentHeading torrent={this.state.torrent} key="torrent-heading" />
     );
   }
 
@@ -84,7 +90,7 @@ class TorrentDetailsModal extends React.Component {
     let props = {
       ...this.props.options,
       torrent: this.state.torrent,
-      ...this.state.torrentDetails
+      ...this.state.torrentDetails,
     };
 
     let tabs = {
@@ -92,43 +98,43 @@ class TorrentDetailsModal extends React.Component {
         content: TorrentGeneralInfo,
         label: this.props.intl.formatMessage({
           id: 'torrents.details.details',
-          defaultMessage: 'Details'
+          defaultMessage: 'Details',
         }),
-        props
+        props,
       },
       'torrent-files': {
         content: TorrentFiles,
         label: this.props.intl.formatMessage({
           id: 'torrents.details.files',
-          defaultMessage: 'Files'
+          defaultMessage: 'Files',
         }),
         modalContentClasses: 'modal__content--nested-scroll',
-        props
+        props,
       },
       'torrent-peers': {
         content: TorrentPeers,
         label: this.props.intl.formatMessage({
           id: 'torrents.details.peers',
-          defaultMessage: 'Peers'
+          defaultMessage: 'Peers',
         }),
-        props
+        props,
       },
       'torrent-trackers': {
         content: TorrentTrackers,
         label: this.props.intl.formatMessage({
           id: 'torrents.details.trackers',
-          defaultMessage: 'Trackers'
+          defaultMessage: 'Trackers',
         }),
-        props
+        props,
       },
       'torrent-mediainfo': {
         content: TorrentMediainfo,
         label: this.props.intl.formatMessage({
           id: 'torrents.details.mediainfo',
-          defaultMessage: 'Mediainfo'
+          defaultMessage: 'Mediainfo',
         }),
-        props
-      }
+        props,
+      },
     };
 
     return (

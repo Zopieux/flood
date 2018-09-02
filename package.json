@@ -14,6 +14,7 @@
     "start:development:server": "NODE_ENV=development nodemon server/bin/start.js",
     "start:production": "UPDATED_SCRIPT=start npm run deprecated-warning && npm start",
     "start:watch": "UPDATED_SCRIPT=start:development:client npm run deprecated-warning && npm run start:development:client",
+    "prettier": "prettier --120 print-width --single-quote --trailing-comma es5 --write 'client/**/*.js'",
     "test": "node client/scripts/test.js --env=jsdom"
   },
   "dependencies": {
@@ -102,6 +103,7 @@
   },
   "devDependencies": {
     "babel-jest": "22.4.3",
+    "eslint": "4.19.1",
     "eslint-config-airbnb": "^15.1.0",
     "eslint-config-react-app": "^2.1.0",
     "eslint-loader": "2.0.0",
@@ -109,11 +111,11 @@
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "7.7.0",
-    "eslint": "4.19.1",
     "jest": "22.4.3",
     "jsdoc": "~3.5.5",
     "minami": "^1.2.3",
     "nodemon": "^1.17.2",
+    "prettier": "1.14.2",
     "source-map-loader": "^0.2.3",
     "webpack-dev-server": "^2.11.2",
     "webpack-manifest-plugin": "^2.0.0-rc.2"

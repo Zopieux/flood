@@ -1,5 +1,5 @@
-import {Checkbox, Form, FormRow, Textbox} from 'flood-ui-kit';
-import {FormattedMessage} from 'react-intl';
+import { Checkbox, Form, FormRow, Textbox } from 'flood-ui-kit';
+import { FormattedMessage } from 'react-intl';
 import React from 'react';
 
 import ModalFormSectionHeader from '../ModalFormSectionHeader';
@@ -16,17 +16,17 @@ export default class ConnectivityTab extends SettingsTab {
     return this.props.settings.dhtStats.dht === 'auto';
   }
 
-  handleFormChange = ({event, formData}) => {
+  handleFormChange = ({ event, formData }) => {
     if (event.target.name === 'dhtEnabled') {
       const dhtEnabled = !this.getDHTEnabledValue();
       const dhtEnabledString = dhtEnabled ? 'auto' : 'disable';
 
-      this.setState({dhtEnabled});
+      this.setState({ dhtEnabled });
       this.props.onCustomSettingsChange({
         id: 'dht',
         data: [dhtEnabledString],
         overrideID: 'dhtStats',
-        overrideData: {dht: dhtEnabledString}
+        overrideData: { dht: dhtEnabledString },
       });
     } else {
       this.handleClientSettingFieldChange(event.target.name, event);
@@ -46,12 +46,12 @@ export default class ConnectivityTab extends SettingsTab {
           <Textbox
             defaultValue={this.getFieldValue('networkPortRange')}
             id="networkPortRange"
-            label={(
+            label={
               <FormattedMessage
                 id="settings.connectivity.port.range.label"
                 defaultMessage="Listening Port Range"
               />
-            )}
+            }
             width="one-quarter"
           />
           <Checkbox
@@ -83,22 +83,22 @@ export default class ConnectivityTab extends SettingsTab {
           <Textbox
             defaultValue={this.getFieldValue('networkLocalAddress')}
             id="networkLocalAddress"
-            label={(
+            label={
               <FormattedMessage
                 id="settings.connectivity.ip.hostname.label"
                 defaultMessage="Reported IP/Hostname"
               />
-            )}
+            }
           />
           <Textbox
             defaultValue={this.getFieldValue('networkHttpMaxOpen')}
             id="networkHttpMaxOpen"
-            label={(
+            label={
               <FormattedMessage
                 id="settings.connectivity.max.http.connections"
                 defaultMessage="Maximum HTTP Connections"
               />
-            )}
+            }
           />
         </FormRow>
         <ModalFormSectionHeader>
@@ -111,12 +111,12 @@ export default class ConnectivityTab extends SettingsTab {
           <Textbox
             defaultValue={this.getFieldValue('dhtPort')}
             id="dhtPort"
-            label={(
+            label={
               <FormattedMessage
                 id="settings.connectivity.dht.port.label"
                 defaultMessage="DHT Port"
               />
-            )}
+            }
             width="one-quarter"
           />
           <Checkbox
@@ -154,56 +154,56 @@ export default class ConnectivityTab extends SettingsTab {
           <Textbox
             defaultValue={this.getFieldValue('throttleMinPeersNormal')}
             id="throttleMinPeersNormal"
-            label={(
+            label={
               <FormattedMessage
                 id="settings.connectivity.peers.min.label"
                 defaultMessage="Minimum Peers"
               />
-            )}
+            }
           />
           <Textbox
             defaultValue={this.getFieldValue('throttleMaxPeersNormal')}
             id="throttleMaxPeersNormal"
-            label={(
+            label={
               <FormattedMessage
                 id="settings.connectivity.peers.max.label"
                 defaultMessage="Maxmimum Peers"
               />
-            )}
+            }
           />
         </FormRow>
         <FormRow>
           <Textbox
             defaultValue={this.getFieldValue('throttleMinPeersSeed')}
             id="throttleMinPeersSeed"
-            label={(
+            label={
               <FormattedMessage
                 id="settings.connectivity.peers.seeding.min.label"
                 defaultMessage="Minimum Peers Seeding"
               />
-            )}
+            }
           />
           <Textbox
             defaultValue={this.getFieldValue('throttleMaxPeersSeed')}
             id="throttleMaxPeersSeed"
-            label={(
+            label={
               <FormattedMessage
                 id="settings.connectivity.peers.seeding.max.label"
                 defaultMessage="Maxmimum Peers Seeding"
               />
-            )}
+            }
           />
         </FormRow>
         <FormRow>
           <Textbox
             defaultValue={this.getFieldValue('trackersNumWant')}
             id="trackersNumWant"
-            label={(
+            label={
               <FormattedMessage
                 id="settings.connectivity.peers.desired.label"
                 defaultMessage="Peers Desired"
               />
-            )}
+            }
             width="one-half"
           />
         </FormRow>

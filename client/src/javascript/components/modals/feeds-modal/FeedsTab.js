@@ -1,6 +1,16 @@
 import _ from 'lodash';
-import {defineMessages, FormattedMessage, injectIntl} from 'react-intl';
-import {Button, Form, FormError, FormRow, FormRowGroup, FormRowItem, Select, SelectItem, Textbox} from 'flood-ui-kit';
+import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
+import {
+  Button,
+  Form,
+  FormError,
+  FormRow,
+  FormRowGroup,
+  FormRowItem,
+  Select,
+  SelectItem,
+  Textbox,
+} from 'flood-ui-kit';
 import formatUtil from 'universally-shared-code/util/formatUtil';
 import React from 'react';
 
@@ -13,28 +23,28 @@ import Validator from '../../../util/Validator';
 const MESSAGES = defineMessages({
   mustSpecifyURL: {
     id: 'feeds.validation.must.specify.valid.feed.url',
-    defaultMessage: 'You must specify a valid feed URL.'
+    defaultMessage: 'You must specify a valid feed URL.',
   },
   mustSpecifyLabel: {
     id: 'feeds.validation.must.specify.label',
-    defaultMessage: 'You must specify a label.'
+    defaultMessage: 'You must specify a label.',
   },
   min: {
     id: 'feeds.time.min',
-    defaultMessage: '{durationValue} min'
+    defaultMessage: '{durationValue} min',
   },
   hr: {
     id: 'feeds.time.hr',
-    defaultMessage: '{durationValue} hr'
+    defaultMessage: '{durationValue} hr',
   },
   url: {
     id: 'feeds.url',
-    defaultMessage: 'URL'
+    defaultMessage: 'URL',
   },
   label: {
     id: 'feeds.label',
-    defaultMessage: 'Label'
-  }
+    defaultMessage: 'Label',
+  },
 });
 
 class FeedsTab extends React.Component {
@@ -42,36 +52,44 @@ class FeedsTab extends React.Component {
   validatedFields = {
     url: {
       isValid: Validator.isURLValid,
-      error: this.props.intl.formatMessage(MESSAGES.mustSpecifyURL)
+      error: this.props.intl.formatMessage(MESSAGES.mustSpecifyURL),
     },
     label: {
       isValid: Validator.isNotEmpty,
-      error: this.props.intl.formatMessage(MESSAGES.mustSpecifyLabel)
-    }
+      error: this.props.intl.formatMessage(MESSAGES.mustSpecifyLabel),
+    },
   };
 
   state = {
     errors: {},
     intervals: [
       {
-        displayName: this.props.intl.formatMessage(MESSAGES.min, {durationValue: 5}),
-        value: 5
+        displayName: this.props.intl.formatMessage(MESSAGES.min, {
+          durationValue: 5,
+        }),
+        value: 5,
       },
       {
-        displayName: this.props.intl.formatMessage(MESSAGES.min, {durationValue: 15}),
-        value: 15
+        displayName: this.props.intl.formatMessage(MESSAGES.min, {
+          durationValue: 15,
+        }),
+        value: 15,
       },
       {
-        displayName: this.props.intl.formatMessage(MESSAGES.min, {durationValue: 30}),
-        value: 30
+        displayName: this.props.intl.formatMessage(MESSAGES.min, {
+          durationValue: 30,
+        }),
+        value: 30,
       },
       {
-        displayName: this.props.intl.formatMessage(MESSAGES.hr, {durationValue: 5}),
-        value: 60
-      }
+        displayName: this.props.intl.formatMessage(MESSAGES.hr, {
+          durationValue: 5,
+        }),
+        value: 60,
+      },
     ],
     feeds: FeedMonitorStore.getFeeds(),
-    rules: FeedMonitorStore.getRules()
+    rules: FeedMonitorStore.getRules(),
   };
 
   componentDidMount() {
@@ -88,20 +106,17 @@ class FeedsTab extends React.Component {
     );
   }
 
-  checkFieldValidity = _.throttle(
-    (fieldName, fieldValue) => {
-      const {errors} = this.state;
+  checkFieldValidity = _.throttle((fieldName, fieldValue) => {
+    const { errors } = this.state;
 
-      if (
-        this.state.errors[fieldName]
-        && this.validatedFields[fieldName].isValid(fieldValue)
-      ) {
-        delete errors[fieldName];
-        this.setState({errors});
-      }
-    },
-    150
-  );
+    if (
+      this.state.errors[fieldName] &&
+      this.validatedFields[fieldName].isValid(fieldValue)
+    ) {
+      delete errors[fieldName];
+      this.setState({ errors });
+    }
+  }, 150);
 
   getIntervalSelectOptions() {
     return this.state.intervals.map((interval, index) => {
@@ -122,32 +137,29 @@ class FeedsTab extends React.Component {
             label={this.props.intl.formatMessage(MESSAGES.label)}
             placeholder={this.props.intl.formatMessage(MESSAGES.label)}
           />
-            <Select
-              defaultID={this.state.intervals[0].value}
-              label={this.props.intl.formatMessage({
-                id: 'feeds.interval',
-                defaultMessage: 'Interval'
-              })}
-              id="interval"
-              width="one-quarter"
-            >
-              {this.getIntervalSelectOptions()}
-            </Select>
+          <Select
+            defaultID={this.state.intervals[0].value}
+            label={this.props.intl.formatMessage({
+              id: 'feeds.interval',
+              defaultMessage: 'Interval',
+            })}
+            id="interval"
+            width="one-quarter"
+          >
+            {this.getIntervalSelectOptions()}
+          </Select>
         </FormRow>
         <FormRow>
           <Textbox
             id="url"
             label={this.props.intl.formatMessage({
               id: 'feeds.url',
-              defaultMessage: 'URL'
+              defaultMessage: 'URL',
             })}
             placeholder={this.props.intl.formatMessage(MESSAGES.url)}
           />
           <Button labelOffset type="submit">
-            <FormattedMessage
-              id="button.add"
-              defaultMessage="Add"
-            />
+            <FormattedMessage id="button.add" defaultMessage="Add" />
           </Button>
         </FormRow>
       </FormRowGroup>
@@ -172,30 +184,46 @@ class FeedsTab extends React.Component {
       let matchedCount = feed.count || 0;
 
       return (
-        <li className="interactive-list__item interactive-list__item--stacked-content feed-list__feed" key={feed._id}>
+        <li
+          className="interactive-list__item interactive-list__item--stacked-content feed-list__feed"
+          key={feed._id}
+        >
           <div className="interactive-list__label">
             <ul className="interactive-list__detail-list">
-              <li className="interactive-list__detail-list__item
-                interactive-list__detail--primary">
+              <li
+                className="interactive-list__detail-list__item
+                interactive-list__detail--primary"
+              >
                 {feed.label}
               </li>
-              <li className="interactive-list__detail-list__item
+              <li
+                className="interactive-list__detail-list__item
                 interactive-list__detail-list__item--overflow
-                interactive-list__detail interactive-list__detail--secondary">
-                <FormattedMessage id="feeds.match.count"
+                interactive-list__detail interactive-list__detail--secondary"
+              >
+                <FormattedMessage
+                  id="feeds.match.count"
                   defaultMessage="{count, plural, =1 {# match} other
-                    {# matches}}" values={{count: matchedCount}} />
+                    {# matches}}"
+                  values={{ count: matchedCount }}
+                />
               </li>
             </ul>
             <ul className="interactive-list__detail-list">
-              <li className="interactive-list__detail-list__item
-                interactive-list__detail interactive-list__detail--tertiary">
+              <li
+                className="interactive-list__detail-list__item
+                interactive-list__detail interactive-list__detail--tertiary"
+              >
                 {formatUtil.minToHumanReadable(feed.interval)}
               </li>
-              <li className="interactive-list__detail-list__item
+              <li
+                className="interactive-list__detail-list__item
                 interactive-list__detail-list__item--overflow
-                interactive-list__detail interactive-list__detail--tertiary">
-                <a href={feed.url} target="_blank">{feed.url}</a>
+                interactive-list__detail interactive-list__detail--tertiary"
+              >
+                <a href={feed.url} target="_blank">
+                  {feed.url}
+                </a>
               </li>
             </ul>
           </div>
@@ -209,24 +237,20 @@ class FeedsTab extends React.Component {
       );
     });
 
-    return (
-      <ul className="interactive-list feed-list">
-        {feedsList}
-      </ul>
-    );
+    return <ul className="interactive-list feed-list">{feedsList}</ul>;
   }
 
   getSelectedDropdownItem(itemSet) {
-    return this.state[itemSet].find((item) => {
+    return this.state[itemSet].find(item => {
       return item.selected;
     });
   }
 
   handleFormSubmit = () => {
-    const {errors, isValid} = this.validateForm();
+    const { errors, isValid } = this.validateForm();
 
     if (!isValid) {
-      this.setState({errors});
+      this.setState({ errors });
     } else {
       FeedMonitorStore.addFeed(this.formRef.getFormData());
       this.formRef.resetForm();
@@ -236,67 +260,63 @@ class FeedsTab extends React.Component {
   handleFeedMonitorsFetchSuccess = () => {
     this.setState({
       feeds: FeedMonitorStore.getFeeds(),
-      rules: FeedMonitorStore.getRules()
+      rules: FeedMonitorStore.getRules(),
     });
   };
 
-  handleFormChange = ({event, formData}) => {
+  handleFormChange = ({ event, formData }) => {
     this.checkFieldValidity(event.target.name, formData[event.target.name]);
   };
 
-  handleRemoveFeedClick = (feed) => {
+  handleRemoveFeedClick = feed => {
     FeedMonitorStore.removeFeed(feed._id);
   };
 
   validateForm() {
     const formData = this.formRef.getFormData();
-    const errors = Object.keys(this.validatedFields).reduce((memo, fieldName) => {
-      let fieldValue = formData[fieldName];
+    const errors = Object.keys(this.validatedFields).reduce(
+      (memo, fieldName) => {
+        let fieldValue = formData[fieldName];
 
-      if (!this.validatedFields[fieldName].isValid(fieldValue)) {
-        memo[fieldName] = this.validatedFields[fieldName].error;
-      }
+        if (!this.validatedFields[fieldName].isValid(fieldValue)) {
+          memo[fieldName] = this.validatedFields[fieldName].error;
+        }
 
-      return memo;
-    }, {});
+        return memo;
+      },
+      {}
+    );
 
-    return {errors, isValid: !Object.keys(errors).length};
+    return { errors, isValid: !Object.keys(errors).length };
   }
 
   render() {
-    const errors = Object.keys(this.state.errors).map(
-      (errorID, index) => {
-        return (
-          <FormRow key={index}>
-            <FormError>
-              {this.state.errors[errorID]}
-            </FormError>
-          </FormRow>
-        );
-      }
-    );
+    const errors = Object.keys(this.state.errors).map((errorID, index) => {
+      return (
+        <FormRow key={index}>
+          <FormError>{this.state.errors[errorID]}</FormError>
+        </FormRow>
+      );
+    });
 
     return (
       <Form
         className="inverse"
         onChange={this.handleFormChange}
         onSubmit={this.handleFormSubmit}
-        ref={ref => this.formRef = ref}
+        ref={ref => (this.formRef = ref)}
       >
         <ModalFormSectionHeader>
-          <FormattedMessage id="feeds.existing.feeds"
-            defaultMessage="Existing Feeds" />
+          <FormattedMessage
+            id="feeds.existing.feeds"
+            defaultMessage="Existing Feeds"
+          />
         </ModalFormSectionHeader>
         <FormRow>
-          <FormRowItem>
-            {this.getFeedsList()}
-          </FormRowItem>
+          <FormRowItem>{this.getFeedsList()}</FormRowItem>
         </FormRow>
         <ModalFormSectionHeader>
-          <FormattedMessage
-            id="feeds.add.feed"
-            defaultMessage="Add Feed"
-          />
+          <FormattedMessage id="feeds.add.feed" defaultMessage="Add Feed" />
         </ModalFormSectionHeader>
         {errors}
         {this.getAddFeedForm()}

@@ -73,12 +73,15 @@ export default {
   'feeds.url': 'URL',
   'feeds.validation.invalid.regular.expression': 'Invalid regular expression.',
   'feeds.validation.must.select.feed': 'You must select a feed.',
-  'feeds.validation.must.specify.destination': 'You must specify a destination.',
+  'feeds.validation.must.specify.destination':
+    'You must specify a destination.',
   'feeds.validation.must.specify.label': 'You must specify a label.',
-  'feeds.validation.must.specify.valid.feed.url': 'You must specify a valid feed URL.',
+  'feeds.validation.must.specify.valid.feed.url':
+    'You must specify a valid feed URL.',
 
   'filesystem.empty.directory': 'Empty directory.',
-  'filesystem.error.eacces': 'Flood does not have permission to read this directory.',
+  'filesystem.error.eacces':
+    'Flood does not have permission to read this directory.',
   'filesystem.error.enoent': 'This path does not exist. It will be created.',
   'filesystem.fetching': 'Fetching directory structure...',
 
@@ -105,7 +108,8 @@ export default {
   'locale.language.fr': 'French',
   'locale.language.nl': 'Nederlands',
 
-  'mediainfo.execError': 'An error occurred while running mediainfo on the server. Check that mediainfo is installed and available in the PATH to Flood.',
+  'mediainfo.execError':
+    'An error occurred while running mediainfo on the server. Check that mediainfo is installed and available in the PATH to Flood.',
   'mediainfo.fetching': 'Fetching...',
   'mediainfo.heading': 'Mediainfo Output',
 
@@ -116,7 +120,7 @@ export default {
   'notification.clear.all': 'Clear All',
   'notification.showing': 'Showing',
 
-  'priority.dont.download': 'Don\'t Download',
+  'priority.dont.download': "Don't Download",
   'priority.high': 'High',
   'priority.low': 'Low',
   'priority.normal': 'Normal',
@@ -128,10 +132,14 @@ export default {
   'settings.bandwidth.slots.upload.divider.label': 'Upload Slots Divider',
   'settings.bandwidth.slots.upload.global.label': 'Upload Slots Global',
   'settings.bandwidth.slots.upload.label': 'Upload Slots Per Torrent',
-  'settings.bandwidth.transferrate.dropdown.preset.download.label': 'Dropdown Presets: Download',
-  'settings.bandwidth.transferrate.dropdown.preset.upload.label': 'Dropdown Presets: Upload',
-  'settings.bandwidth.transferrate.global.throttle.download': 'Global Download Rate Throttle',
-  'settings.bandwidth.transferrate.global.throttle.upload': 'Global Upload Rate Throttle',
+  'settings.bandwidth.transferrate.dropdown.preset.download.label':
+    'Dropdown Presets: Download',
+  'settings.bandwidth.transferrate.dropdown.preset.upload.label':
+    'Dropdown Presets: Upload',
+  'settings.bandwidth.transferrate.global.throttle.download':
+    'Global Download Rate Throttle',
+  'settings.bandwidth.transferrate.global.throttle.upload':
+    'Global Upload Rate Throttle',
   'settings.bandwidth.transferrate.heading': 'Transfer Rate Throttles',
 
   'settings.connectivity.dht.label': 'Enable DHT',
@@ -152,7 +160,8 @@ export default {
   'settings.connectivity.port.range.label': 'Port Range',
 
   'settings.resources.disk.check.hash.label': 'Verify Hash on Completion',
-  'settings.resources.disk.download.location.label': 'Default Download Directory',
+  'settings.resources.disk.download.location.label':
+    'Default Download Directory',
   'settings.resources.disk.heading': 'Disk',
   'settings.resources.max.open.files': 'Maximum Open Files',
   'settings.resources.memory.heading': 'Memory',
@@ -171,7 +180,8 @@ export default {
   'settings.ui.torrent.size': 'Torrent Size',
   'settings.ui.torrent.size.expanded': 'Expanded View',
   'settings.ui.torrent.size.condensed': 'Condensed View',
-  'settings.ui.torrent.details.tags.placement': 'In the expanded view, tags work best at the end of the list.',
+  'settings.ui.torrent.details.tags.placement':
+    'In the expanded view, tags work best at the end of the list.',
 
   'sidebar.button.feeds': 'Feeds',
   'sidebar.button.notifications': 'Notifications',
@@ -255,7 +265,8 @@ export default {
     other {{countElement} selected files}
   }`,
   'torrents.details.selected.files.set.priority': 'Set Priority',
-  'torrents.details.trackers.no.data': 'There is no tracker data for this torrent.',
+  'torrents.details.trackers.no.data':
+    'There is no tracker data for this torrent.',
   'torrents.details.trackers.type': 'Type',
   'torrents.details.trackers': 'Trackers',
 
@@ -305,12 +316,13 @@ export default {
       other {# torrents}
     }?`,
   'torrents.remove.delete.data': 'Delete data',
-  'torrents.remove.error.no.torrents.selected': 'You haven\'t selected any torrents.',
+  'torrents.remove.error.no.torrents.selected':
+    "You haven't selected any torrents.",
   'torrents.remove': 'Remove Torrents',
 
   'torrents.set.tags.button.set': 'Set Tags',
   'torrents.set.tags.heading': 'Set Tags',
   'torrents.set.tags.enter.tags': 'Enter tags',
 
-  'torrents.sort.title': 'Sort By'
+  'torrents.sort.title': 'Sort By',
 };

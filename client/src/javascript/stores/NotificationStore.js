@@ -34,7 +34,7 @@ class NotificationStoreClass extends BaseStore {
   handleNotificationsClearSuccess(options) {
     this.fetchNotifications({
       ...options,
-      start: 0
+      start: 0,
     });
   }
 
@@ -51,8 +51,8 @@ class NotificationStoreClass extends BaseStore {
 
 let NotificationStore = new NotificationStoreClass();
 
-NotificationStore.dispatcherID = AppDispatcher.register((payload) => {
-  const {action} = payload;
+NotificationStore.dispatcherID = AppDispatcher.register(payload => {
+  const { action } = payload;
 
   switch (action.type) {
     case ActionTypes.FLOOD_CLEAR_NOTIFICATIONS_SUCCESS:

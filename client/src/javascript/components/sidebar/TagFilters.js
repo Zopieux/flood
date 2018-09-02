@@ -1,4 +1,4 @@
-import {FormattedMessage} from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import React from 'react';
 
 import EventTypes from '../../constants/EventTypes';
@@ -10,7 +10,7 @@ const METHODS_TO_BIND = [
   'getFilters',
   'handleClick',
   'onTagFilterChange',
-  'onTorrentTaxonomyChange'
+  'onTorrentTaxonomyChange',
 ];
 
 export default class TagFilters extends React.Component {
@@ -19,26 +19,34 @@ export default class TagFilters extends React.Component {
 
     this.state = {
       tagCount: {},
-      tagFilter: TorrentFilterStore.getTagFilter()
+      tagFilter: TorrentFilterStore.getTagFilter(),
     };
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
 
   componentDidMount() {
-    TorrentFilterStore.listen(EventTypes.CLIENT_FETCH_TORRENT_TAXONOMY_SUCCESS,
-      this.onTorrentTaxonomyChange);
-    TorrentFilterStore.listen(EventTypes.UI_TORRENTS_FILTER_TAG_CHANGE,
-      this.onTagFilterChange);
+    TorrentFilterStore.listen(
+      EventTypes.CLIENT_FETCH_TORRENT_TAXONOMY_SUCCESS,
+      this.onTorrentTaxonomyChange
+    );
+    TorrentFilterStore.listen(
+      EventTypes.UI_TORRENTS_FILTER_TAG_CHANGE,
+      this.onTagFilterChange
+    );
   }
 
   componentWillUnmount() {
-    TorrentFilterStore.unlisten(EventTypes.CLIENT_FETCH_TORRENT_TAXONOMY_SUCCESS,
-      this.onTorrentTaxonomyChange);
-    TorrentFilterStore.unlisten(EventTypes.UI_TORRENTS_FILTER_TAG_CHANGE,
-      this.onTagFilterChange);
+    TorrentFilterStore.unlisten(
+      EventTypes.CLIENT_FETCH_TORRENT_TAXONOMY_SUCCESS,
+      this.onTorrentTaxonomyChange
+    );
+    TorrentFilterStore.unlisten(
+      EventTypes.UI_TORRENTS_FILTER_TAG_CHANGE,
+      this.onTagFilterChange
+    );
   }
 
   getFilters() {
@@ -54,12 +62,14 @@ export default class TagFilters extends React.Component {
 
     let filterElements = filterItems.map((filter, index) => {
       return (
-        <SidebarFilter handleClick={this.handleClick}
+        <SidebarFilter
+          handleClick={this.handleClick}
           count={this.state.tagCount[filter] || 0}
           key={filter}
           isActive={filter === this.state.tagFilter}
           name={filter}
-          slug={filter} />
+          slug={filter}
+        />
       );
     });
 
@@ -73,17 +83,19 @@ export default class TagFilters extends React.Component {
   hasTags() {
     let tags = Object.keys(this.state.tagCount);
 
-    return !((tags.length === 1 && tags[0] === 'all')
-      || (tags.length === 2 && tags[1] === 'untagged'));
+    return !(
+      (tags.length === 1 && tags[0] === 'all') ||
+      (tags.length === 2 && tags[1] === 'untagged')
+    );
   }
 
   onTagFilterChange() {
-    this.setState({tagFilter: TorrentFilterStore.getTagFilter()});
+    this.setState({ tagFilter: TorrentFilterStore.getTagFilter() });
   }
 
   onTorrentTaxonomyChange() {
     let tagCount = TorrentFilterStore.getTorrentTagCount();
-    this.setState({tagCount});
+    this.setState({ tagCount });
   }
 
   render() {

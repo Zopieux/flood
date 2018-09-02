@@ -1,5 +1,5 @@
-import {Checkbox, Form, FormRow} from 'flood-ui-kit';
-import {FormattedMessage, injectIntl} from 'react-intl';
+import { Checkbox, Form, FormRow } from 'flood-ui-kit';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import React from 'react';
 
 import Modal from '../Modal';
@@ -15,8 +15,8 @@ class RemoveTorrentsModal extends React.Component {
           clickHandler: null,
           content: 'OK',
           triggerDismiss: true,
-          type: 'primary'
-        }
+          type: 'primary',
+        },
       ];
     }
 
@@ -25,20 +25,20 @@ class RemoveTorrentsModal extends React.Component {
         clickHandler: this.handleRemoveTorrentDecline,
         content: this.props.intl.formatMessage({
           id: 'button.no',
-          defaultMessage: 'No'
+          defaultMessage: 'No',
         }),
         triggerDismiss: true,
-        type: 'tertiary'
+        type: 'tertiary',
       },
       {
         clickHandler: this.handleRemovalConfirmation,
         content: this.props.intl.formatMessage({
           id: 'button.yes',
-          defaultMessage: 'Yes'
+          defaultMessage: 'Yes',
         }),
         triggerDismiss: true,
-        type: 'primary'
-      }
+        type: 'primary',
+      },
     ];
   }
 
@@ -63,14 +63,20 @@ class RemoveTorrentsModal extends React.Component {
             =1 {one torrent}
             other {# torrents}
           }?"
-          values={{count: selectedTorrentCount}}
+          values={{ count: selectedTorrentCount }}
         />
       );
 
       deleteDataContent = (
         <FormRow>
-          <Checkbox id="deleteData" checked={SettingsStore.getFloodSettings('deleteTorrentData')}>
-            <FormattedMessage defaultMessage="Delete data" id="torrents.remove.delete.data" />
+          <Checkbox
+            id="deleteData"
+            checked={SettingsStore.getFloodSettings('deleteTorrentData')}
+          >
+            <FormattedMessage
+              defaultMessage="Delete data"
+              id="torrents.remove.delete.data"
+            />
           </Checkbox>
         </FormRow>
       );
@@ -78,10 +84,8 @@ class RemoveTorrentsModal extends React.Component {
 
     return (
       <div className="modal__content inverse">
-        <Form ref={ref => this.formRef = ref}>
-          <FormRow>
-            {modalContent}
-          </FormRow>
+        <Form ref={ref => (this.formRef = ref)}>
+          <FormRow>{modalContent}</FormRow>
           {deleteDataContent}
         </Form>
       </div>
@@ -98,15 +102,17 @@ class RemoveTorrentsModal extends React.Component {
     let selectedTorrents = TorrentStore.getSelectedTorrents();
     let modalHeading = this.props.intl.formatMessage({
       id: 'torrents.remove',
-      defaultMessage: 'Remove Torrents'
+      defaultMessage: 'Remove Torrents',
     });
 
     return (
-      <Modal actions={this.getActions(selectedTorrents)}
+      <Modal
+        actions={this.getActions(selectedTorrents)}
         alignment="center"
         content={this.getContent(selectedTorrents)}
         dismiss={this.props.dismiss}
-        heading={modalHeading} />
+        heading={modalHeading}
+      />
     );
   }
 }

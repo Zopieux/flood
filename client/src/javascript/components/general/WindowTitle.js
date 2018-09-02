@@ -1,13 +1,12 @@
-import {injectIntl} from 'react-intl';
+import { injectIntl } from 'react-intl';
 import DocumentTitle from 'react-document-title';
 import React from 'react';
 
-import {compute, getTranslationString} from '../../util/size';
+import { compute, getTranslationString } from '../../util/size';
 import EventTypes from '../../constants/EventTypes';
 import TransferDataStore from '../../stores/TransferDataStore';
 
 const METHODS_TO_BIND = ['handleTransferChange'];
-
 
 class WindowTitle extends React.Component {
   constructor() {
@@ -17,7 +16,7 @@ class WindowTitle extends React.Component {
       title: 'Flood',
     };
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
@@ -37,7 +36,7 @@ class WindowTitle extends React.Component {
   }
 
   handleTransferChange() {
-    const {intl} = this.props;
+    const { intl } = this.props;
 
     const summary = TransferDataStore.getTransferSummary();
 
@@ -47,44 +46,48 @@ class WindowTitle extends React.Component {
     const formattedDownSpeed = intl.formatNumber(down.value);
     const formattedUpSpeed = intl.formatNumber(up.value);
 
-    const translatedDownUnit = intl.formatMessage({
-      id: 'unit.speed',
-      defaultMessage: '{baseUnit}/s'
-    }, {
-      baseUnit: intl.formatMessage({id: getTranslationString(down.unit)})
-    });
-    const translatedUpUnit = intl.formatMessage({
-      id: 'unit.speed',
-      defaultMessage: '{baseUnit}/s'
-    }, {
-      baseUnit: intl.formatMessage({id: getTranslationString(up.unit)})
-    });
+    const translatedDownUnit = intl.formatMessage(
+      {
+        id: 'unit.speed',
+        defaultMessage: '{baseUnit}/s',
+      },
+      {
+        baseUnit: intl.formatMessage({ id: getTranslationString(down.unit) }),
+      }
+    );
+    const translatedUpUnit = intl.formatMessage(
+      {
+        id: 'unit.speed',
+        defaultMessage: '{baseUnit}/s',
+      },
+      {
+        baseUnit: intl.formatMessage({ id: getTranslationString(up.unit) }),
+      }
+    );
 
-    const formattedTitle = intl.formatMessage({
-      id: 'window.title',
-      // \u2193 and \u2191 are down and up arrows, respectively
-      defaultMessage: '\u2193 {down} \u2191 {up} - Flood',
-    }, {
-      down: `${formattedDownSpeed} ${translatedDownUnit}`,
-      up: `${formattedUpSpeed} ${translatedUpUnit}`,
-    });
+    const formattedTitle = intl.formatMessage(
+      {
+        id: 'window.title',
+        // \u2193 and \u2191 are down and up arrows, respectively
+        defaultMessage: '\u2193 {down} \u2191 {up} - Flood',
+      },
+      {
+        down: `${formattedDownSpeed} ${translatedDownUnit}`,
+        up: `${formattedUpSpeed} ${translatedUpUnit}`,
+      }
+    );
 
     this.setState({
-      title: formattedTitle
+      title: formattedTitle,
     });
   }
 
   render() {
-    const {children} = this.props;
-    const {title} = this.state;
+    const { children } = this.props;
+    const { title } = this.state;
 
-    return (
-      <DocumentTitle title={title}>
-        {children}
-      </DocumentTitle>
-    );
+    return <DocumentTitle title={title}>{children}</DocumentTitle>;
   }
 }
-
 
 export default injectIntl(WindowTitle);

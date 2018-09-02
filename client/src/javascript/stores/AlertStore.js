@@ -13,7 +13,7 @@ class AlertStoreClass extends BaseStore {
   }
 
   accumulate(alert) {
-    let {id, value} = alert.accumulation;
+    let { id, value } = alert.accumulation;
 
     if (this.accumulation[id] == null) {
       this.accumulation[id] = value;
@@ -44,7 +44,7 @@ class AlertStoreClass extends BaseStore {
   getAlerts() {
     let alertIDs = Object.keys(this.alerts).sort();
 
-    return alertIDs.map((id) => {
+    return alertIDs.map(id => {
       let alert = this.alerts[id];
 
       if (!!alert.accumulation) {
@@ -60,7 +60,7 @@ class AlertStoreClass extends BaseStore {
   }
 
   removeExpired(alert) {
-    let {accumulation} = alert;
+    let { accumulation } = alert;
 
     if (!!accumulation) {
       this.removeAccumulation(alert);
@@ -77,7 +77,7 @@ class AlertStoreClass extends BaseStore {
   }
 
   removeAccumulation(alert) {
-    let {id, value} = alert.accumulation;
+    let { id, value } = alert.accumulation;
 
     if (this.accumulation[id] == null) {
       return;
@@ -87,16 +87,14 @@ class AlertStoreClass extends BaseStore {
   }
 
   scheduleCleanse(alert) {
-    setTimeout(this.removeExpired.bind(this, alert),
-      alert.duration);
+    setTimeout(this.removeExpired.bind(this, alert), alert.duration);
   }
 }
 
 let AlertStore = new AlertStoreClass();
 
-AlertStore.dispatcherID = AppDispatcher.register((payload) => {
+AlertStore.dispatcherID = AppDispatcher.register(payload => {
   // const {action, source} = payload;
-
   // switch (action.type) {
   // }
 });

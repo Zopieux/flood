@@ -1,5 +1,5 @@
-import {injectIntl} from 'react-intl';
-import React, {PureComponent} from 'react';
+import { injectIntl } from 'react-intl';
+import React, { PureComponent } from 'react';
 
 import ModalActions from '../ModalActions';
 import SettingsStore from '../../../stores/SettingsStore';
@@ -12,32 +12,32 @@ class AddTorrentsActions extends PureComponent {
         clickHandler: this.handleStartTorrentsToggle,
         content: this.props.intl.formatMessage({
           id: 'torrents.add.start.label',
-          defaultMessage: 'Start Torrent'
+          defaultMessage: 'Start Torrent',
         }),
         id: 'start',
         triggerDismiss: false,
-        type: 'checkbox'
+        type: 'checkbox',
       },
       {
         clickHandler: null,
         content: this.props.intl.formatMessage({
           id: 'button.cancel',
-          defaultMessage: 'Cancel'
+          defaultMessage: 'Cancel',
         }),
         triggerDismiss: true,
-        type: 'tertiary'
+        type: 'tertiary',
       },
       {
         clickHandler: this.props.onAddTorrentsClick,
         content: this.props.intl.formatMessage({
           id: 'torrents.add.button.add',
-          defaultMessage: 'Add Torrent'
+          defaultMessage: 'Add Torrent',
         }),
         isLoading: this.props.isAddingTorrents,
         submit: true,
         triggerDismiss: false,
-        type: 'primary'
-      }
+        type: 'primary',
+      },
     ];
   }
 

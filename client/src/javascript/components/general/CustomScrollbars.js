@@ -1,6 +1,6 @@
 import classnames from 'classnames';
 import React from 'react';
-import {Scrollbars} from 'react-custom-scrollbars';
+import { Scrollbars } from 'react-custom-scrollbars';
 
 const METHODS_TO_BIND = ['getHorizontalThumb', 'getVerticalThumb'];
 
@@ -10,7 +10,7 @@ export default class CustomScrollbar extends React.Component {
   constructor() {
     super();
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
@@ -21,9 +21,11 @@ export default class CustomScrollbar extends React.Component {
     }
 
     return (
-      <div {...props}
+      <div
+        {...props}
         className="scrollbars__thumb scrollbars__thumb--horizontal"
-        onMouseUp={this.props.onThumbMouseUp} />
+        onMouseUp={this.props.onThumbMouseUp}
+      />
     );
   }
 
@@ -33,9 +35,11 @@ export default class CustomScrollbar extends React.Component {
     }
 
     return (
-      <div {...props}
+      <div
+        {...props}
         className="scrollbars__thumb scrollbars__thumb--vertical"
-        onMouseUp={this.props.onThumbMouseUp} />
+        onMouseUp={this.props.onThumbMouseUp}
+      />
     );
   }
 
@@ -59,19 +63,20 @@ export default class CustomScrollbar extends React.Component {
       ...otherProps
     } = this.props;
     let classes = classnames('scrollbars', className, {
-      'is-inverted': inverted
+      'is-inverted': inverted,
     });
 
     return (
       <Scrollbars
         className={classes}
-        ref={ref => this.scrollbarRef = ref}
+        ref={ref => (this.scrollbarRef = ref)}
         renderView={this.renderView}
         renderThumbHorizontal={this.getHorizontalThumb}
         renderThumbVertical={this.getVerticalThumb}
         onScroll={nativeScrollHandler}
         onScrollFrame={scrollHandler}
-        {...otherProps}>
+        {...otherProps}
+      >
         {children}
       </Scrollbars>
     );
@@ -82,5 +87,5 @@ CustomScrollbar.defaultProps = {
   className: '',
   inverted: false,
   nativeScrollHandler: null,
-  scrollHandler: null
+  scrollHandler: null,
 };

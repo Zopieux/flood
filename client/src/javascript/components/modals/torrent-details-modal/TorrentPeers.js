@@ -1,4 +1,4 @@
-import {FormattedMessage} from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import React from 'react';
 
 import Badge from '../../general/Badge';
@@ -12,25 +12,25 @@ export default class TorrentPeers extends React.Component {
     super();
 
     this.state = {
-      erroredCountryImages: []
+      erroredCountryImages: [],
     };
   }
 
   getImageErrorHandlerFn(countryCode) {
     return () => {
-      let {erroredCountryImages} = this.state;
+      let { erroredCountryImages } = this.state;
       erroredCountryImages.push(countryCode);
-      this.setState({erroredCountryImages});
+      this.setState({ erroredCountryImages });
     };
   }
 
   render() {
-    const {peers} = this.props;
+    const { peers } = this.props;
 
     if (peers) {
-      const {erroredCountryImages} = this.state;
+      const { erroredCountryImages } = this.state;
       const peerList = peers.map((peer, index) => {
-        const {country: countryCode} = peer;
+        const { country: countryCode } = peer;
         const encryptedIcon = peer.isEncrypted ? checkmark : null;
         let peerCountry = null;
 
@@ -45,16 +45,15 @@ export default class TorrentPeers extends React.Component {
                 alt={countryCode}
                 className="peers-list__flag__image"
                 onError={this.getImageErrorHandlerFn(countryCode)}
-                src={flagImageSrc} />
+                src={flagImageSrc}
+              />
             );
           }
 
           peerCountry = (
             <span className="peers-list__flag">
               {image}
-              <span className="peers-list__flag__text">
-                {countryCode}
-              </span>
+              <span className="peers-list__flag__text">{countryCode}</span>
             </span>
           );
         }
@@ -71,15 +70,9 @@ export default class TorrentPeers extends React.Component {
             <td>
               <Size value={peer.uploadRate} isSpeed={true} />
             </td>
-            <td>
-              {peer.completedPercent}%
-            </td>
-            <td>
-              {peer.clientVersion}
-            </td>
-            <td className="peers-list__encryption">
-              {encryptedIcon}
-            </td>
+            <td>{peer.completedPercent}%</td>
+            <td>{peer.clientVersion}</td>
+            <td className="peers-list__encryption">{encryptedIcon}</td>
           </tr>
         );
       });
@@ -94,9 +87,7 @@ export default class TorrentPeers extends React.Component {
                     id="torrents.details.peers"
                     defaultMessage="Peers"
                   />
-                  <Badge>
-                    {peers.length}
-                  </Badge>
+                  <Badge>{peers.length}</Badge>
                 </th>
                 <th className="torrent-details__table__heading--secondary">
                   DL
@@ -115,9 +106,7 @@ export default class TorrentPeers extends React.Component {
                 </th>
               </tr>
             </thead>
-            <tbody>
-              {peerList}
-            </tbody>
+            <tbody>{peerList}</tbody>
           </table>
         </div>
       );

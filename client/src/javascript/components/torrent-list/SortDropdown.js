@@ -1,4 +1,4 @@
-import {FormattedMessage, injectIntl} from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import React from 'react';
 
 import Dropdown from '../general/form-elements/Dropdown';
@@ -15,20 +15,20 @@ const SORT_PROPERTIES = [
   'downTotal',
   'upTotal',
   'sizeBytes',
-  'dateAdded'
+  'dateAdded',
 ];
 
 class SortDropdown extends React.Component {
   constructor() {
     super();
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
 
   getDropdownHeader() {
-    const {selectedProperty} = this.props;
+    const { selectedProperty } = this.props;
     let propertyMessageConfig = TorrentProperties[selectedProperty];
 
     if (propertyMessageConfig == null) {
@@ -38,10 +38,7 @@ class SortDropdown extends React.Component {
     return (
       <a className="dropdown__button">
         <label className="dropdown__label">
-          <FormattedMessage
-            id="torrents.sort.title"
-            defaultMessage="Sort By"
-          />
+          <FormattedMessage id="torrents.sort.title" defaultMessage="Sort By" />
         </label>
         <span className="dropdown__value">
           <FormattedMessage
@@ -54,12 +51,14 @@ class SortDropdown extends React.Component {
   }
 
   getDropdownMenus() {
-    const {direction, selectedProperty} = this.props;
-    let items = SORT_PROPERTIES.map((sortProp) => {
+    const { direction, selectedProperty } = this.props;
+    let items = SORT_PROPERTIES.map(sortProp => {
       const isSelected = sortProp === selectedProperty;
       const directionIndicator = isSelected ? (
-          <span className={`sort-dropdown__indicator sort-dropdown__indicator--${direction}`} />
-        ) : null;
+        <span
+          className={`sort-dropdown__indicator sort-dropdown__indicator--${direction}`}
+        />
+      ) : null;
 
       return {
         displayName: (
@@ -69,7 +68,7 @@ class SortDropdown extends React.Component {
           </div>
         ),
         selected: isSelected,
-        property: sortProp
+        property: sortProp,
       };
     });
 
@@ -78,8 +77,8 @@ class SortDropdown extends React.Component {
   }
 
   handleItemSelect(selection) {
-    let {direction} = this.props;
-    let {property} = selection;
+    let { direction } = this.props;
+    let { property } = selection;
 
     if (this.props.selectedProperty === property) {
       direction = direction === 'asc' ? 'desc' : 'asc';
@@ -87,7 +86,7 @@ class SortDropdown extends React.Component {
       direction = 'asc';
     }
 
-    this.props.onSortChange({direction, property});
+    this.props.onSortChange({ direction, property });
   }
 
   render() {
@@ -99,7 +98,8 @@ class SortDropdown extends React.Component {
       <Dropdown
         handleItemSelect={this.handleItemSelect}
         header={this.getDropdownHeader()}
-        menuItems={this.getDropdownMenus()} />
+        menuItems={this.getDropdownMenus()}
+      />
     );
   }
 }

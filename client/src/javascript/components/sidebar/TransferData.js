@@ -1,4 +1,4 @@
-import {FormattedMessage} from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -17,7 +17,7 @@ const METHODS_TO_BIND = [
   'handleMouseOver',
   'onTransferDataRequestError',
   'onTransferSummaryChange',
-  'onTransferHistoryRequestSuccess'
+  'onTransferHistoryRequestSuccess',
 ];
 
 class TransferData extends React.Component {
@@ -29,10 +29,10 @@ class TransferData extends React.Component {
       sidebarWidth: 0,
       transferHistoryRequestSuccess: false,
       transferDataRequestError: false,
-      transferDataRequestSuccess: false
+      transferDataRequestSuccess: false,
     };
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
 
@@ -40,23 +40,27 @@ class TransferData extends React.Component {
       {
         id: 'transfer-data',
         message: (
-          <FormattedMessage id="dependency.loading.transfer.rate.details"
-            defaultMessage="Data Transfer Rate Details" />
-        )
+          <FormattedMessage
+            id="dependency.loading.transfer.rate.details"
+            defaultMessage="Data Transfer Rate Details"
+          />
+        ),
       },
       {
         id: 'transfer-history',
         message: (
-          <FormattedMessage id="dependency.loading.transfer.history"
-            defaultMessage="Data Transfer History" />
-        )
-      }
+          <FormattedMessage
+            id="dependency.loading.transfer.history"
+            defaultMessage="Data Transfer History"
+          />
+        ),
+      },
     ]);
   }
 
   componentDidMount() {
     this.setState({
-      sidebarWidth: ReactDOM.findDOMNode(this).offsetWidth
+      sidebarWidth: ReactDOM.findDOMNode(this).offsetWidth,
     });
 
     TransferDataStore.listen(
@@ -81,11 +85,11 @@ class TransferData extends React.Component {
   }
 
   handleGraphHover(graphInspectorPoint) {
-    this.setState({graphInspectorPoint});
+    this.setState({ graphInspectorPoint });
   }
 
   handleGraphMouseOut() {
-    this.setState({graphInspectorPoint: null});
+    this.setState({ graphInspectorPoint: null });
   }
 
   handleMouseMove(event) {
@@ -103,8 +107,10 @@ class TransferData extends React.Component {
   }
 
   isLoading() {
-    if (!this.state.transferHistoryRequestSuccess ||
-      !this.state.transferDataRequestSuccess) {
+    if (
+      !this.state.transferHistoryRequestSuccess ||
+      !this.state.transferDataRequestSuccess
+    ) {
       return true;
     }
 
@@ -114,14 +120,14 @@ class TransferData extends React.Component {
   onTransferDataRequestError() {
     this.setState({
       transferDataRequestError: true,
-      transferDataRequestSuccess: false
+      transferDataRequestSuccess: false,
     });
   }
 
   onTransferSummaryChange() {
     this.setState({
       transferDataRequestError: false,
-      transferDataRequestSuccess: true
+      transferDataRequestSuccess: true,
     });
 
     UIStore.satisfyDependency('transfer-data');
@@ -130,7 +136,7 @@ class TransferData extends React.Component {
   onTransferHistoryRequestSuccess() {
     if (!this.state.transferHistoryRequestSuccess) {
       this.setState({
-        transferHistoryRequestSuccess: true
+        transferHistoryRequestSuccess: true,
       });
     }
 
@@ -144,36 +150,36 @@ class TransferData extends React.Component {
       const transferSummary = TransferDataStore.getTransferSummary();
 
       content = (
-        <div className="client-stats"
+        <div
+          className="client-stats"
           onMouseMove={this.handleMouseMove}
           onMouseOut={this.handleMouseOut}
-          onMouseOver={this.handleMouseOver}>
+          onMouseOver={this.handleMouseOver}
+        >
           <TransferRateDetails
             inspectorPoint={this.state.graphInspectorPoint}
-            transferSummary={transferSummary}/>
+            transferSummary={transferSummary}
+          />
           <TransferRateGraph
             height={150}
             id="transfer-rate-graph"
             onMouseOut={this.handleGraphMouseOut}
             onHover={this.handleGraphHover}
-            ref={ref => this.rateGraphRef = ref}
-            width={this.state.sidebarWidth} />
+            ref={ref => (this.rateGraphRef = ref)}
+            width={this.state.sidebarWidth}
+          />
         </div>
       );
     } else {
       content = <LoadingIndicator inverse={true} />;
     }
 
-    return (
-      <div className="client-stats__wrapper sidebar__item">
-        {content}
-      </div>
-    );
+    return <div className="client-stats__wrapper sidebar__item">{content}</div>;
   }
 }
 
 TransferData.defaultProps = {
-  historyLength: 1
+  historyLength: 1,
 };
 
 export default TransferData;

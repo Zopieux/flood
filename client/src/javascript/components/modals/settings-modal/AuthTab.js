@@ -1,7 +1,15 @@
-import {Button, Form, FormError, FormRowItem, FormRow, LoadingRing, Textbox} from 'flood-ui-kit';
+import {
+  Button,
+  Form,
+  FormError,
+  FormRowItem,
+  FormRow,
+  LoadingRing,
+  Textbox,
+} from 'flood-ui-kit';
 import classnames from 'classnames';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
-import {FormattedMessage, injectIntl} from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import React from 'react';
 
 import AuthStore from '../../../stores/AuthStore';
@@ -15,14 +23,14 @@ class AuthTab extends SettingsTab {
     addUserError: null,
     hasFetchedUserList: false,
     isAddingUser: false,
-    users: []
+    users: [],
   };
 
   formData = {};
   formRef = null;
 
   componentWillMount() {
-    this.setState({users: AuthStore.getUsers()});
+    this.setState({ users: AuthStore.getUsers() });
   }
 
   componentDidMount() {
@@ -79,9 +87,11 @@ class AuthTab extends SettingsTab {
 
       if (!isCurrentUser) {
         removeIcon = (
-          <span className="interactive-list__icon
+          <span
+            className="interactive-list__icon
             interactive-list__icon--action interactive-list__icon--action--warning"
-            onClick={this.handleDeleteUserClick.bind(this, user.username)}>
+            onClick={this.handleDeleteUserClick.bind(this, user.username)}
+          >
             <Close />
           </span>
         );
@@ -97,15 +107,13 @@ class AuthTab extends SettingsTab {
       }
 
       const classes = classnames('interactive-list__item', {
-        'interactive-list__item--disabled': isCurrentUser
+        'interactive-list__item--disabled': isCurrentUser,
       });
 
       return (
         <li className={classes} key={index}>
           <span className="interactive-list__label">
-            <div className="interactive-list__label__text">
-              {user.username}
-            </div>
+            <div className="interactive-list__label__text">{user.username}</div>
             {badge}
           </span>
           {removeIcon}
@@ -118,39 +126,39 @@ class AuthTab extends SettingsTab {
     AuthStore.deleteUser(username);
   }
 
-  handleFormChange = ({event, formData}) => {
+  handleFormChange = ({ event, formData }) => {
     this.formData = formData;
   };
 
-  handleFormSubmit = (formData) => {
+  handleFormSubmit = formData => {
     if (this.formData.username === '') {
       this.setState({
         addUserError: this.props.intl.formatMessage({
           id: 'auth.error.username.empty',
-          defaultMessage: 'Username cannot be empty.'
-        })
+          defaultMessage: 'Username cannot be empty.',
+        }),
       });
     } else {
-      this.setState({isAddingUser: true});
+      this.setState({ isAddingUser: true });
       AuthStore.createUser({
         username: this.formData.username,
-        password: this.formData.password
+        password: this.formData.password,
       });
     }
   };
 
   handleUserListChange = () => {
-    this.setState({hasFetchedUserList: true, users: AuthStore.getUsers()});
+    this.setState({ hasFetchedUserList: true, users: AuthStore.getUsers() });
   };
 
-  handleUserAddError = (error) => {
-    this.setState({addUserError: error, isAddingUser: false});
+  handleUserAddError = error => {
+    this.setState({ addUserError: error, isAddingUser: false });
   };
 
   handleUserAddSuccess = () => {
     this.formRef.resetForm();
 
-    this.setState({addUserError: null, isAddingUser: false});
+    this.setState({ addUserError: null, isAddingUser: false });
 
     AuthStore.fetchUserList();
   };
@@ -160,9 +168,10 @@ class AuthTab extends SettingsTab {
   }
 
   render() {
-    const isLoading = !this.state.hasFetchedUserList && this.state.users.length === 0;
+    const isLoading =
+      !this.state.hasFetchedUserList && this.state.users.length === 0;
     const interactiveListClasses = classnames('interactive-list', {
-      'interactive-list--loading': isLoading
+      'interactive-list--loading': isLoading,
     });
     let errorElement = null;
     let loadingIndicator = null;
@@ -170,16 +179,17 @@ class AuthTab extends SettingsTab {
     if (this.state.addUserError) {
       errorElement = (
         <FormRow>
-          <FormError>
-            {this.state.addUserError}
-          </FormError>
+          <FormError>{this.state.addUserError}</FormError>
         </FormRow>
       );
     }
 
     if (isLoading) {
       loadingIndicator = (
-        <div className="interactive-list__loading-indicator" key="loading-indicator">
+        <div
+          className="interactive-list__loading-indicator"
+          key="loading-indicator"
+        >
           <LoadingRing />
         </div>
       );
@@ -189,7 +199,7 @@ class AuthTab extends SettingsTab {
       <Form
         onChange={this.handleFormChange}
         onSubmit={this.handleFormSubmit}
-        ref={(ref) => this.formRef = ref}
+        ref={ref => (this.formRef = ref)}
       >
         <ModalFormSectionHeader>
           <FormattedMessage
@@ -212,44 +222,38 @@ class AuthTab extends SettingsTab {
           </FormRowItem>
         </FormRow>
         <ModalFormSectionHeader>
-          <FormattedMessage
-            id="auth.add.user"
-            defaultMessage="Add User"
-          />
+          <FormattedMessage id="auth.add.user" defaultMessage="Add User" />
         </ModalFormSectionHeader>
         {errorElement}
         <FormRow>
           <Textbox
             id="username"
-            label={(
-              <FormattedMessage
-                id="auth.username"
-                defaultMessage="Username"
-              />
-            )}
+            label={
+              <FormattedMessage id="auth.username" defaultMessage="Username" />
+            }
             placeholder={this.props.intl.formatMessage({
               id: 'auth.username',
-              defaultMessage: 'Username'
+              defaultMessage: 'Username',
             })}
           />
           <Textbox
             id="password"
-            label={(
-              <FormattedMessage
-                id="auth.password"
-                defaultMessage="Password"
-              />
-            )}
+            label={
+              <FormattedMessage id="auth.password" defaultMessage="Password" />
+            }
             placeholder={this.props.intl.formatMessage({
               id: 'auth.password',
-              defaultMessage: 'Password'
+              defaultMessage: 'Password',
             })}
           />
-          <Button isLoading={this.state.isAddingUser} labelOffset priority="primary" type="submit" width="auto">
-            <FormattedMessage
-              id="button.add"
-              defaultMessage="Add"
-            />
+          <Button
+            isLoading={this.state.isAddingUser}
+            labelOffset
+            priority="primary"
+            type="submit"
+            width="auto"
+          >
+            <FormattedMessage id="button.add" defaultMessage="Add" />
           </Button>
         </FormRow>
       </Form>

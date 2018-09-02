@@ -1,5 +1,5 @@
 import classnames from 'classnames';
-import {FormattedMessage, injectIntl} from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import React from 'react';
 
 import TorrentProperties from '../../constants/TorrentProperties';
@@ -10,7 +10,7 @@ const methodsToBind = [
   'handleCellMouseDown',
   'handleMouseUp',
   'handleMouseMove',
-  'updateCellWidth'
+  'updateCellWidth',
 ];
 
 const mouseDownStyles = `
@@ -27,7 +27,7 @@ class TableHeading extends React.Component {
     this.isMouseDown = false;
     this.lastMouseX = null;
 
-    methodsToBind.forEach(method => this[method] = this[method].bind(this));
+    methodsToBind.forEach(method => (this[method] = this[method].bind(this)));
   }
 
   componentDidMount() {
@@ -46,8 +46,10 @@ class TableHeading extends React.Component {
     if (nextCellWidth > 20) {
       this.focusedCellWidth = nextCellWidth;
       this.lastMouseX = event.clientX;
-      this.resizeLine.style.transform
-        = `translateX(${Math.max(0, event.clientX - this.tableHeadingX + this.props.scrollOffset)}px)`;
+      this.resizeLine.style.transform = `translateX(${Math.max(
+        0,
+        event.clientX - this.tableHeadingX + this.props.scrollOffset
+      )}px)`;
     }
   }
 
@@ -80,13 +82,16 @@ class TableHeading extends React.Component {
       this.focusedCellWidth = width;
       this.isMouseDown = true;
       this.lastMouseX = event.clientX;
-      this.resizeLine.style.transform = `translateX(${Math.max(0, event.clientX - this.tableHeadingX + this.props.scrollOffset)}px)`;
+      this.resizeLine.style.transform = `translateX(${Math.max(
+        0,
+        event.clientX - this.tableHeadingX + this.props.scrollOffset
+      )}px)`;
       this.resizeLine.style.opacity = 1;
     }
   }
 
   updateCellWidth(cell, width) {
-    this.props.onWidthsChange({[cell]: width});
+    this.props.onWidthsChange({ [cell]: width });
   }
 
   getHeadingElements() {
@@ -95,10 +100,10 @@ class TableHeading extends React.Component {
       defaultPropWidths,
       columns,
       propWidths,
-      sortProp
+      sortProp,
     } = this.props;
 
-    return columns.reduce((accumulator, {id, visible}) => {
+    return columns.reduce((accumulator, { id, visible }) => {
       if (!visible) {
         return accumulator;
       }
@@ -108,38 +113,42 @@ class TableHeading extends React.Component {
 
       if (!this.isMouseDown) {
         handle = (
-          <span className="table__heading__handle"
+          <span
+            className="table__heading__handle"
             onMouseDown={event => {
               this.handleCellMouseDown(event, id, width);
-            }} />
+            }}
+          />
         );
       }
 
       const isSortActive = id === sortProp.property;
-      const classes = classnames(
-        'table__cell table__heading',
-        {
-          'table__heading--is-sorted': isSortActive,
-          [`table__heading--direction--${sortProp.direction}`]: isSortActive
-        }
-      );
+      const classes = classnames('table__cell table__heading', {
+        'table__heading--is-sorted': isSortActive,
+        [`table__heading--direction--${sortProp.direction}`]: isSortActive,
+      });
 
       const label = (
         <FormattedMessage
           id={TorrentProperties[id].id}
-          defaultMessage={TorrentProperties[id].defaultMessage} />
+          defaultMessage={TorrentProperties[id].defaultMessage}
+        />
       );
 
       accumulator.push(
-        <div className={classes}
+        <div
+          className={classes}
           key={id}
           onClick={event => this.handleCellClick(id, event)}
-          style={{width: `${width}px`}}>
-          <span className="table__heading__label"
+          style={{ width: `${width}px` }}
+        >
+          <span
+            className="table__heading__label"
             title={this.props.intl.formatMessage({
               id: TorrentProperties[id].id,
-              defaultMessage: TorrentProperties[id].defaultMessage
-            })}>
+              defaultMessage: TorrentProperties[id].defaultMessage,
+            })}
+          >
             {label}
           </span>
           {handle}
@@ -152,12 +161,16 @@ class TableHeading extends React.Component {
 
   render() {
     return (
-      <div className="table__row table__row--heading"
-        ref={ref => this.tableHeading = ref}>
+      <div
+        className="table__row table__row--heading"
+        ref={ref => (this.tableHeading = ref)}
+      >
         {this.getHeadingElements()}
         <div className="table__cell table__heading table__heading--fill" />
-        <div className="table__heading__resize-line"
-          ref={ref => this.resizeLine = ref} />
+        <div
+          className="table__heading__resize-line"
+          ref={ref => (this.resizeLine = ref)}
+        />
       </div>
     );
   }

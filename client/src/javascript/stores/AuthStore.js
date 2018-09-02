@@ -18,7 +18,7 @@ class AuthStoreClass extends BaseStore {
   }
 
   addOptimisticUser(credentials) {
-    this.optimisticUsers.push({username: credentials.username});
+    this.optimisticUsers.push({ username: credentials.username });
     this.emit(EventTypes.AUTH_LIST_USERS_SUCCESS);
   }
 
@@ -68,8 +68,8 @@ class AuthStoreClass extends BaseStore {
   }
 
   handleListUsersSuccess(nextUserList) {
-    this.optimisticUsers = this.optimisticUsers.filter((optimisticUser) => {
-      return !nextUserList.some((databaseUser) => {
+    this.optimisticUsers = this.optimisticUsers.filter(optimisticUser => {
+      return !nextUserList.some(databaseUser => {
         return databaseUser.username === optimisticUser.username;
       });
     });
@@ -100,7 +100,7 @@ class AuthStoreClass extends BaseStore {
   register(credentials) {
     AuthActions.register({
       username: credentials.username,
-      password: credentials.password
+      password: credentials.password,
     });
   }
 
@@ -120,8 +120,8 @@ class AuthStoreClass extends BaseStore {
 
 let AuthStore = new AuthStoreClass();
 
-AuthStore.dispatcherID = AppDispatcher.register((payload) => {
-  const {action} = payload;
+AuthStore.dispatcherID = AppDispatcher.register(payload => {
+  const { action } = payload;
 
   switch (action.type) {
     case ActionTypes.AUTH_LOGIN_SUCCESS:

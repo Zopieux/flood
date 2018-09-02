@@ -1,4 +1,4 @@
-import {IntlProvider} from 'react-intl';
+import { IntlProvider } from 'react-intl';
 import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -8,11 +8,11 @@ import SettingsStore from '../../stores/SettingsStore';
 
 class Portal extends React.Component {
   static propTypes = {
-    children: PropTypes.node
+    children: PropTypes.node,
   };
 
   static defaultProps = {
-    children: <div />
+    children: <div />,
   };
 
   componentDidMount() {
@@ -34,11 +34,12 @@ class Portal extends React.Component {
     if (props.children) {
       const locale = SettingsStore.getFloodSettings('language');
 
-      ReactDOM.render((
+      ReactDOM.render(
         <IntlProvider locale={locale} messages={i18n[locale]}>
           {props.children}
-        </IntlProvider>
-      ), this.nodeEl);
+        </IntlProvider>,
+        this.nodeEl
+      );
     }
   }
 

@@ -1,5 +1,5 @@
 import classnames from 'classnames';
-import {defineMessages, injectIntl} from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 import formatUtil from 'universally-shared-code/util/formatUtil';
 import moment from 'moment';
 import React from 'react';
@@ -13,65 +13,61 @@ import Upload from '../icons/Upload';
 const messages = defineMessages({
   ago: {
     id: 'general.ago',
-    defaultMessage: 'ago'
-  }
+    defaultMessage: 'ago',
+  },
 });
 
 const icons = {
   download: <Download />,
   infinity: <InfinityIcon />,
-  upload: <Upload />
+  upload: <Upload />,
 };
 
 class TransferRateDetails extends React.Component {
   constructor() {
     super();
 
-    this.state = {inspectorPoint: null};
+    this.state = { inspectorPoint: null };
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.inspectorPoint != null) {
-      this.setState({timestamp: nextProps.inspectorPoint.nearestTimestamp});
+      this.setState({ timestamp: nextProps.inspectorPoint.nearestTimestamp });
     }
   }
 
   getCurrentTansferRate(slug, options = {}) {
     let {
-      props: {
-        inspectorPoint,
-        transferSummary
-      }
+      props: { inspectorPoint, transferSummary },
     } = this;
 
     const throttles = {
       download: transferSummary.downThrottle,
-      upload: transferSummary.upThrottle
+      upload: transferSummary.upThrottle,
     };
     let timestamp = null;
     let transferRates = {
       download: transferSummary.downRate,
-      upload: transferSummary.upRate
+      upload: transferSummary.upRate,
     };
     let transferTotals = {
       download: transferSummary.downTotal,
-      upload: transferSummary.upTotal
+      upload: transferSummary.upTotal,
     };
 
     const secondaryDataClasses = classnames(
       'client-stats__rate__data--secondary',
-      {'is-visible': inspectorPoint == null}
+      { 'is-visible': inspectorPoint == null }
     );
 
-    const timestampClasses = classnames(
-      'client-stats__rate__data--timestamp',
-      {'is-visible': inspectorPoint != null && options.showHoverDuration}
-    );
+    const timestampClasses = classnames('client-stats__rate__data--timestamp', {
+      'is-visible': inspectorPoint != null && options.showHoverDuration,
+    });
 
     if (inspectorPoint != null) {
       transferRates = {
         upload: inspectorPoint.uploadSpeed,
-        download: inspectorPoint.downloadSpeed
+        download: inspectorPoint.downloadSpeed,
       };
     }
 
@@ -87,7 +83,8 @@ class TransferRateDetails extends React.Component {
         <div className={timestampClasses}>
           <Duration
             suffix={this.props.intl.formatMessage(messages.ago)}
-            value={durationSummary} />
+            value={durationSummary}
+          />
         </div>
       );
     }
@@ -102,9 +99,7 @@ class TransferRateDetails extends React.Component {
 
     return (
       <div className={`client-stats__rate client-stats__rate--${slug}`}>
-        <div className="client-stats__rate__icon">
-          {icons[slug]}
-        </div>
+        <div className="client-stats__rate__icon">{icons[slug]}</div>
         <div className="client-stats__rate__data">
           <div className="client-stats__rate__data--primary">
             <Size value={transferRates[slug]} isSpeed={true} />
@@ -114,9 +109,7 @@ class TransferRateDetails extends React.Component {
             <div className="client-stats__rate__data--total">
               <Size value={transferTotals[slug]} />
             </div>
-            <div className="client-stats__rate__data--limit">
-              {limit}
-            </div>
+            <div className="client-stats__rate__data--limit">{limit}</div>
           </div>
         </div>
       </div>
@@ -126,7 +119,7 @@ class TransferRateDetails extends React.Component {
   render() {
     return (
       <div className="client-stats__rates">
-        {this.getCurrentTansferRate('download', {showHoverDuration: true})}
+        {this.getCurrentTansferRate('download', { showHoverDuration: true })}
         {this.getCurrentTansferRate('upload')}
       </div>
     );

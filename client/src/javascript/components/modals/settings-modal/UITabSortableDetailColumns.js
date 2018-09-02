@@ -29,7 +29,9 @@ class UITabSortableDetailColumns extends React.PureComponent {
           }
 
           return accumulator;
-        }, []);
+        },
+        []
+      );
     }
 
     return (

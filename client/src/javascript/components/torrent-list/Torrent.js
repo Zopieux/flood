@@ -9,8 +9,8 @@ import PeersIcon from '../icons/PeersIcon';
 import ProgressBar from '../general/ProgressBar';
 import RatioIcon from '../icons/RatioIcon';
 import SeedsIcon from '../icons/SeedsIcon';
-import {torrentStatusIcons} from '../../util/torrentStatusIcons';
-import {torrentStatusClasses} from '../../util/torrentStatusClasses';
+import { torrentStatusIcons } from '../../util/torrentStatusIcons';
+import { torrentStatusClasses } from '../../util/torrentStatusClasses';
 import TorrentDetail from './TorrentDetail';
 import UploadThickIcon from '../icons/UploadThickIcon';
 
@@ -19,35 +19,37 @@ const condensedValueTransformers = {
   peers: torrent => torrent.peersConnected,
   percentComplete: torrent => {
     return (
-      <ProgressBar percent={torrent.percentComplete}
-        icon={torrentStatusIcons(torrent.status)} />
+      <ProgressBar
+        percent={torrent.percentComplete}
+        icon={torrentStatusIcons(torrent.status)}
+      />
     );
   },
-  seeds: torrent => torrent.seedsConnected
+  seeds: torrent => torrent.seedsConnected,
 };
 
 const condensedSecondaryValueTransformers = {
   peers: torrent => torrent.peersTotal,
-  seeds: torrent => torrent.seedsTotal
+  seeds: torrent => torrent.seedsTotal,
 };
 
 const expandedTorrentSectionContent = {
   primary: ['name'],
   secondary: ['eta', 'downRate', 'upRate'],
-  tertiary: ['*']
+  tertiary: ['*'],
 };
 
 const expandedTorrentDetailsToHide = ['downTotal'];
 
 const expandedValueTransformers = {
   peers: torrent => torrent.peersConnected,
-  seeds: torrent => torrent.seedsConnected
+  seeds: torrent => torrent.seedsConnected,
 };
 
 const expandedSecondaryValueTransformers = {
   peers: torrent => torrent.peersTotal,
   seeds: torrent => torrent.seedsTotal,
-  percentComplete: torrent => torrent.bytesDone
+  percentComplete: torrent => torrent.bytesDone,
 };
 
 const ICONS = {
@@ -59,13 +61,13 @@ const ICONS = {
   peers: <PeersIcon />,
   ratio: <RatioIcon />,
   seeds: <SeedsIcon />,
-  uploadThick: <UploadThickIcon />
+  uploadThick: <UploadThickIcon />,
 };
 
 const METHODS_TO_BIND = [
   'handleClick',
   'handleDoubleClick',
-  'handleRightClick'
+  'handleRightClick',
 ];
 
 const TORRENT_PRIMITIVES_TO_OBSERVE = [
@@ -73,20 +75,17 @@ const TORRENT_PRIMITIVES_TO_OBSERVE = [
   'downRate',
   'peersTotal',
   'seedsTotal',
-  'upRate'
+  'upRate',
 ];
 
-const TORRENT_ARRAYS_TO_OBSERVE = [
-  'status',
-  'tags'
-];
+const TORRENT_ARRAYS_TO_OBSERVE = ['status', 'tags'];
 
 class Torrent extends React.Component {
   constructor(props) {
     super();
 
     this.state = {
-      isSelected: props.selected
+      isSelected: props.selected,
     };
 
     METHODS_TO_BIND.forEach(method => {
@@ -96,28 +95,32 @@ class Torrent extends React.Component {
 
   componentWillUpdate(nextProps) {
     if (nextProps.selected !== this.props.selected) {
-      this.setState({isSelected: nextProps.selected});
+      this.setState({ isSelected: nextProps.selected });
     }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    if (nextProps.selected !== this.props.selected
-      || nextState.isSelected !== this.state.isSelected
-      || nextProps.isCondensed !== this.props.isCondensed) {
+    if (
+      nextProps.selected !== this.props.selected ||
+      nextState.isSelected !== this.state.isSelected ||
+      nextProps.isCondensed !== this.props.isCondensed
+    ) {
       return true;
     }
 
     let nextTorrent = nextProps.torrent;
-    let {torrent} = this.props;
+    let { torrent } = this.props;
 
     let shouldUpdate = TORRENT_ARRAYS_TO_OBSERVE.some(key => {
       let nextArr = nextTorrent[key];
       let currentArr = this.props.torrent[key];
 
-      return nextArr.length !== currentArr.length ||
+      return (
+        nextArr.length !== currentArr.length ||
         nextArr.some((nextValue, index) => {
           return nextValue !== currentArr[index];
-        });
+        })
+      );
     });
 
     if (!shouldUpdate) {
@@ -133,7 +136,7 @@ class Torrent extends React.Component {
     }
 
     if (!shouldUpdate) {
-      shouldUpdate = nextProps.columns.some(({id}, index) => {
+      shouldUpdate = nextProps.columns.some(({ id }, index) => {
         return id !== this.props.columns[index].id;
       });
     }
@@ -144,19 +147,21 @@ class Torrent extends React.Component {
   getTags(tags) {
     return tags.map((tag, index) => {
       return (
-        <li className="torrent__tag" key={index}>{tag}</li>
+        <li className="torrent__tag" key={index}>
+          {tag}
+        </li>
       );
     });
   }
 
   getWidth(slug) {
-    const {defaultWidth, defaultPropWidths, propWidths} = this.props;
+    const { defaultWidth, defaultPropWidths, propWidths } = this.props;
 
     return propWidths[slug] || defaultPropWidths[slug] || defaultWidth;
   }
 
   handleClick(event) {
-    this.setState({isSelected: true});
+    this.setState({ isSelected: true });
     this.props.handleClick(this.props.torrent.hash, event);
   }
 
@@ -173,62 +178,70 @@ class Torrent extends React.Component {
   }
 
   render() {
-    const {isSelected} = this.state;
-    const {isCondensed, columns, torrent} = this.props;
+    const { isSelected } = this.state;
+    const { isCondensed, columns, torrent } = this.props;
     const torrentClasses = torrentStatusClasses(
       torrent,
       {
         'torrent--is-selected': isSelected,
         'torrent--is-condensed': isCondensed,
-        'torrent--is-expanded': !isCondensed
+        'torrent--is-expanded': !isCondensed,
       },
       'torrent'
     );
 
     if (isCondensed) {
-      const torrentPropertyColumns = columns.reduce((accumulator, {id, visible}) => {
-        if (!visible) {
+      const torrentPropertyColumns = columns.reduce(
+        (accumulator, { id, visible }) => {
+          if (!visible) {
+            return accumulator;
+          }
+
+          let value = torrent[id];
+          let secondaryValue;
+
+          if (id in condensedValueTransformers) {
+            value = condensedValueTransformers[id](torrent);
+          }
+
+          if (id in condensedSecondaryValueTransformers) {
+            secondaryValue = condensedSecondaryValueTransformers[id](torrent);
+          }
+
+          accumulator.push(
+            <TorrentDetail
+              className="table__cell"
+              key={id}
+              preventTransform={id === 'percentComplete'}
+              secondaryValue={secondaryValue}
+              slug={id}
+              value={value}
+              width={this.getWidth(id)}
+            />
+          );
+
           return accumulator;
-        }
-
-        let value = torrent[id];
-        let secondaryValue;
-
-        if (id in condensedValueTransformers) {
-          value = condensedValueTransformers[id](torrent);
-        }
-
-        if (id in condensedSecondaryValueTransformers) {
-          secondaryValue = condensedSecondaryValueTransformers[id](torrent);
-        }
-
-        accumulator.push(
-          <TorrentDetail className="table__cell"
-            key={id}
-            preventTransform={id === 'percentComplete'}
-            secondaryValue={secondaryValue}
-            slug={id}
-            value={value}
-            width={this.getWidth(id)} />
-        );
-
-        return accumulator;
-      }, []);
+        },
+        []
+      );
 
       return (
-        <li className={torrentClasses} onClick={this.handleClick}
+        <li
+          className={torrentClasses}
+          onClick={this.handleClick}
           onContextMenu={this.handleRightClick}
-          onDoubleClick={this.handleDoubleClick}>
+          onDoubleClick={this.handleDoubleClick}
+        >
           {torrentPropertyColumns}
         </li>
       );
     }
 
-    const sections = {primary: [], secondary: [], tertiary: []};
+    const sections = { primary: [], secondary: [], tertiary: [] };
 
     // Using a for loop to maximize performance.
     for (let index = 0; index < columns.length; index++) {
-      const {id, visible} = columns[index];
+      const { id, visible } = columns[index];
 
       if (visible && !expandedTorrentDetailsToHide.includes(id)) {
         let value = torrent[id];
@@ -239,9 +252,7 @@ class Torrent extends React.Component {
         }
 
         if (id in expandedSecondaryValueTransformers) {
-          secondaryValue = expandedSecondaryValueTransformers[id](
-            torrent
-          );
+          secondaryValue = expandedSecondaryValueTransformers[id](torrent);
         }
 
         if (expandedTorrentSectionContent.primary.includes(id)) {
@@ -250,34 +261,42 @@ class Torrent extends React.Component {
               key={id}
               className="torrent__details__section torrent__details__section--primary"
               slug={id}
-              value={value} />
+              value={value}
+            />
           );
         } else if (expandedTorrentSectionContent.secondary.includes(id)) {
           sections.secondary[
             expandedTorrentSectionContent.secondary.indexOf(id)
           ] = (
-            <TorrentDetail icon
+            <TorrentDetail
+              icon
               key={id}
               secondaryValue={secondaryValue}
               slug={id}
-              value={value} />
+              value={value}
+            />
           );
         } else {
           sections.tertiary.push(
-            <TorrentDetail icon
+            <TorrentDetail
+              icon
               key={id}
               secondaryValue={secondaryValue}
               slug={id}
-              value={value} />
+              value={value}
+            />
           );
         }
       }
     }
 
     return (
-      <li className={torrentClasses} onClick={this.handleClick}
+      <li
+        className={torrentClasses}
+        onClick={this.handleClick}
         onContextMenu={this.handleRightClick}
-        onDoubleClick={this.handleDoubleClick}>
+        onDoubleClick={this.handleDoubleClick}
+      >
         <div className="torrent__details__section__wrapper">
           {sections.primary}
           <div className="torrent__details__section torrent__details__section--secondary">
@@ -288,12 +307,16 @@ class Torrent extends React.Component {
           {sections.tertiary}
         </div>
         <div className="torrent__details__section torrent__details__section--quaternary">
-          <ProgressBar percent={torrent.percentComplete}
-            icon={torrentStatusIcons(torrent.status)} />
+          <ProgressBar
+            percent={torrent.percentComplete}
+            icon={torrentStatusIcons(torrent.status)}
+          />
         </div>
-        <button className="torrent__more-info floating-action__button"
+        <button
+          className="torrent__more-info floating-action__button"
           onClick={this.props.handleDetailsClick.bind(this, torrent)}
-          tabIndex="-1">
+          tabIndex="-1"
+        >
           {ICONS.information}
         </button>
       </li>
@@ -302,7 +325,7 @@ class Torrent extends React.Component {
 }
 
 Torrent.defaultProps = {
-  isCondensed: false
+  isCondensed: false,
 };
 
 export default Torrent;

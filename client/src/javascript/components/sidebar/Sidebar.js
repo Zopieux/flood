@@ -1,4 +1,4 @@
-import {FormattedMessage} from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import React from 'react';
 
 import ClientStats from './TransferData';
@@ -24,20 +24,26 @@ class Sidebar extends React.Component {
     UIStore.registerDependency({
       id: 'torrent-taxonomy',
       message: (
-        <FormattedMessage id="dependency.loading.torrent.taxonomy"
-          defaultMessage="Torrent Taxonomy" />
+        <FormattedMessage
+          id="dependency.loading.torrent.taxonomy"
+          defaultMessage="Torrent Taxonomy"
+        />
       ),
     });
   }
 
   componentDidMount() {
-    TorrentFilterStore.listen(EventTypes.CLIENT_FETCH_TORRENT_TAXONOMY_SUCCESS,
-      this.onTorrentTaxonomyRequestSuccess);
+    TorrentFilterStore.listen(
+      EventTypes.CLIENT_FETCH_TORRENT_TAXONOMY_SUCCESS,
+      this.onTorrentTaxonomyRequestSuccess
+    );
   }
 
   componentWillUnmount() {
-    TorrentFilterStore.unlisten(EventTypes.CLIENT_FETCH_TORRENT_TAXONOMY_SUCCESS,
-      this.onTorrentTaxonomyRequestSuccess);
+    TorrentFilterStore.unlisten(
+      EventTypes.CLIENT_FETCH_TORRENT_TAXONOMY_SUCCESS,
+      this.onTorrentTaxonomyRequestSuccess
+    );
   }
 
   onTorrentTaxonomyRequestSuccess() {

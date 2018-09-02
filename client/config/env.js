@@ -11,7 +11,9 @@ delete require.cache[require.resolve('./paths')];
 
 const NODE_ENV = process.env.NODE_ENV;
 if (!NODE_ENV) {
-  throw new Error('The NODE_ENV environment variable is required but was not specified.');
+  throw new Error(
+    'The NODE_ENV environment variable is required but was not specified.'
+  );
 }
 
 // We support resolving modules according to `NODE_PATH`.
@@ -46,7 +48,7 @@ function getClientEnvironment() {
       {
         NODE_ENV: environment,
         BASE_URI: environment !== 'development' ? paths.servedPath : '',
-        POLL_INTERVAL: userConfig.torrentClientPollInterval
+        POLL_INTERVAL: userConfig.torrentClientPollInterval,
       }
     );
   // Stringify all values so we can feed into Webpack DefinePlugin
