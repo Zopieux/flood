@@ -5,10 +5,7 @@ import BaseIcon from './BaseIcon';
 export default class DiskIcon extends BaseIcon {
   render() {
     return (
-      <svg
-        className={`icon icon--disk ${this.props.className}`}
-        viewBox={this.getViewBox()}
-      >
+      <svg className={`icon icon--disk ${this.props.className}`} viewBox={this.getViewBox()}>
         <polygon points="51.8,0 51.8,0 51.8,3.7 51.8,56.3 8.2,56.3 8.2,3.7 8.2,0 8.2,0 4.5,0 4.5,60.1 55.5,60.1 55.5,0 	" />
         <rect x="18.4" y="8.9" width="23.1" height="3.8" />
         <path

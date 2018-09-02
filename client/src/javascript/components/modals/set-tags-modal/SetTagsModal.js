@@ -18,9 +18,7 @@ class SetTagsModal extends React.Component {
     const formData = this.formRef.getFormData();
     const tags = formData.tags ? formData.tags.split(',') : [];
 
-    this.setState({ isSettingTags: true }, () =>
-      TorrentActions.setTaxonomy(TorrentStore.getSelectedTorrents(), tags)
-    );
+    this.setState({ isSettingTags: true }, () => TorrentActions.setTaxonomy(TorrentStore.getSelectedTorrents(), tags));
   };
 
   getActions() {

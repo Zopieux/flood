@@ -38,14 +38,8 @@ class FilesystemBrowser extends React.PureComponent {
   }
 
   componentDidMount() {
-    UIStore.listen(
-      EventTypes.FLOOD_FETCH_DIRECTORY_LIST_ERROR,
-      this.handleDirectoryListFetchError
-    );
-    UIStore.listen(
-      EventTypes.FLOOD_FETCH_DIRECTORY_LIST_SUCCESS,
-      this.handleDirectoryListFetchSuccess
-    );
+    UIStore.listen(EventTypes.FLOOD_FETCH_DIRECTORY_LIST_ERROR, this.handleDirectoryListFetchError);
+    UIStore.listen(EventTypes.FLOOD_FETCH_DIRECTORY_LIST_SUCCESS, this.handleDirectoryListFetchSuccess);
     UIStore.fetchDirectoryList({ path: this.state.directory });
   }
 
@@ -57,14 +51,8 @@ class FilesystemBrowser extends React.PureComponent {
   }
 
   componentWillUnmount() {
-    UIStore.unlisten(
-      EventTypes.FLOOD_FETCH_DIRECTORY_LIST_ERROR,
-      this.handleDirectoryListFetchError
-    );
-    UIStore.unlisten(
-      EventTypes.FLOOD_FETCH_DIRECTORY_LIST_SUCCESS,
-      this.handleDirectoryListFetchSuccess
-    );
+    UIStore.unlisten(EventTypes.FLOOD_FETCH_DIRECTORY_LIST_ERROR, this.handleDirectoryListFetchError);
+    UIStore.unlisten(EventTypes.FLOOD_FETCH_DIRECTORY_LIST_SUCCESS, this.handleDirectoryListFetchSuccess);
   }
 
   getNewDestination(nextDirectorySegment) {
@@ -192,10 +180,7 @@ class FilesystemBrowser extends React.PureComponent {
 
       const filesList = files.map((file, index) => {
         return (
-          <li
-            className="filesystem__directory-list__item filesystem__directory-list__item--file"
-            key={`file.${index}`}
-          >
+          <li className="filesystem__directory-list__item filesystem__directory-list__item--file" key={`file.${index}`}>
             <File />
             {file}
           </li>
@@ -214,11 +199,7 @@ class FilesystemBrowser extends React.PureComponent {
     }
 
     return (
-      <CustomScrollbars
-        autoHeight={true}
-        autoHeightMin={0}
-        autoHeightMax={this.props.maxHeight}
-      >
+      <CustomScrollbars autoHeight={true} autoHeightMin={0} autoHeightMax={this.props.maxHeight}>
         <div className="filesystem__directory-list context-menu__items__padding-surrogate">
           {parentDirectory}
           {errorMessage}

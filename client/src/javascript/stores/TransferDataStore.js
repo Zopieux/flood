@@ -18,12 +18,8 @@ class TransferDataStoreClass extends BaseStore {
     // just replaces the last transfer rate values from the history service with
     // the most recent speed.
     if (this.transferRates.download.length > 0) {
-      this.transferRates.download[
-        this.transferRates.download.length - 1
-      ] = this.transferSummary.downRate;
-      this.transferRates.upload[
-        this.transferRates.upload.length - 1
-      ] = this.transferSummary.upRate;
+      this.transferRates.download[this.transferRates.download.length - 1] = this.transferSummary.downRate;
+      this.transferRates.upload[this.transferRates.upload.length - 1] = this.transferSummary.upRate;
     }
 
     this.emit(EventTypes.CLIENT_TRANSFER_HISTORY_REQUEST_SUCCESS);

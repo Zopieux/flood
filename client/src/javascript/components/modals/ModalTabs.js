@@ -19,11 +19,7 @@ export default class ModalTabs extends React.Component {
       });
 
       return (
-        <li
-          className={classes}
-          key={index}
-          onClick={this.handleTabClick.bind(this, currentTab)}
-        >
+        <li className={classes} key={index} onClick={this.handleTabClick.bind(this, currentTab)}>
           {currentTab.label}
         </li>
       );

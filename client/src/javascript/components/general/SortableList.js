@@ -91,11 +91,7 @@ class SortableList extends React.Component {
     const classes = classnames('sortable-list', this.props.className);
 
     return (
-      <ul
-        className={classes}
-        onMouseDown={this.handleMouseDown}
-        ref={ref => (this.sortableListRef = ref)}
-      >
+      <ul className={classes} onMouseDown={this.handleMouseDown} ref={ref => (this.sortableListRef = ref)}>
         <SortableListItemDragLayer
           items={this.state.items}
           listOffset={this.state.listOffset}

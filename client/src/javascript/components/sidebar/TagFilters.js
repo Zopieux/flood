@@ -6,12 +6,7 @@ import SidebarFilter from './SidebarFilter';
 import TorrentFilterStore from '../../stores/TorrentFilterStore';
 import UIActions from '../../actions/UIActions';
 
-const METHODS_TO_BIND = [
-  'getFilters',
-  'handleClick',
-  'onTagFilterChange',
-  'onTorrentTaxonomyChange',
-];
+const METHODS_TO_BIND = ['getFilters', 'handleClick', 'onTagFilterChange', 'onTorrentTaxonomyChange'];
 
 export default class TagFilters extends React.Component {
   constructor() {
@@ -28,25 +23,13 @@ export default class TagFilters extends React.Component {
   }
 
   componentDidMount() {
-    TorrentFilterStore.listen(
-      EventTypes.CLIENT_FETCH_TORRENT_TAXONOMY_SUCCESS,
-      this.onTorrentTaxonomyChange
-    );
-    TorrentFilterStore.listen(
-      EventTypes.UI_TORRENTS_FILTER_TAG_CHANGE,
-      this.onTagFilterChange
-    );
+    TorrentFilterStore.listen(EventTypes.CLIENT_FETCH_TORRENT_TAXONOMY_SUCCESS, this.onTorrentTaxonomyChange);
+    TorrentFilterStore.listen(EventTypes.UI_TORRENTS_FILTER_TAG_CHANGE, this.onTagFilterChange);
   }
 
   componentWillUnmount() {
-    TorrentFilterStore.unlisten(
-      EventTypes.CLIENT_FETCH_TORRENT_TAXONOMY_SUCCESS,
-      this.onTorrentTaxonomyChange
-    );
-    TorrentFilterStore.unlisten(
-      EventTypes.UI_TORRENTS_FILTER_TAG_CHANGE,
-      this.onTagFilterChange
-    );
+    TorrentFilterStore.unlisten(EventTypes.CLIENT_FETCH_TORRENT_TAXONOMY_SUCCESS, this.onTorrentTaxonomyChange);
+    TorrentFilterStore.unlisten(EventTypes.UI_TORRENTS_FILTER_TAG_CHANGE, this.onTagFilterChange);
   }
 
   getFilters() {
@@ -83,10 +66,7 @@ export default class TagFilters extends React.Component {
   hasTags() {
     let tags = Object.keys(this.state.tagCount);
 
-    return !(
-      (tags.length === 1 && tags[0] === 'all') ||
-      (tags.length === 2 && tags[1] === 'untagged')
-    );
+    return !((tags.length === 1 && tags[0] === 'all') || (tags.length === 2 && tags[1] === 'untagged'));
   }
 
   onTagFilterChange() {
@@ -106,10 +86,7 @@ export default class TagFilters extends React.Component {
     return (
       <ul className="sidebar-filter sidebar__item">
         <li className="sidebar-filter__item sidebar-filter__item--heading">
-          <FormattedMessage
-            id="filter.tag.title"
-            defaultMessage="Filter by Tag"
-          />
+          <FormattedMessage id="filter.tag.title" defaultMessage="Filter by Tag" />
         </li>
         {this.getFilters()}
       </ul>

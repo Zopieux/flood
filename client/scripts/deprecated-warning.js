@@ -43,11 +43,7 @@ messageDefs.forEach(messageDef => {
     messageDef.message
   );
 
-  console.log(
-    chalk.bgRed(
-      `${getSpaces(leftPadding)}${formattedMessage}${getSpaces(rightPadding)}`
-    )
-  );
+  console.log(chalk.bgRed(`${getSpaces(leftPadding)}${formattedMessage}${getSpaces(rightPadding)}`));
 });
 console.log(chalk.bgRed(getSpaces(verticalPadding)));
 console.log('\n');

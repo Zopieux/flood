@@ -78,9 +78,7 @@ class DirectoryTreeNode extends React.Component {
             tree={this.props.subTree}
             depth={this.props.depth}
             hash={this.props.hash}
-            isParentSelected={
-              this.props.isSelected || this.props.isParentSelected
-            }
+            isParentSelected={this.props.isSelected || this.props.isParentSelected}
             key={`${this.state.expanded}-${this.props.depth}`}
             onPriorityChange={this.props.onPriorityChange}
             onItemSelect={this.props.onItemSelect}
@@ -113,13 +111,9 @@ class DirectoryTreeNode extends React.Component {
   }
 
   render() {
-    let branchClasses = classnames(
-      'directory-tree__branch',
-      `directory-tree__branch--depth-${this.props.depth}`,
-      {
-        'directory-tree__node--selected': this.props.isSelected,
-      }
-    );
+    let branchClasses = classnames('directory-tree__branch', `directory-tree__branch--depth-${this.props.depth}`, {
+      'directory-tree__node--selected': this.props.isSelected,
+    });
     let directoryClasses = classnames(
       'directory-tree__node',
       'directory-tree__node--selectable directory-tree__node--directory',
@@ -130,11 +124,7 @@ class DirectoryTreeNode extends React.Component {
 
     return (
       <div className={branchClasses}>
-        <div
-          className={directoryClasses}
-          onClick={this.handleDirectoryClick}
-          title={this.props.directoryName}
-        >
+        <div className={directoryClasses} onClick={this.handleDirectoryClick} title={this.props.directoryName}>
           <div className="file__label">
             {this.getIcon()}
             <div className="file__name">{this.props.directoryName}</div>

@@ -25,15 +25,9 @@ export function sortTorrents(torrentsHash, sortBy) {
         }
       } else if (property === 'eta') {
         // Keep Infinity and null values at bottom of array.
-        if (
-          (valA === 'Infinity' && valB !== 'Infinity') ||
-          (valA == null && valB != null)
-        ) {
+        if ((valA === 'Infinity' && valB !== 'Infinity') || (valA == null && valB != null)) {
           return 1;
-        } else if (
-          (valA !== 'Infinity' && valB === 'Infinity') ||
-          (valA != null && valB == null)
-        ) {
+        } else if ((valA !== 'Infinity' && valB === 'Infinity') || (valA != null && valB == null)) {
           return -1;
         } else if (valA == null && valB == null) {
           return 0;

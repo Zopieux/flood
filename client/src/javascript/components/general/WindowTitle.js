@@ -22,17 +22,11 @@ class WindowTitle extends React.Component {
   }
 
   componentDidMount() {
-    TransferDataStore.listen(
-      EventTypes.CLIENT_TRANSFER_SUMMARY_CHANGE,
-      this.handleTransferChange
-    );
+    TransferDataStore.listen(EventTypes.CLIENT_TRANSFER_SUMMARY_CHANGE, this.handleTransferChange);
   }
 
   componentWillUnmount() {
-    TransferDataStore.unlisten(
-      EventTypes.CLIENT_TRANSFER_SUMMARY_CHANGE,
-      this.handleTransferChange
-    );
+    TransferDataStore.unlisten(EventTypes.CLIENT_TRANSFER_SUMMARY_CHANGE, this.handleTransferChange);
   }
 
   handleTransferChange() {

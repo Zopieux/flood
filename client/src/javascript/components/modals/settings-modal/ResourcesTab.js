@@ -16,10 +16,7 @@ export default class ResourcesTab extends SettingsTab {
     return (
       <Form onChange={this.handleFormChange}>
         <ModalFormSectionHeader>
-          <FormattedMessage
-            id="settings.resources.disk.heading"
-            defaultMessage="Disk"
-          />
+          <FormattedMessage id="settings.resources.disk.heading" defaultMessage="Disk" />
         </ModalFormSectionHeader>
         <FormRow>
           <Textbox
@@ -37,12 +34,7 @@ export default class ResourcesTab extends SettingsTab {
           <Textbox
             defaultValue={this.getFieldValue('networkMaxOpenFiles')}
             id="networkMaxOpenFiles"
-            label={
-              <FormattedMessage
-                id="settings.resources.max.open.files"
-                defaultMessage="Maximum Open Files"
-              />
-            }
+            label={<FormattedMessage id="settings.resources.max.open.files" defaultMessage="Maximum Open Files" />}
             width="one-half"
           />
           <Checkbox
@@ -59,10 +51,7 @@ export default class ResourcesTab extends SettingsTab {
           </Checkbox>
         </FormRow>
         <ModalFormSectionHeader>
-          <FormattedMessage
-            id="settings.resources.memory.heading"
-            defaultMessage="Memory"
-          />
+          <FormattedMessage id="settings.resources.memory.heading" defaultMessage="Memory" />
         </ModalFormSectionHeader>
         <FormRow>
           <Textbox
@@ -70,10 +59,7 @@ export default class ResourcesTab extends SettingsTab {
             id="piecesMemoryMax"
             label={
               <div>
-                <FormattedMessage
-                  id="settings.resources.memory.max.label"
-                  defaultMessage="Max Memory Usage"
-                />{' '}
+                <FormattedMessage id="settings.resources.memory.max.label" defaultMessage="Max Memory Usage" />{' '}
                 <em className="unit">(MB)</em>
               </div>
             }

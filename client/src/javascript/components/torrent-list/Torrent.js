@@ -18,12 +18,7 @@ const condensedValueTransformers = {
   downloadTotal: torrent => torrent.bytesDone,
   peers: torrent => torrent.peersConnected,
   percentComplete: torrent => {
-    return (
-      <ProgressBar
-        percent={torrent.percentComplete}
-        icon={torrentStatusIcons(torrent.status)}
-      />
-    );
+    return <ProgressBar percent={torrent.percentComplete} icon={torrentStatusIcons(torrent.status)} />;
   },
   seeds: torrent => torrent.seedsConnected,
 };
@@ -64,19 +59,9 @@ const ICONS = {
   uploadThick: <UploadThickIcon />,
 };
 
-const METHODS_TO_BIND = [
-  'handleClick',
-  'handleDoubleClick',
-  'handleRightClick',
-];
+const METHODS_TO_BIND = ['handleClick', 'handleDoubleClick', 'handleRightClick'];
 
-const TORRENT_PRIMITIVES_TO_OBSERVE = [
-  'bytesDone',
-  'downRate',
-  'peersTotal',
-  'seedsTotal',
-  'upRate',
-];
+const TORRENT_PRIMITIVES_TO_OBSERVE = ['bytesDone', 'downRate', 'peersTotal', 'seedsTotal', 'upRate'];
 
 const TORRENT_ARRAYS_TO_OBSERVE = ['status', 'tags'];
 
@@ -191,39 +176,36 @@ class Torrent extends React.Component {
     );
 
     if (isCondensed) {
-      const torrentPropertyColumns = columns.reduce(
-        (accumulator, { id, visible }) => {
-          if (!visible) {
-            return accumulator;
-          }
-
-          let value = torrent[id];
-          let secondaryValue;
-
-          if (id in condensedValueTransformers) {
-            value = condensedValueTransformers[id](torrent);
-          }
-
-          if (id in condensedSecondaryValueTransformers) {
-            secondaryValue = condensedSecondaryValueTransformers[id](torrent);
-          }
-
-          accumulator.push(
-            <TorrentDetail
-              className="table__cell"
-              key={id}
-              preventTransform={id === 'percentComplete'}
-              secondaryValue={secondaryValue}
-              slug={id}
-              value={value}
-              width={this.getWidth(id)}
-            />
-          );
-
+      const torrentPropertyColumns = columns.reduce((accumulator, { id, visible }) => {
+        if (!visible) {
           return accumulator;
-        },
-        []
-      );
+        }
+
+        let value = torrent[id];
+        let secondaryValue;
+
+        if (id in condensedValueTransformers) {
+          value = condensedValueTransformers[id](torrent);
+        }
+
+        if (id in condensedSecondaryValueTransformers) {
+          secondaryValue = condensedSecondaryValueTransformers[id](torrent);
+        }
+
+        accumulator.push(
+          <TorrentDetail
+            className="table__cell"
+            key={id}
+            preventTransform={id === 'percentComplete'}
+            secondaryValue={secondaryValue}
+            slug={id}
+            value={value}
+            width={this.getWidth(id)}
+          />
+        );
+
+        return accumulator;
+      }, []);
 
       return (
         <li
@@ -265,26 +247,12 @@ class Torrent extends React.Component {
             />
           );
         } else if (expandedTorrentSectionContent.secondary.includes(id)) {
-          sections.secondary[
-            expandedTorrentSectionContent.secondary.indexOf(id)
-          ] = (
-            <TorrentDetail
-              icon
-              key={id}
-              secondaryValue={secondaryValue}
-              slug={id}
-              value={value}
-            />
+          sections.secondary[expandedTorrentSectionContent.secondary.indexOf(id)] = (
+            <TorrentDetail icon key={id} secondaryValue={secondaryValue} slug={id} value={value} />
           );
         } else {
           sections.tertiary.push(
-            <TorrentDetail
-              icon
-              key={id}
-              secondaryValue={secondaryValue}
-              slug={id}
-              value={value}
-            />
+            <TorrentDetail icon key={id} secondaryValue={secondaryValue} slug={id} value={value} />
           );
         }
       }
@@ -299,18 +267,11 @@ class Torrent extends React.Component {
       >
         <div className="torrent__details__section__wrapper">
           {sections.primary}
-          <div className="torrent__details__section torrent__details__section--secondary">
-            {sections.secondary}
-          </div>
+          <div className="torrent__details__section torrent__details__section--secondary">{sections.secondary}</div>
         </div>
-        <div className="torrent__details__section torrent__details__section--tertiary">
-          {sections.tertiary}
-        </div>
+        <div className="torrent__details__section torrent__details__section--tertiary">{sections.tertiary}</div>
         <div className="torrent__details__section torrent__details__section--quaternary">
-          <ProgressBar
-            percent={torrent.percentComplete}
-            icon={torrentStatusIcons(torrent.status)}
-          />
+          <ProgressBar percent={torrent.percentComplete} icon={torrentStatusIcons(torrent.status)} />
         </div>
         <button
           className="torrent__more-info floating-action__button"

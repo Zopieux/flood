@@ -5,10 +5,7 @@ import BaseIcon from './BaseIcon';
 export default class CircleCheckmarkIcon extends BaseIcon {
   render() {
     return (
-      <svg
-        className={`icon icon--circle-checkmark ${this.props.className}`}
-        viewBox={this.getViewBox()}
-      >
+      <svg className={`icon icon--circle-checkmark ${this.props.className}`} viewBox={this.getViewBox()}>
         <path fillOpacity="0.05" d="M30,0A30,30,0,1,1,0,30,30,30,0,0,1,30,0Z" />
         <path
           fillOpacity="0.2"

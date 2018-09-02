@@ -13,12 +13,7 @@ import StopIcon from '../icons/StopIcon';
 import TorrentFilterStore from '../../stores/TorrentFilterStore';
 import UIActions from '../../actions/UIActions';
 
-const METHODS_TO_BIND = [
-  'getFilters',
-  'handleClick',
-  'onStatusFilterChange',
-  'onTorrentTaxonomyChange',
-];
+const METHODS_TO_BIND = ['getFilters', 'handleClick', 'onStatusFilterChange', 'onTorrentTaxonomyChange'];
 
 class StatusFilters extends React.Component {
   constructor() {
@@ -36,25 +31,13 @@ class StatusFilters extends React.Component {
   }
 
   componentDidMount() {
-    TorrentFilterStore.listen(
-      EventTypes.CLIENT_FETCH_TORRENT_TAXONOMY_SUCCESS,
-      this.onTorrentTaxonomyChange
-    );
-    TorrentFilterStore.listen(
-      EventTypes.UI_TORRENTS_FILTER_STATUS_CHANGE,
-      this.onStatusFilterChange
-    );
+    TorrentFilterStore.listen(EventTypes.CLIENT_FETCH_TORRENT_TAXONOMY_SUCCESS, this.onTorrentTaxonomyChange);
+    TorrentFilterStore.listen(EventTypes.UI_TORRENTS_FILTER_STATUS_CHANGE, this.onStatusFilterChange);
   }
 
   componentWillUnmount() {
-    TorrentFilterStore.unlisten(
-      EventTypes.CLIENT_FETCH_TORRENT_TAXONOMY_SUCCESS,
-      this.onTorrentTaxonomyChange
-    );
-    TorrentFilterStore.unlisten(
-      EventTypes.UI_TORRENTS_FILTER_STATUS_CHANGE,
-      this.onStatusFilterChange
-    );
+    TorrentFilterStore.unlisten(EventTypes.CLIENT_FETCH_TORRENT_TAXONOMY_SUCCESS, this.onTorrentTaxonomyChange);
+    TorrentFilterStore.unlisten(EventTypes.UI_TORRENTS_FILTER_STATUS_CHANGE, this.onStatusFilterChange);
   }
 
   handleClick(filter) {
@@ -155,10 +138,7 @@ class StatusFilters extends React.Component {
     return (
       <ul className="sidebar-filter sidebar__item">
         <li className="sidebar-filter__item sidebar-filter__item--heading">
-          <FormattedMessage
-            id="filter.status.title"
-            defaultMessage="Filter by Status"
-          />
+          <FormattedMessage id="filter.status.title" defaultMessage="Filter by Status" />
         </li>
         {filters}
       </ul>

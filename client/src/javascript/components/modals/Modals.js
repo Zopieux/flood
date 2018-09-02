@@ -14,11 +14,7 @@ import TorrentDetailsModal from './torrent-details-modal/TorrentDetailsModal';
 import UIActions from '../../actions/UIActions';
 import UIStore from '../../stores/UIStore';
 
-const METHODS_TO_BIND = [
-  'handleKeyPress',
-  'handleOverlayClick',
-  'onModalChange',
-];
+const METHODS_TO_BIND = ['handleKeyPress', 'handleOverlayClick', 'onModalChange'];
 
 export default class Modals extends React.Component {
   constructor() {
@@ -63,12 +59,7 @@ export default class Modals extends React.Component {
   getModal() {
     let ActiveModal = this.modals[this.state.activeModal.id];
 
-    return (
-      <ActiveModal
-        dismiss={this.dismissModal}
-        options={this.state.activeModal.options}
-      />
-    );
+    return <ActiveModal dismiss={this.dismissModal} options={this.state.activeModal.options} />;
   }
 
   handleKeyPress(event) {
@@ -102,11 +93,7 @@ export default class Modals extends React.Component {
     }
 
     return (
-      <CSSTransitionGroup
-        transitionName="modal__animation"
-        transitionEnterTimeout={500}
-        transitionLeaveTimeout={500}
-      >
+      <CSSTransitionGroup transitionName="modal__animation" transitionEnterTimeout={500} transitionLeaveTimeout={500}>
         {modal}
       </CSSTransitionGroup>
     );

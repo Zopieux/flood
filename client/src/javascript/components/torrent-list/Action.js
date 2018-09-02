@@ -11,12 +11,7 @@ export default class Action extends React.Component {
     });
 
     return (
-      <Tooltip
-        content={label}
-        onClick={clickHandler}
-        position="bottom"
-        wrapperClassName={classes}
-      >
+      <Tooltip content={label} onClick={clickHandler} position="bottom" wrapperClassName={classes}>
         {icon}
         <span className="action__label">{label}</span>
       </Tooltip>

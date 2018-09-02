@@ -6,9 +6,7 @@ export default class LoadingIndicatorDots extends BaseIcon {
   render() {
     return (
       <svg
-        className={`icon icon--loading-indicator loading-indicator--dots ${
-          this.props.className
-        }`}
+        className={`icon icon--loading-indicator loading-indicator--dots ${this.props.className}`}
         viewBox={this.getViewBox()}
       >
         <path

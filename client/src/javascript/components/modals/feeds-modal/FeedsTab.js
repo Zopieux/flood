@@ -1,16 +1,6 @@
 import _ from 'lodash';
 import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
-import {
-  Button,
-  Form,
-  FormError,
-  FormRow,
-  FormRowGroup,
-  FormRowItem,
-  Select,
-  SelectItem,
-  Textbox,
-} from 'flood-ui-kit';
+import { Button, Form, FormError, FormRow, FormRowGroup, FormRowItem, Select, SelectItem, Textbox } from 'flood-ui-kit';
 import formatUtil from 'universally-shared-code/util/formatUtil';
 import React from 'react';
 
@@ -93,26 +83,17 @@ class FeedsTab extends React.Component {
   };
 
   componentDidMount() {
-    FeedMonitorStore.listen(
-      EventTypes.SETTINGS_FEED_MONITORS_FETCH_SUCCESS,
-      this.handleFeedMonitorsFetchSuccess
-    );
+    FeedMonitorStore.listen(EventTypes.SETTINGS_FEED_MONITORS_FETCH_SUCCESS, this.handleFeedMonitorsFetchSuccess);
   }
 
   componentWillUnmount() {
-    FeedMonitorStore.unlisten(
-      EventTypes.SETTINGS_FEED_MONITORS_FETCH_SUCCESS,
-      this.handleFeedMonitorsFetchSuccess
-    );
+    FeedMonitorStore.unlisten(EventTypes.SETTINGS_FEED_MONITORS_FETCH_SUCCESS, this.handleFeedMonitorsFetchSuccess);
   }
 
   checkFieldValidity = _.throttle((fieldName, fieldValue) => {
     const { errors } = this.state;
 
-    if (
-      this.state.errors[fieldName] &&
-      this.validatedFields[fieldName].isValid(fieldValue)
-    ) {
+    if (this.state.errors[fieldName] && this.validatedFields[fieldName].isValid(fieldValue)) {
       delete errors[fieldName];
       this.setState({ errors });
     }
@@ -171,10 +152,7 @@ class FeedsTab extends React.Component {
       return (
         <ul className="interactive-list">
           <li className="interactive-list__item">
-            <FormattedMessage
-              defaultMessage="No feeds defined."
-              id="feeds.no.feeds.defined"
-            />
+            <FormattedMessage defaultMessage="No feeds defined." id="feeds.no.feeds.defined" />
           </li>
         </ul>
       );
@@ -184,10 +162,7 @@ class FeedsTab extends React.Component {
       let matchedCount = feed.count || 0;
 
       return (
-        <li
-          className="interactive-list__item interactive-list__item--stacked-content feed-list__feed"
-          key={feed._id}
-        >
+        <li className="interactive-list__item interactive-list__item--stacked-content feed-list__feed" key={feed._id}>
           <div className="interactive-list__label">
             <ul className="interactive-list__detail-list">
               <li
@@ -274,18 +249,15 @@ class FeedsTab extends React.Component {
 
   validateForm() {
     const formData = this.formRef.getFormData();
-    const errors = Object.keys(this.validatedFields).reduce(
-      (memo, fieldName) => {
-        let fieldValue = formData[fieldName];
+    const errors = Object.keys(this.validatedFields).reduce((memo, fieldName) => {
+      let fieldValue = formData[fieldName];
 
-        if (!this.validatedFields[fieldName].isValid(fieldValue)) {
-          memo[fieldName] = this.validatedFields[fieldName].error;
-        }
+      if (!this.validatedFields[fieldName].isValid(fieldValue)) {
+        memo[fieldName] = this.validatedFields[fieldName].error;
+      }
 
-        return memo;
-      },
-      {}
-    );
+      return memo;
+    }, {});
 
     return { errors, isValid: !Object.keys(errors).length };
   }
@@ -307,10 +279,7 @@ class FeedsTab extends React.Component {
         ref={ref => (this.formRef = ref)}
       >
         <ModalFormSectionHeader>
-          <FormattedMessage
-            id="feeds.existing.feeds"
-            defaultMessage="Existing Feeds"
-          />
+          <FormattedMessage id="feeds.existing.feeds" defaultMessage="Existing Feeds" />
         </ModalFormSectionHeader>
         <FormRow>
           <FormRowItem>{this.getFeedsList()}</FormRowItem>

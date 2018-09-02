@@ -29,9 +29,7 @@ class ActionBar extends React.Component {
 
     this.state = {
       sortBy: SettingsStore.getFloodSettings('sortTorrents'),
-      torrentListViewSize: SettingsStore.getFloodSettings(
-        'torrentListViewSize'
-      ),
+      torrentListViewSize: SettingsStore.getFloodSettings('torrentListViewSize'),
     };
 
     METHODS_TO_BIND.forEach(method => {
@@ -44,10 +42,7 @@ class ActionBar extends React.Component {
   }
 
   componentWillUnmount() {
-    SettingsStore.unlisten(
-      EventTypes.SETTINGS_CHANGE,
-      this.handleSettingsChange
-    );
+    SettingsStore.unlisten(EventTypes.SETTINGS_CHANGE, this.handleSettingsChange);
   }
 
   handleAddTorrents() {
@@ -77,16 +72,13 @@ class ActionBar extends React.Component {
   handleSettingsChange() {
     this.setState({
       sortBy: SettingsStore.getFloodSettings('sortTorrents'),
-      torrentListViewSize: SettingsStore.getFloodSettings(
-        'torrentListViewSize'
-      ),
+      torrentListViewSize: SettingsStore.getFloodSettings('torrentListViewSize'),
     });
   }
 
   render() {
     const classes = classnames('action-bar', {
-      'action-bar--is-condensed':
-        this.state.torrentListViewSize === 'condensed',
+      'action-bar--is-condensed': this.state.torrentListViewSize === 'condensed',
     });
 
     return (
@@ -100,26 +92,11 @@ class ActionBar extends React.Component {
         </div>
         <div className="actions action-bar__item action-bar__item--torrent-operations">
           <div className="action-bar__group">
-            <Action
-              label="Start Torrent"
-              slug="start-torrent"
-              icon={<StartIcon />}
-              clickHandler={this.handleStart}
-            />
-            <Action
-              label="Stop Torrent"
-              slug="stop-torrent"
-              icon={<StopIcon />}
-              clickHandler={this.handleStop}
-            />
+            <Action label="Start Torrent" slug="start-torrent" icon={<StartIcon />} clickHandler={this.handleStart} />
+            <Action label="Stop Torrent" slug="stop-torrent" icon={<StopIcon />} clickHandler={this.handleStop} />
           </div>
           <div className="action-bar__group action-bar__group--has-divider">
-            <Action
-              label="Add Torrent"
-              slug="add-torrent"
-              icon={<Add />}
-              clickHandler={this.handleAddTorrents}
-            />
+            <Action label="Add Torrent" slug="add-torrent" icon={<Add />} clickHandler={this.handleAddTorrents} />
             <Action
               label="Remove Torrent"
               slug="remove-torrent"

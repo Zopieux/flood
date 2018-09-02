@@ -40,10 +40,7 @@ class AuthEnforcer extends React.Component {
       dependencies: {
         authentication: {
           message: (
-            <FormattedMessage
-              id="dependency.loading.authentication.status"
-              defaultMessage="Authentication Status"
-            />
+            <FormattedMessage id="dependency.loading.authentication.status" defaultMessage="Authentication Status" />
           ),
           satisfied: false,
         },
@@ -58,45 +55,24 @@ class AuthEnforcer extends React.Component {
   }
 
   componentDidMount() {
-    AuthStore.listen(
-      EventTypes.AUTH_REGISTER_SUCCESS,
-      this.handleRegisterSuccess
-    );
+    AuthStore.listen(EventTypes.AUTH_REGISTER_SUCCESS, this.handleRegisterSuccess);
     AuthStore.listen(EventTypes.AUTH_LOGIN_ERROR, this.handleLoginError);
     AuthStore.listen(EventTypes.AUTH_LOGIN_SUCCESS, this.handleLoginSuccess);
     AuthStore.listen(EventTypes.AUTH_VERIFY_ERROR, this.handleVerifyError);
     AuthStore.listen(EventTypes.AUTH_VERIFY_SUCCESS, this.handleVerifySuccess);
-    UIStore.listen(
-      EventTypes.UI_DEPENDENCIES_LOADED,
-      this.handleUIDependenciesLoaded
-    );
-    UIStore.listen(
-      EventTypes.UI_DEPENDENCIES_CHANGE,
-      this.handleUIDependenciesChange
-    );
+    UIStore.listen(EventTypes.UI_DEPENDENCIES_LOADED, this.handleUIDependenciesLoaded);
+    UIStore.listen(EventTypes.UI_DEPENDENCIES_CHANGE, this.handleUIDependenciesChange);
     AuthStore.verify();
   }
 
   componentWillUnmount() {
-    AuthStore.unlisten(
-      EventTypes.AUTH_REGISTER_SUCCESS,
-      this.handleRegisterSuccess
-    );
+    AuthStore.unlisten(EventTypes.AUTH_REGISTER_SUCCESS, this.handleRegisterSuccess);
     AuthStore.unlisten(EventTypes.AUTH_LOGIN_ERROR, this.handleLoginError);
     AuthStore.unlisten(EventTypes.AUTH_LOGIN_SUCCESS, this.handleLoginSuccess);
     AuthStore.unlisten(EventTypes.AUTH_VERIFY_ERROR, this.handleVerifyError);
-    AuthStore.unlisten(
-      EventTypes.AUTH_VERIFY_SUCCESS,
-      this.handleVerifySuccess
-    );
-    UIStore.unlisten(
-      EventTypes.UI_DEPENDENCIES_LOADED,
-      this.handleUIDependenciesLoaded
-    );
-    UIStore.unlisten(
-      EventTypes.UI_DEPENDENCIES_CHANGE,
-      this.handleUIDependenciesChange
-    );
+    AuthStore.unlisten(EventTypes.AUTH_VERIFY_SUCCESS, this.handleVerifySuccess);
+    UIStore.unlisten(EventTypes.UI_DEPENDENCIES_LOADED, this.handleUIDependenciesLoaded);
+    UIStore.unlisten(EventTypes.UI_DEPENDENCIES_CHANGE, this.handleUIDependenciesChange);
   }
 
   handleVerifySuccess(data) {
@@ -144,12 +120,8 @@ class AuthEnforcer extends React.Component {
 
       return (
         <li className={classes} key={id}>
-          <span className="dependency-list__dependency__icon">
-            {statusIcon}
-          </span>
-          <span className="dependency-list__dependency__message">
-            {message}
-          </span>
+          <span className="dependency-list__dependency__icon">{statusIcon}</span>
+          <span className="dependency-list__dependency__message">{message}</span>
         </li>
       );
     });
@@ -160,10 +132,7 @@ class AuthEnforcer extends React.Component {
       dependencies: {
         authentication: {
           message: (
-            <FormattedMessage
-              id="dependency.loading.authentication.status"
-              defaultMessage="Authentication Status"
-            />
+            <FormattedMessage id="dependency.loading.authentication.status" defaultMessage="Authentication Status" />
           ),
           satisfied: this.state.authStatusDetermined,
         },
@@ -188,11 +157,9 @@ class AuthEnforcer extends React.Component {
     }
 
     // Iterate over current dependencies looking for unsatisified dependencies.
-    const isDependencyActive = Object.keys(this.state.dependencies).some(
-      dependencyKey => {
-        return !this.state.dependencies[dependencyKey].satisfied;
-      }
-    );
+    const isDependencyActive = Object.keys(this.state.dependencies).some(dependencyKey => {
+      return !this.state.dependencies[dependencyKey].satisfied;
+    });
 
     // If any dependency is unsatisfied, show the loading indicator.
     if (isDependencyActive) {

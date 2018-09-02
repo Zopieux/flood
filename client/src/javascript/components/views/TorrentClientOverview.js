@@ -21,10 +21,7 @@ export default class TorrentCLientOverview extends React.Component {
       <ApplicationView>
         <Sidebar />
         <ApplicationContent>
-          <ApplicationPanel
-            modifier="torrent-list"
-            className="view--torrent-list"
-          >
+          <ApplicationPanel modifier="torrent-list" className="view--torrent-list">
             <ActionBar />
             <TorrentList />
           </ApplicationPanel>

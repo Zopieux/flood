@@ -9,10 +9,7 @@ export default class BandwidthTab extends SettingsTab {
   state = {};
 
   handleFormChange = ({ event, formData }) => {
-    if (
-      event.target.name === 'dropdownPresetDownload' ||
-      event.target.name === 'dropdownPresetUpload'
-    ) {
+    if (event.target.name === 'dropdownPresetDownload' || event.target.name === 'dropdownPresetUpload') {
       this.props.onSettingsChange({
         speedLimits: {
           download: this.processSpeedsForSave(formData.dropdownPresetDownload),
@@ -28,9 +25,7 @@ export default class BandwidthTab extends SettingsTab {
 
   getDownloadValue() {
     if (this.props.settings.speedLimits != null) {
-      return this.processSpeedsForDisplay(
-        this.props.settings.speedLimits.download
-      );
+      return this.processSpeedsForDisplay(this.props.settings.speedLimits.download);
     }
 
     return 0;
@@ -38,9 +33,7 @@ export default class BandwidthTab extends SettingsTab {
 
   getUploadValue() {
     if (this.props.settings.speedLimits != null) {
-      return this.processSpeedsForDisplay(
-        this.props.settings.speedLimits.upload
-      );
+      return this.processSpeedsForDisplay(this.props.settings.speedLimits.upload);
     }
 
     return 0;
@@ -69,10 +62,7 @@ export default class BandwidthTab extends SettingsTab {
     return (
       <Form onChange={this.handleFormChange}>
         <ModalFormSectionHeader>
-          <FormattedMessage
-            id="settings.bandwidth.transferrate.heading"
-            defaultMessage="Transfer Rate Throttles"
-          />
+          <FormattedMessage id="settings.bandwidth.transferrate.heading" defaultMessage="Transfer Rate Throttles" />
         </ModalFormSectionHeader>
         <FormRow>
           <Textbox
@@ -121,19 +111,13 @@ export default class BandwidthTab extends SettingsTab {
           />
         </FormRow>
         <ModalFormSectionHeader>
-          <FormattedMessage
-            id="settings.bandwidth.slots.heading"
-            defaultMessage="Slot Availability"
-          />
+          <FormattedMessage id="settings.bandwidth.slots.heading" defaultMessage="Slot Availability" />
         </ModalFormSectionHeader>
         <FormRow>
           <Textbox
             defaultValue={this.getFieldValue('throttleMaxUploads')}
             label={
-              <FormattedMessage
-                id="settings.bandwidth.slots.upload.label"
-                defaultMessage="Upload Slots Per Torrent"
-              />
+              <FormattedMessage id="settings.bandwidth.slots.upload.label" defaultMessage="Upload Slots Per Torrent" />
             }
             id="throttleMaxUploads"
           />

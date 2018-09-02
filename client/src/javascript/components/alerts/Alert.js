@@ -38,9 +38,7 @@ export default class Alert extends React.Component {
             defaultMessage={Alerts[this.props.id]}
             values={{
               count: this.props.count,
-              countElement: (
-                <span className="alert__count">{this.props.count}</span>
-              ),
+              countElement: <span className="alert__count">{this.props.count}</span>,
             }}
           />
         </span>

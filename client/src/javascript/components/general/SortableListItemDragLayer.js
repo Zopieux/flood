@@ -44,9 +44,7 @@ class SortableListItemDragLayer extends Component {
 
     return (
       <div style={layerStyles}>
-        <div style={getItemStyles(this.props)}>
-          {this.props.renderItem({ ...item, dragIndicator: true })}
-        </div>
+        <div style={getItemStyles(this.props)}>{this.props.renderItem({ ...item, dragIndicator: true })}</div>
       </div>
     );
   }

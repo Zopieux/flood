@@ -50,28 +50,8 @@ class SettingsStoreClass extends BaseStore {
       torrentListColumnWidths: {},
       torrentListViewSize: 'condensed',
       speedLimits: {
-        download: [
-          1024,
-          10240,
-          102400,
-          512000,
-          1048576,
-          2097152,
-          5242880,
-          10485760,
-          0,
-        ],
-        upload: [
-          1024,
-          10240,
-          102400,
-          512000,
-          1048576,
-          2097152,
-          5242880,
-          10485760,
-          0,
-        ],
+        download: [1024, 10240, 102400, 512000, 1048576, 2097152, 5242880, 10485760, 0],
+        upload: [1024, 10240, 102400, 512000, 1048576, 2097152, 5242880, 10485760, 0],
       },
       startTorrentsOnLoad: false,
     };
@@ -168,10 +148,7 @@ class SettingsStoreClass extends BaseStore {
   }
 
   processSettingsState() {
-    if (
-      this.fetchStatus.clientSettingsFetched &&
-      this.fetchStatus.floodSettingsFetched
-    ) {
+    if (this.fetchStatus.clientSettingsFetched && this.fetchStatus.floodSettingsFetched) {
       this.emit(EventTypes.SETTINGS_CHANGE);
     }
   }
@@ -240,19 +217,13 @@ SettingsStore.dispatcherID = AppDispatcher.register(payload => {
       SettingsStore.handleSettingsSaveRequestError(action.error);
       break;
     case ActionTypes.SETTINGS_SAVE_REQUEST_SUCCESS:
-      SettingsStore.handleSettingsSaveRequestSuccess(
-        action.data,
-        action.options
-      );
+      SettingsStore.handleSettingsSaveRequestSuccess(action.data, action.options);
       break;
     case ActionTypes.CLIENT_SETTINGS_SAVE_ERROR:
       SettingsStore.handleClientSettingsSaveRequestError(action.error);
       break;
     case ActionTypes.CLIENT_SETTINGS_SAVE_SUCCESS:
-      SettingsStore.handleClientSettingsSaveRequestSuccess(
-        action.data,
-        action.options
-      );
+      SettingsStore.handleClientSettingsSaveRequestSuccess(action.data, action.options);
       break;
     default:
       break;

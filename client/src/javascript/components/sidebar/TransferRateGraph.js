@@ -40,10 +40,7 @@ class TransferRateGraph extends React.Component {
   }
 
   componentDidMount() {
-    TransferDataStore.listen(
-      EventTypes.CLIENT_TRANSFER_HISTORY_REQUEST_SUCCESS,
-      this.handleTransferHistoryChange
-    );
+    TransferDataStore.listen(EventTypes.CLIENT_TRANSFER_HISTORY_REQUEST_SUCCESS, this.handleTransferHistoryChange);
 
     this.renderGraphData();
   }
@@ -53,10 +50,7 @@ class TransferRateGraph extends React.Component {
   }
 
   componentWillUnmount() {
-    TransferDataStore.unlisten(
-      EventTypes.CLIENT_TRANSFER_HISTORY_REQUEST_SUCCESS,
-      this.handleTransferHistoryChange
-    );
+    TransferDataStore.unlisten(EventTypes.CLIENT_TRANSFER_HISTORY_REQUEST_SUCCESS, this.handleTransferHistoryChange);
   }
 
   appendGraphCircles(graph, slug) {
@@ -78,28 +72,14 @@ class TransferRateGraph extends React.Component {
   }
 
   appendEmptyGraphLines(graph, slug) {
-    this.graphRefs[slug].rateLine = graph
-      .append('path')
-      .attr('class', `graph__line graph__line--${slug}`);
+    this.graphRefs[slug].rateLine = graph.append('path').attr('class', `graph__line graph__line--${slug}`);
   }
 
   getGradient(slug) {
     return (
-      <linearGradient
-        id={`graph__gradient--${slug}`}
-        x1="0%"
-        y1="0%"
-        x2="0%"
-        y2="100%"
-      >
-        <stop
-          className={`graph__gradient--top graph__gradient--top--${slug}`}
-          offset="0%"
-        />
-        <stop
-          className={`graph__gradient--bottom graph__gradient--bottom--${slug}`}
-          offset="100%"
-        />
+      <linearGradient id={`graph__gradient--${slug}`} x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop className={`graph__gradient--top graph__gradient--top--${slug}`} offset="0%" />
+        <stop className={`graph__gradient--bottom graph__gradient--bottom--${slug}`} offset="100%" />
       </linearGradient>
     );
   }
@@ -233,10 +213,7 @@ class TransferRateGraph extends React.Component {
 
     const coordinates = { x: xScale(hoverPoint), y: yScale(speedAtHoverPoint) };
 
-    inspectPoint.attr(
-      'transform',
-      'translate(' + coordinates.x + ',' + coordinates.y + ')'
-    );
+    inspectPoint.attr('transform', 'translate(' + coordinates.x + ',' + coordinates.y + ')');
 
     return speedAtHoverPoint;
   }
@@ -251,11 +228,7 @@ class TransferRateGraph extends React.Component {
 
   render() {
     return (
-      <svg
-        className="graph"
-        id={this.props.id}
-        ref={ref => (this.graphRefs.graph = ref)}
-      >
+      <svg className="graph" id={this.props.id} ref={ref => (this.graphRefs.graph = ref)}>
         <defs>
           {this.getGradient('upload')}
           {this.getGradient('download')}

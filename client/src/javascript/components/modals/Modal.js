@@ -67,10 +67,7 @@ export default class Modal extends React.Component {
     if (this.props.tabs) {
       let activeTabId = this.getActiveTabId();
       let activeTab = this.props.tabs[activeTabId];
-      let contentClasses = classnames(
-        'modal__content',
-        activeTab.modalContentClasses
-      );
+      let contentClasses = classnames('modal__content', activeTab.modalContentClasses);
 
       let ModalContentComponent = activeTab.content;
       let modalContentData = activeTab.props;
@@ -101,10 +98,7 @@ export default class Modal extends React.Component {
     if (this.props.actions) {
       footer = (
         <div className="modal__footer">
-          <ModalActions
-            actions={this.props.actions}
-            dismiss={this.props.dismiss}
-          />
+          <ModalActions actions={this.props.actions} dismiss={this.props.dismiss} />
         </div>
       );
     }
@@ -115,10 +109,7 @@ export default class Modal extends React.Component {
           {modalHeader}
           {headerTabs}
         </div>
-        <div
-          className="modal__body"
-          ref={ref => this.setRef('modal-body', ref)}
-        >
+        <div className="modal__body" ref={ref => this.setRef('modal-body', ref)}>
           {modalBody}
           {footer}
         </div>

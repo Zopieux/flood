@@ -29,11 +29,7 @@ class AddTorrentsByFile extends React.Component {
     if (this.state.files.length > 0) {
       const files = this.state.files.map((file, index) => {
         return (
-          <li
-            className="dropzone__selected-files__file interactive-list__item"
-            key={index}
-            title={file.name}
-          >
+          <li className="dropzone__selected-files__file interactive-list__item" key={index} title={file.name}>
             <span className="interactive-list__icon">
               <File />
             </span>
@@ -49,10 +45,7 @@ class AddTorrentsByFile extends React.Component {
       });
 
       fileContent = (
-        <ul
-          className="dropzone__selected-files interactive-list"
-          onClick={this.handleFilesClick}
-        >
+        <ul className="dropzone__selected-files interactive-list" onClick={this.handleFilesClick}>
           {files}
         </ul>
       );
@@ -61,10 +54,7 @@ class AddTorrentsByFile extends React.Component {
     return (
       <FormRowItem>
         <label className="form__element__label">
-          <FormattedMessage
-            id="torrents.add.torrents.label"
-            defaultMessage="Torrents"
-          />
+          <FormattedMessage id="torrents.add.torrents.label" defaultMessage="Torrents" />
         </label>
         {fileContent}
         <Dropzone
@@ -78,15 +68,9 @@ class AddTorrentsByFile extends React.Component {
             <div className="dropzone__icon">
               <Files />
             </div>
-            <FormattedMessage
-              id="torrents.add.tab.file.drop"
-              defaultMessage="Drop some files here,"
-            />{' '}
+            <FormattedMessage id="torrents.add.tab.file.drop" defaultMessage="Drop some files here," />{' '}
             <span className="dropzone__browse-button">
-              <FormattedMessage
-                id="torrents.add.tab.file.browse"
-                defaultMessage="or click to browse"
-              />
+              <FormattedMessage id="torrents.add.tab.file.browse" defaultMessage="or click to browse" />
             </span>
             .
           </div>
@@ -149,11 +133,7 @@ class AddTorrentsByFile extends React.Component {
 
   render() {
     return (
-      <Form
-        className="inverse"
-        onChange={this.handleFormChange}
-        ref={ref => (this._formRef = ref)}
-      >
+      <Form className="inverse" onChange={this.handleFormChange} ref={ref => (this._formRef = ref)}>
         <FormRow>{this.getFileDropzone()}</FormRow>
         <TorrentDestination
           id="destination"

@@ -4,17 +4,7 @@ import React from 'react';
 import AuthStore from '../../stores/AuthStore';
 import EventTypes from '../../constants/EventTypes';
 
-import {
-  Button,
-  Form,
-  FormError,
-  FormRow,
-  Panel,
-  PanelContent,
-  PanelHeader,
-  PanelFooter,
-  Textbox,
-} from 'flood-ui-kit';
+import { Button, Form, FormError, FormRow, Panel, PanelContent, PanelHeader, PanelFooter, Textbox } from 'flood-ui-kit';
 
 const METHODS_TO_BIND = ['handleAuthError', 'handleFormSubmit'];
 
@@ -70,8 +60,7 @@ class AuthForm extends React.Component {
 
     return this.props.intl.formatMessage({
       id: 'auth.create.an.account.intro',
-      defaultMessage:
-        'Welcome to Flood! Create a username and strong password.',
+      defaultMessage: 'Welcome to Flood! Create a username and strong password.',
     });
   }
 
@@ -116,9 +105,7 @@ class AuthForm extends React.Component {
     if (this.state.error) {
       errorRow = (
         <FormRow>
-          <FormError isLoading={this.state.isAuthStatusLoading}>
-            {this.state.error}
-          </FormError>
+          <FormError isLoading={this.state.isAuthStatusLoading}>{this.state.error}</FormError>
         </FormRow>
       );
     }
@@ -126,10 +113,7 @@ class AuthForm extends React.Component {
     return (
       <div style={{ width: 500 }}>
         <Panel spacing="large">
-          <Form
-            onSubmit={this.handleFormSubmit}
-            ref={ref => (this.formRef = ref)}
-          >
+          <Form onSubmit={this.handleFormSubmit} ref={ref => (this.formRef = ref)}>
             <PanelHeader>
               <h1>{this.getHeaderText()}</h1>
             </PanelHeader>
@@ -140,24 +124,13 @@ class AuthForm extends React.Component {
                 <Textbox placeholder="Username" id="username" />
               </FormRow>
               <FormRow>
-                <Textbox
-                  placeholder="Passsword"
-                  id="password"
-                  type="password"
-                />
+                <Textbox placeholder="Passsword" id="password" type="password" />
               </FormRow>
             </PanelContent>
             <PanelFooter>
               <FormRow justify="end">
-                <Button
-                  children="Clear"
-                  priority="tertiary"
-                  onClick={() => this.formRef.resetForm()}
-                />
-                <Button
-                  isLoading={this.state.isAuthStatusLoading}
-                  type="submit"
-                >
+                <Button children="Clear" priority="tertiary" onClick={() => this.formRef.resetForm()} />
+                <Button isLoading={this.state.isAuthStatusLoading} type="submit">
                   {actionText}
                 </Button>
               </FormRow>

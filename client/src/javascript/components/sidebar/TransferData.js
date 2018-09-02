@@ -40,20 +40,12 @@ class TransferData extends React.Component {
       {
         id: 'transfer-data',
         message: (
-          <FormattedMessage
-            id="dependency.loading.transfer.rate.details"
-            defaultMessage="Data Transfer Rate Details"
-          />
+          <FormattedMessage id="dependency.loading.transfer.rate.details" defaultMessage="Data Transfer Rate Details" />
         ),
       },
       {
         id: 'transfer-history',
-        message: (
-          <FormattedMessage
-            id="dependency.loading.transfer.history"
-            defaultMessage="Data Transfer History"
-          />
-        ),
+        message: <FormattedMessage id="dependency.loading.transfer.history" defaultMessage="Data Transfer History" />,
       },
     ]);
   }
@@ -63,21 +55,12 @@ class TransferData extends React.Component {
       sidebarWidth: ReactDOM.findDOMNode(this).offsetWidth,
     });
 
-    TransferDataStore.listen(
-      EventTypes.CLIENT_TRANSFER_SUMMARY_CHANGE,
-      this.onTransferSummaryChange
-    );
-    TransferDataStore.listen(
-      EventTypes.CLIENT_TRANSFER_HISTORY_REQUEST_SUCCESS,
-      this.onTransferHistoryRequestSuccess
-    );
+    TransferDataStore.listen(EventTypes.CLIENT_TRANSFER_SUMMARY_CHANGE, this.onTransferSummaryChange);
+    TransferDataStore.listen(EventTypes.CLIENT_TRANSFER_HISTORY_REQUEST_SUCCESS, this.onTransferHistoryRequestSuccess);
   }
 
   componentWillUnmount() {
-    TransferDataStore.unlisten(
-      EventTypes.CLIENT_TRANSFER_SUMMARY_CHANGE,
-      this.onTransferSummaryChange
-    );
+    TransferDataStore.unlisten(EventTypes.CLIENT_TRANSFER_SUMMARY_CHANGE, this.onTransferSummaryChange);
     TransferDataStore.unlisten(
       EventTypes.CLIENT_TRANSFER_HISTORY_REQUEST_SUCCESS,
       this.onTransferHistoryRequestSuccess
@@ -107,10 +90,7 @@ class TransferData extends React.Component {
   }
 
   isLoading() {
-    if (
-      !this.state.transferHistoryRequestSuccess ||
-      !this.state.transferDataRequestSuccess
-    ) {
+    if (!this.state.transferHistoryRequestSuccess || !this.state.transferDataRequestSuccess) {
       return true;
     }
 
@@ -156,10 +136,7 @@ class TransferData extends React.Component {
           onMouseOut={this.handleMouseOut}
           onMouseOver={this.handleMouseOver}
         >
-          <TransferRateDetails
-            inspectorPoint={this.state.graphInspectorPoint}
-            transferSummary={transferSummary}
-          />
+          <TransferRateDetails inspectorPoint={this.state.graphInspectorPoint} transferSummary={transferSummary} />
           <TransferRateGraph
             height={150}
             id="transfer-rate-graph"

@@ -141,10 +141,7 @@ class UIStoreClass extends BaseStore {
   }
 
   satisfyDependency(dependencyID) {
-    if (
-      this.dependencies[dependencyID] &&
-      !this.dependencies[dependencyID].satisfied
-    ) {
+    if (this.dependencies[dependencyID] && !this.dependencies[dependencyID].satisfied) {
       this.dependencies[dependencyID].satisfied = true;
       this.emit(EventTypes.UI_DEPENDENCIES_CHANGE);
       this.verifyDependencies();

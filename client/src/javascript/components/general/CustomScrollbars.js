@@ -35,11 +35,7 @@ export default class CustomScrollbar extends React.Component {
     }
 
     return (
-      <div
-        {...props}
-        className="scrollbars__thumb scrollbars__thumb--vertical"
-        onMouseUp={this.props.onThumbMouseUp}
-      />
+      <div {...props} className="scrollbars__thumb scrollbars__thumb--vertical" onMouseUp={this.props.onThumbMouseUp} />
     );
   }
 

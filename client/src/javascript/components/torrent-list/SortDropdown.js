@@ -41,10 +41,7 @@ class SortDropdown extends React.Component {
           <FormattedMessage id="torrents.sort.title" defaultMessage="Sort By" />
         </label>
         <span className="dropdown__value">
-          <FormattedMessage
-            id={propertyMessageConfig.id}
-            defaultMessage={propertyMessageConfig.defaultMessage}
-          />
+          <FormattedMessage id={propertyMessageConfig.id} defaultMessage={propertyMessageConfig.defaultMessage} />
         </span>
       </a>
     );
@@ -55,9 +52,7 @@ class SortDropdown extends React.Component {
     let items = SORT_PROPERTIES.map(sortProp => {
       const isSelected = sortProp === selectedProperty;
       const directionIndicator = isSelected ? (
-        <span
-          className={`sort-dropdown__indicator sort-dropdown__indicator--${direction}`}
-        />
+        <span className={`sort-dropdown__indicator sort-dropdown__indicator--${direction}`} />
       ) : null;
 
       return {

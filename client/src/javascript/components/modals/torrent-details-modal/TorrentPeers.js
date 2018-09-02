@@ -83,27 +83,14 @@ export default class TorrentPeers extends React.Component {
             <thead className="torrent-details__table__heading">
               <tr>
                 <th className="torrent-details__table__heading--primary">
-                  <FormattedMessage
-                    id="torrents.details.peers"
-                    defaultMessage="Peers"
-                  />
+                  <FormattedMessage id="torrents.details.peers" defaultMessage="Peers" />
                   <Badge>{peers.length}</Badge>
                 </th>
-                <th className="torrent-details__table__heading--secondary">
-                  DL
-                </th>
-                <th className="torrent-details__table__heading--secondary">
-                  UL
-                </th>
-                <th className="torrent-details__table__heading--secondary">
-                  %
-                </th>
-                <th className="torrent-details__table__heading--secondary">
-                  Client
-                </th>
-                <th className="torrent-details__table__heading--secondary">
-                  Enc
-                </th>
+                <th className="torrent-details__table__heading--secondary">DL</th>
+                <th className="torrent-details__table__heading--secondary">UL</th>
+                <th className="torrent-details__table__heading--secondary">%</th>
+                <th className="torrent-details__table__heading--secondary">Client</th>
+                <th className="torrent-details__table__heading--secondary">Enc</th>
               </tr>
             </thead>
             <tbody>{peerList}</tbody>

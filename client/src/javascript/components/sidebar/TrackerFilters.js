@@ -6,12 +6,7 @@ import SidebarFilter from './SidebarFilter';
 import TorrentFilterStore from '../../stores/TorrentFilterStore';
 import UIActions from '../../actions/UIActions';
 
-const METHODS_TO_BIND = [
-  'getFilters',
-  'handleClick',
-  'onTrackerFilterChange',
-  'onTorrentTaxonomyChange',
-];
+const METHODS_TO_BIND = ['getFilters', 'handleClick', 'onTrackerFilterChange', 'onTorrentTaxonomyChange'];
 
 export default class TrackerFilters extends React.Component {
   constructor() {
@@ -28,25 +23,13 @@ export default class TrackerFilters extends React.Component {
   }
 
   componentDidMount() {
-    TorrentFilterStore.listen(
-      EventTypes.CLIENT_FETCH_TORRENT_TAXONOMY_SUCCESS,
-      this.onTorrentTaxonomyChange
-    );
-    TorrentFilterStore.listen(
-      EventTypes.UI_TORRENTS_FILTER_TRACKER_CHANGE,
-      this.onTrackerFilterChange
-    );
+    TorrentFilterStore.listen(EventTypes.CLIENT_FETCH_TORRENT_TAXONOMY_SUCCESS, this.onTorrentTaxonomyChange);
+    TorrentFilterStore.listen(EventTypes.UI_TORRENTS_FILTER_TRACKER_CHANGE, this.onTrackerFilterChange);
   }
 
   componentWillUnmount() {
-    TorrentFilterStore.unlisten(
-      EventTypes.CLIENT_FETCH_TORRENT_TAXONOMY_SUCCESS,
-      this.onTorrentTaxonomyChange
-    );
-    TorrentFilterStore.unlisten(
-      EventTypes.UI_TORRENTS_FILTER_TRACKER_CHANGE,
-      this.onTrackerFilterChange
-    );
+    TorrentFilterStore.unlisten(EventTypes.CLIENT_FETCH_TORRENT_TAXONOMY_SUCCESS, this.onTorrentTaxonomyChange);
+    TorrentFilterStore.unlisten(EventTypes.UI_TORRENTS_FILTER_TRACKER_CHANGE, this.onTrackerFilterChange);
   }
 
   getFilters() {
@@ -105,10 +88,7 @@ export default class TrackerFilters extends React.Component {
     return (
       <ul className="sidebar-filter sidebar__item">
         <li className="sidebar-filter__item sidebar-filter__item--heading">
-          <FormattedMessage
-            id="filter.tracker.title"
-            defaultMessage="Filter by Tracker"
-          />
+          <FormattedMessage id="filter.tracker.title" defaultMessage="Filter by Tracker" />
         </li>
         {filters}
       </ul>

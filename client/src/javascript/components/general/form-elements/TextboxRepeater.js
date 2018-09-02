@@ -21,9 +21,7 @@ export default class TextboxRepeater extends React.PureComponent {
 
       if (index > 0) {
         removeButton = (
-          <FormElementAddon
-            onClick={this.handleTextboxRemove.bind(textbox, index)}
-          >
+          <FormElementAddon onClick={this.handleTextboxRemove.bind(textbox, index)}>
             <RemoveMini size="mini" />
           </FormElementAddon>
         );
@@ -39,9 +37,7 @@ export default class TextboxRepeater extends React.PureComponent {
             placeholder={this.props.placeholder}
             wrapperClassName="textbox-repeater"
           >
-            <FormElementAddon
-              onClick={this.handleTextboxAdd.bind(textbox, index)}
-            >
+            <FormElementAddon onClick={this.handleTextboxAdd.bind(textbox, index)}>
               <AddMini size="mini" />
             </FormElementAddon>
             {removeButton}

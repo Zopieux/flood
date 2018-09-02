@@ -5,10 +5,7 @@ import BaseIcon from './BaseIcon';
 export default class InformationIcon extends BaseIcon {
   render() {
     return (
-      <svg
-        className={`icon icon--information ${this.props.className}`}
-        viewBox={this.getViewBox()}
-      >
+      <svg className={`icon icon--information ${this.props.className}`} viewBox={this.getViewBox()}>
         <path
           className="icon--information__gylph"
           d="M27.14,28.26h5.72V43.95H27.14V28.26ZM30,24.44a4,4,0,1,0-4-4A4,4,0,0,0,30,24.44Z"

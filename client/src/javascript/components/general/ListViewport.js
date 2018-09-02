@@ -74,9 +74,7 @@ class ListViewport extends React.Component {
 
     if (state.listVerticalPadding == null && nodeRefs.list != null) {
       const listStyle = global.getComputedStyle(nodeRefs.list);
-      const paddingBottom = Number(
-        listStyle['padding-bottom'].replace('px', '')
-      );
+      const paddingBottom = Number(listStyle['padding-bottom'].replace('px', ''));
       const paddingTop = Number(listStyle['padding-top'].replace('px', ''));
 
       this.setState({
@@ -111,17 +109,10 @@ class ListViewport extends React.Component {
     // of the viewport. We offset this to render a few more outide of the
     // container's dimensions, which looks nicer when the user scrolls.
     const { itemScrollOffset } = this.props;
-    const offsetBottom =
-      scrollDelta > 0 ? itemScrollOffset * 2 : itemScrollOffset / 2;
-    const offsetTop =
-      scrollDelta < 0 ? itemScrollOffset * 2 : itemScrollOffset / 2;
+    const offsetBottom = scrollDelta > 0 ? itemScrollOffset * 2 : itemScrollOffset / 2;
+    const offsetTop = scrollDelta < 0 ? itemScrollOffset * 2 : itemScrollOffset / 2;
 
-    let {
-      itemHeight,
-      listVerticalPadding,
-      scrollTop,
-      viewportHeight,
-    } = this.state;
+    let { itemHeight, listVerticalPadding, scrollTop, viewportHeight } = this.state;
 
     if (listVerticalPadding) {
       viewportHeight = viewportHeight - listVerticalPadding;
@@ -133,17 +124,11 @@ class ListViewport extends React.Component {
 
     // The minimum item index to render is the number of items above the
     // viewport's current scroll position, minus the offset.
-    const minItemIndex = Math.max(
-      0,
-      Math.floor(scrollTop / itemHeight) - offsetTop
-    );
+    const minItemIndex = Math.max(0, Math.floor(scrollTop / itemHeight) - offsetTop);
 
     // The maximum item index to render is the minimum item rendered, plus the
     // number of items in view, plus double the offset.
-    let maxItemIndex = Math.min(
-      this.props.listLength,
-      minItemIndex + elementsInView + offsetBottom + offsetTop
-    );
+    let maxItemIndex = Math.min(this.props.listLength, minItemIndex + elementsInView + offsetBottom + offsetTop);
 
     return { minItemIndex, maxItemIndex };
   }
@@ -233,14 +218,8 @@ class ListViewport extends React.Component {
 
   render() {
     const { lastScrollTop, nodeRefs, props, state } = this;
-    const { minItemIndex, maxItemIndex } = this.getViewportLimits(
-      state.scrollTop - lastScrollTop
-    );
-    const listPadding = this.getListPadding(
-      minItemIndex,
-      maxItemIndex,
-      props.listLength
-    );
+    const { minItemIndex, maxItemIndex } = this.getViewportLimits(state.scrollTop - lastScrollTop);
+    const listPadding = this.getListPadding(minItemIndex, maxItemIndex, props.listLength);
     const list = [];
 
     // For loops are fast, and performance matters here.
@@ -256,10 +235,7 @@ class ListViewport extends React.Component {
           style={{ height: `${listPadding.top}px` }}
         />
         {list}
-        <li
-          className={props.bottomSpacerClass}
-          style={{ height: `${listPadding.bottom}px` }}
-        />
+        <li className={props.bottomSpacerClass} style={{ height: `${listPadding.bottom}px` }} />
       </ul>
     );
 

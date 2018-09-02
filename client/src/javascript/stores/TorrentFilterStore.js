@@ -70,10 +70,7 @@ class TorrentFilterStoreClass extends BaseStore {
   handleTorrentTaxonomyRequestSuccess(taxonomy) {
     this.taxonomy = taxonomy;
 
-    if (
-      this.tagFilter !== 'all' &&
-      !Object.keys(taxonomy.tags).includes(this.tagFilter)
-    ) {
+    if (this.tagFilter !== 'all' && !Object.keys(taxonomy.tags).includes(this.tagFilter)) {
       this.setTagFilter('all');
     }
 
@@ -98,10 +95,7 @@ class TorrentFilterStoreClass extends BaseStore {
 
     // TODO: This logic is duplicated. Also update it to check for changed
     // trackers.
-    if (
-      this.tagFilter !== 'all' &&
-      !Object.keys(this.taxonomy.tagCounts).includes(this.tagFilter)
-    ) {
+    if (this.tagFilter !== 'all' && !Object.keys(this.taxonomy.tagCounts).includes(this.tagFilter)) {
       this.setTagFilter('all');
     }
 
@@ -113,10 +107,7 @@ class TorrentFilterStoreClass extends BaseStore {
 
     // TODO: This logic is duplicated. Also update it to check for changed
     // trackers.
-    if (
-      this.tagFilter !== 'all' &&
-      !Object.keys(taxonomy.tags).includes(this.tagFilter)
-    ) {
+    if (this.tagFilter !== 'all' && !Object.keys(taxonomy.tags).includes(this.tagFilter)) {
       this.setTagFilter('all');
     }
 

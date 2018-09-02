@@ -47,9 +47,7 @@ const speedRenderer = value => <Size value={value} isSpeed={true} />;
 const sizeRenderer = value => <Size value={value} />;
 
 const icons = {
-  checkmark: (
-    <Checkmark className="torrent__detail__icon torrent__detail__icon--checkmark" />
-  ),
+  checkmark: <Checkmark className="torrent__detail__icon torrent__detail__icon--checkmark" />,
   comment: <CommentIcon />,
   eta: <ClockIcon />,
   sizeBytes: <DiskIcon />,
@@ -117,15 +115,7 @@ const transformers = {
 
 class TorrentDetail extends React.PureComponent {
   render() {
-    let {
-      className,
-      icon,
-      preventTransform,
-      secondaryValue,
-      slug,
-      value,
-      width,
-    } = this.props;
+    let { className, icon, preventTransform, secondaryValue, slug, value, width } = this.props;
 
     if (!preventTransform && slug in transformers) {
       value = transformers[slug](value, secondaryValue);
@@ -140,10 +130,7 @@ class TorrentDetail extends React.PureComponent {
     }
 
     return (
-      <div
-        className={`torrent__detail torrent__detail--${slug} ${className}`}
-        style={{ width: `${width}px` }}
-      >
+      <div className={`torrent__detail torrent__detail--${slug} ${className}`} style={{ width: `${width}px` }}>
         {icon}
         {value}
       </div>

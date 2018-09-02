@@ -1,8 +1,7 @@
 export function selectTorrents(options) {
   if (options.event.shiftKey) {
     if (options.selectedTorrents.length) {
-      let lastHash =
-        options.selectedTorrents[options.selectedTorrents.length - 1];
+      let lastHash = options.selectedTorrents[options.selectedTorrents.length - 1];
       let currentHashIndex;
       let lastHashIndex;
 

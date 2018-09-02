@@ -19,10 +19,7 @@ const handleProlongedInactivity = () => {
 const handleWindowVisibilityChange = () => {
   if (global.document.hidden) {
     // After 30 seconds of inactivity, we stop the event stream.
-    visibilityChangeTimeout = global.setTimeout(
-      handleProlongedInactivity,
-      1000 * 30
-    );
+    visibilityChangeTimeout = global.setTimeout(handleProlongedInactivity, 1000 * 30);
   } else {
     global.clearTimeout(visibilityChangeTimeout);
 
@@ -32,10 +29,7 @@ const handleWindowVisibilityChange = () => {
   }
 };
 
-global.document.addEventListener(
-  'visibilitychange',
-  handleWindowVisibilityChange
-);
+global.document.addEventListener('visibilitychange', handleWindowVisibilityChange);
 
 const FloodActions = {
   clearNotifications: options => {
@@ -71,15 +65,9 @@ const FloodActions = {
       this.handleNotificationCountChange
     );
 
-    activityStreamEventSource.removeEventListener(
-      serverEventTypes.TAXONOMY_DIFF_CHANGE,
-      this.handleTaxonomyDiffChange
-    );
+    activityStreamEventSource.removeEventListener(serverEventTypes.TAXONOMY_DIFF_CHANGE, this.handleTaxonomyDiffChange);
 
-    activityStreamEventSource.removeEventListener(
-      serverEventTypes.TAXONOMY_FULL_UPDATE,
-      this.handleTaxonomyFullUpdate
-    );
+    activityStreamEventSource.removeEventListener(serverEventTypes.TAXONOMY_FULL_UPDATE, this.handleTaxonomyFullUpdate);
 
     activityStreamEventSource.removeEventListener(
       serverEventTypes.TORRENT_LIST_DIFF_CHANGE,
@@ -257,8 +245,7 @@ const FloodActions = {
   startActivityStream(options = {}) {
     const { historySnapshot = historySnapshotTypes.FIVE_MINUTE } = options;
     const didHistorySnapshotChange =
-      lastActivityStreamOptions &&
-      lastActivityStreamOptions.historySnapshot !== historySnapshot;
+      lastActivityStreamOptions && lastActivityStreamOptions.historySnapshot !== historySnapshot;
 
     lastActivityStreamOptions = options;
 
@@ -271,24 +258,16 @@ const FloodActions = {
     // If the user requested a new history snapshot, or the event source has not
     // alraedy been created, we open the event stream.
     if (didHistorySnapshotChange || activityStreamEventSource === null) {
-      activityStreamEventSource = new EventSource(
-        `${baseURI}api/activity-stream?historySnapshot=${historySnapshot}`
-      );
+      activityStreamEventSource = new EventSource(`${baseURI}api/activity-stream?historySnapshot=${historySnapshot}`);
 
       activityStreamEventSource.addEventListener(
         serverEventTypes.NOTIFICATION_COUNT_CHANGE,
         this.handleNotificationCountChange
       );
 
-      activityStreamEventSource.addEventListener(
-        serverEventTypes.TAXONOMY_DIFF_CHANGE,
-        this.handleTaxonomyDiffChange
-      );
+      activityStreamEventSource.addEventListener(serverEventTypes.TAXONOMY_DIFF_CHANGE, this.handleTaxonomyDiffChange);
 
-      activityStreamEventSource.addEventListener(
-        serverEventTypes.TAXONOMY_FULL_UPDATE,
-        this.handleTaxonomyFullUpdate
-      );
+      activityStreamEventSource.addEventListener(serverEventTypes.TAXONOMY_FULL_UPDATE, this.handleTaxonomyFullUpdate);
 
       activityStreamEventSource.addEventListener(
         serverEventTypes.TORRENT_LIST_DIFF_CHANGE,

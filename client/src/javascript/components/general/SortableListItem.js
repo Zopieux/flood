@@ -35,9 +35,7 @@ const itemTarget = {
     }
 
     // Determine rectangle on screen
-    const hoverBoundingRect = ReactDOM.findDOMNode(
-      component
-    ).getBoundingClientRect();
+    const hoverBoundingRect = ReactDOM.findDOMNode(component).getBoundingClientRect();
 
     // Determine mouse position
     const clientOffset = monitor.getClientOffset();
@@ -48,15 +46,10 @@ const itemTarget = {
     const isDraggingUp = dragIndex < hoverIndex;
     const isDraggingDown = dragIndex > hoverIndex;
 
-    const dragThreshhold = isDraggingDown
-      ? hoverBoundingRect.height * 0.85
-      : hoverBoundingRect.height * 0.15;
+    const dragThreshhold = isDraggingDown ? hoverBoundingRect.height * 0.85 : hoverBoundingRect.height * 0.15;
 
     // Return early if we haven't dragged more than halfway past the next item.
-    if (
-      (isDraggingUp && hoverClientY < dragThreshhold) ||
-      (isDraggingDown && hoverClientY > dragThreshhold)
-    ) {
+    if ((isDraggingUp && hoverClientY < dragThreshhold) || (isDraggingDown && hoverClientY > dragThreshhold)) {
       return;
     }
 
@@ -78,13 +71,7 @@ class SortableListItem extends React.Component {
   }
 
   render() {
-    const {
-      children,
-      isDragging,
-      isLocked,
-      connectDragSource,
-      connectDropTarget,
-    } = this.props;
+    const { children, isDragging, isLocked, connectDragSource, connectDropTarget } = this.props;
 
     let lockedIcon = null;
 

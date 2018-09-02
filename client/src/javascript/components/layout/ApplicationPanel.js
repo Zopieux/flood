@@ -15,8 +15,7 @@ class ApplicationContent extends React.Component {
 
   render() {
     let classes = classnames(this.props.baseClassName, {
-      [`${this.props.baseClassName}--${this.props.modifier}`]: this.props
-        .baseClassName,
+      [`${this.props.baseClassName}--${this.props.modifier}`]: this.props.baseClassName,
       [this.props.className]: this.props.className,
     });
 

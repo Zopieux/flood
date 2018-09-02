@@ -55,11 +55,7 @@ class AddTorrentsByURL extends React.Component {
 
   render() {
     return (
-      <Form
-        className="inverse"
-        onChange={this.handleFormChange}
-        ref={ref => (this._formRef = ref)}
-      >
+      <Form className="inverse" onChange={this.handleFormChange} ref={ref => (this._formRef = ref)}>
         <TextboxRepeater
           id="urls"
           label={this.props.intl.formatMessage({

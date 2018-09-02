@@ -19,10 +19,7 @@ export function torrentStatusIcons(status) {
     hashChecking: [status.includes(torrentStatusMap.checking)],
     error: [status.includes(torrentStatusMap.error)],
     stopped: [status.includes(torrentStatusMap.stopped)],
-    running: [
-      status.includes(torrentStatusMap.downloading),
-      status.includes(torrentStatusMap.seeding),
-    ],
+    running: [status.includes(torrentStatusMap.downloading), status.includes(torrentStatusMap.seeding)],
   };
 
   Object.keys(statusConditions).some(status => {

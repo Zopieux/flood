@@ -1,13 +1,5 @@
 import _ from 'lodash';
-import {
-  Checkbox,
-  ContextMenu,
-  FormElementAddon,
-  FormRow,
-  FormRowGroup,
-  Portal,
-  Textbox,
-} from 'flood-ui-kit';
+import { Checkbox, ContextMenu, FormElementAddon, FormRow, FormRowGroup, Portal, Textbox } from 'flood-ui-kit';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import React from 'react';
 
@@ -50,10 +42,7 @@ class NewTorrentDestination extends React.Component {
   componentWillUpdate(_nextProps, nextState) {
     if (!this.state.isDirectoryListOpen && nextState.isDirectoryListOpen) {
       this.addDestinationOpenEventListeners();
-    } else if (
-      this.state.isDirectoryListOpen &&
-      !nextState.isDirectoryListOpen
-    ) {
+    } else if (this.state.isDirectoryListOpen && !nextState.isDirectoryListOpen) {
       this.removeDestinationOpenEventListeners();
     }
   }
@@ -191,10 +180,7 @@ class NewTorrentDestination extends React.Component {
         </FormRow>
         <FormRow>
           <Checkbox grow={false} id="useBasePath">
-            <FormattedMessage
-              id="torrents.destination.base_path"
-              defaultMessage="Use as Base Path"
-            />
+            <FormattedMessage id="torrents.destination.base_path" defaultMessage="Use as Base Path" />
           </Checkbox>
         </FormRow>
       </FormRowGroup>

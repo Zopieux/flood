@@ -27,17 +27,11 @@ class GlobalContextMenuMountPoint extends React.Component {
   };
 
   componentDidMount() {
-    UIStore.listen(
-      EventTypes.UI_CONTEXT_MENU_CHANGE,
-      this.handleContextMenuChange
-    );
+    UIStore.listen(EventTypes.UI_CONTEXT_MENU_CHANGE, this.handleContextMenuChange);
   }
 
   componentWillUnmount() {
-    UIStore.unlisten(
-      EventTypes.UI_CONTEXT_MENU_CHANGE,
-      this.handleContextMenuChange
-    );
+    UIStore.unlisten(EventTypes.UI_CONTEXT_MENU_CHANGE, this.handleContextMenuChange);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -95,17 +89,11 @@ class GlobalContextMenuMountPoint extends React.Component {
       });
 
       if (item.labelSecondary) {
-        labelSecondary = (
-          <span className="menu__item__label--secondary">
-            {item.labelSecondary}
-          </span>
-        );
+        labelSecondary = <span className="menu__item__label--secondary">{item.labelSecondary}</span>;
       }
 
       if (item.labelAction) {
-        labelAction = (
-          <span className="menu__item__label__action">{item.labelAction}</span>
-        );
+        labelAction = <span className="menu__item__label__action">{item.labelAction}</span>;
       }
 
       if (item.type !== 'separator') {
@@ -121,11 +109,7 @@ class GlobalContextMenuMountPoint extends React.Component {
       }
 
       return (
-        <li
-          className={menuItemClasses}
-          key={index}
-          onClick={this.handleMenuItemClick.bind(this, item)}
-        >
+        <li className={menuItemClasses} key={index} onClick={this.handleMenuItemClick.bind(this, item)}>
           {menuItemContent}
         </li>
       );

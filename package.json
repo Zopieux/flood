@@ -14,8 +14,9 @@
     "start:development:server": "NODE_ENV=development nodemon server/bin/start.js",
     "start:production": "UPDATED_SCRIPT=start npm run deprecated-warning && npm start",
     "start:watch": "UPDATED_SCRIPT=start:development:client npm run deprecated-warning && npm run start:development:client",
-    "prettier": "prettier --120 print-width --single-quote --trailing-comma es5 --write 'client/**/*.js'",
-    "test": "node client/scripts/test.js --env=jsdom"
+    "prettier": "prettier --print-width 120 --single-quote --trailing-comma es5 --write 'client/**/*.js'",
+    "prettier:verify": "prettier-check --print-width 120 --single-quote --trailing-comma es5 'client/**/*.js'",
+    "test": "node client/scripts/test.js --env=jsdom && npm run prettier:verify"
   },
   "dependencies": {
     "argon2": "^0.19.1",
@@ -116,6 +117,7 @@
     "minami": "^1.2.3",
     "nodemon": "^1.17.2",
     "prettier": "1.14.2",
+    "prettier-check": "^2.0.0",
     "source-map-loader": "^0.2.3",
     "webpack-dev-server": "^2.11.2",
     "webpack-manifest-plugin": "^2.0.0-rc.2"

@@ -51,12 +51,7 @@ class DirectoryFiles extends React.Component {
           className="directory-tree__checkbox__item
           directory-tree__checkbox__item--checkbox"
         >
-          <Checkbox
-            checked={isSelected}
-            id={file.index}
-            onChange={changeHandler}
-            useProps={true}
-          />
+          <Checkbox checked={isSelected} id={file.index} onChange={changeHandler} useProps={true} />
         </div>
         <div
           className="directory-tree__checkbox__item
@@ -94,9 +89,7 @@ class DirectoryFiles extends React.Component {
     });
 
     let files = branch.map((file, index) => {
-      let isSelected =
-        this.props.selectedItems[file.filename] &&
-        this.props.selectedItems[file.filename].isSelected;
+      let isSelected = this.props.selectedItems[file.filename] && this.props.selectedItems[file.filename].isSelected;
       let classes = classnames(
         'directory-tree__node file',
         'directory-tree__node--file directory-tree__node--selectable',
@@ -106,11 +99,7 @@ class DirectoryFiles extends React.Component {
       );
 
       return (
-        <div
-          className={classes}
-          key={`${index}-${file.filename}`}
-          title={file.filename}
-        >
+        <div className={classes} key={`${index}-${file.filename}`} title={file.filename}>
           <div className="file__label file__detail">
             {this.getIcon(file, isSelected)}
             <div className="file__name">{file.filename}</div>
@@ -118,9 +107,7 @@ class DirectoryFiles extends React.Component {
           <div className="file__detail file__detail--secondary">
             <Size value={file.sizeBytes} precision={1} />
           </div>
-          <div className="file__detail file__detail--secondary">
-            {file.percentComplete}%
-          </div>
+          <div className="file__detail file__detail--secondary">{file.percentComplete}%</div>
           <div
             className="file__detail file__detail--secondary
             file__detail--priority"
@@ -138,11 +125,7 @@ class DirectoryFiles extends React.Component {
       );
     });
 
-    return (
-      <div className="directory-tree__node directory-tree__node--file-list">
-        {files}
-      </div>
-    );
+    return <div className="directory-tree__node directory-tree__node--file-list">{files}</div>;
   }
 }
 

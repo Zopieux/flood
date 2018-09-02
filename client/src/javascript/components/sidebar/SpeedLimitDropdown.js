@@ -21,11 +21,7 @@ const MESSAGES = defineMessages({
     id: 'speed.unlimited',
   },
 });
-const METHODS_TO_BIND = [
-  'handleDropdownOpen',
-  'handleSettingsFetchRequestSuccess',
-  'onTransferSummaryChange',
-];
+const METHODS_TO_BIND = ['handleDropdownOpen', 'handleSettingsFetchRequestSuccess', 'onTransferSummaryChange'];
 
 class SpeedLimitDropdown extends React.Component {
   constructor() {
@@ -46,25 +42,13 @@ class SpeedLimitDropdown extends React.Component {
   }
 
   componentDidMount() {
-    SettingsStore.listen(
-      EventTypes.SETTINGS_CHANGE,
-      this.handleSettingsFetchRequestSuccess
-    );
-    TransferDataStore.listen(
-      EventTypes.CLIENT_TRANSFER_SUMMARY_CHANGE,
-      this.onTransferSummaryChange
-    );
+    SettingsStore.listen(EventTypes.SETTINGS_CHANGE, this.handleSettingsFetchRequestSuccess);
+    TransferDataStore.listen(EventTypes.CLIENT_TRANSFER_SUMMARY_CHANGE, this.onTransferSummaryChange);
   }
 
   componentWillUnmount() {
-    SettingsStore.unlisten(
-      EventTypes.SETTINGS_CHANGE,
-      this.handleSettingsFetchRequestSuccess
-    );
-    TransferDataStore.unlisten(
-      EventTypes.CLIENT_TRANSFER_SUMMARY_CHANGE,
-      this.onTransferSummaryChange
-    );
+    SettingsStore.unlisten(EventTypes.SETTINGS_CHANGE, this.handleSettingsFetchRequestSuccess);
+    TransferDataStore.unlisten(EventTypes.CLIENT_TRANSFER_SUMMARY_CHANGE, this.onTransferSummaryChange);
   }
 
   onTransferSummaryChange() {

@@ -55,10 +55,9 @@ class TransferRateDetails extends React.Component {
       upload: transferSummary.upTotal,
     };
 
-    const secondaryDataClasses = classnames(
-      'client-stats__rate__data--secondary',
-      { 'is-visible': inspectorPoint == null }
-    );
+    const secondaryDataClasses = classnames('client-stats__rate__data--secondary', {
+      'is-visible': inspectorPoint == null,
+    });
 
     const timestampClasses = classnames('client-stats__rate__data--timestamp', {
       'is-visible': inspectorPoint != null && options.showHoverDuration,
@@ -74,17 +73,12 @@ class TransferRateDetails extends React.Component {
     if (this.state.timestamp != null) {
       const currentTime = moment(Date.now());
       const durationSummary = formatUtil.secondsToDuration(
-        moment
-          .duration(currentTime.diff(moment(this.state.timestamp)))
-          .asSeconds()
+        moment.duration(currentTime.diff(moment(this.state.timestamp))).asSeconds()
       );
 
       timestamp = (
         <div className={timestampClasses}>
-          <Duration
-            suffix={this.props.intl.formatMessage(messages.ago)}
-            value={durationSummary}
-          />
+          <Duration suffix={this.props.intl.formatMessage(messages.ago)} value={durationSummary} />
         </div>
       );
     }

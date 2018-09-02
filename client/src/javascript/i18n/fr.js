@@ -42,14 +42,11 @@ export default {
   'feeds.time.min': '{durationValue} min',
   'feeds.torrent.destination': 'Destination du Torrent',
   'feeds.url': 'URL',
-  'feeds.validation.invalid.regular.expression':
-    'Expression régulière invalide.',
+  'feeds.validation.invalid.regular.expression': 'Expression régulière invalide.',
   'feeds.validation.must.select.feed': 'Vous devez choisir un flux.',
-  'feeds.validation.must.specify.destination':
-    'Vous devez définir un emplacement.',
+  'feeds.validation.must.specify.destination': 'Vous devez définir un emplacement.',
   'feeds.validation.must.specify.label': 'Vous devez définir un label.',
-  'feeds.validation.must.specify.valid.feed.url':
-    'Vous devez définir une URL de flux valide.',
+  'feeds.validation.must.specify.valid.feed.url': 'Vous devez définir une URL de flux valide.',
 
   'filter.all': 'Tout',
   'filter.status.title': 'Filtrer par Status',
@@ -97,23 +94,17 @@ export default {
   'priority.low': 'Basse',
   'priority.normal': 'Normale',
 
-  'settings.bandwidth.slots.download.divider.label':
-    'Diviseur Slots de Réception',
-  'settings.bandwidth.slots.download.global.label':
-    'Slots de Réception (Global)',
+  'settings.bandwidth.slots.download.divider.label': 'Diviseur Slots de Réception',
+  'settings.bandwidth.slots.download.global.label': 'Slots de Réception (Global)',
   'settings.bandwidth.slots.download.label': 'Slots de Réception par Torrent',
   'settings.bandwidth.slots.heading': 'Configuration des Slots',
   'settings.bandwidth.slots.upload.divider.label': "Diviseur Slots d'Envoi",
   'settings.bandwidth.slots.upload.global.label': "Slots d'Envoi (Global)",
   'settings.bandwidth.slots.upload.label': "Slots d'Envoi par Torrent",
-  'settings.bandwidth.transferrate.dropdown.preset.download.label':
-    'Pré-réglages du Menu (Réception) :',
-  'settings.bandwidth.transferrate.dropdown.preset.upload.label':
-    'Pré-réglages du Menu (Envoi) :',
-  'settings.bandwidth.transferrate.global.throttle.download':
-    'Limitation Globale de Réception',
-  'settings.bandwidth.transferrate.global.throttle.upload':
-    "Limitation Globale d'Envoi",
+  'settings.bandwidth.transferrate.dropdown.preset.download.label': 'Pré-réglages du Menu (Réception) :',
+  'settings.bandwidth.transferrate.dropdown.preset.upload.label': 'Pré-réglages du Menu (Envoi) :',
+  'settings.bandwidth.transferrate.global.throttle.download': 'Limitation Globale de Réception',
+  'settings.bandwidth.transferrate.global.throttle.upload': "Limitation Globale d'Envoi",
   'settings.bandwidth.transferrate.heading': 'Configuration Taux de Transfert',
 
   'settings.connectivity.dht.label': 'Activer le DHT',
@@ -127,18 +118,14 @@ export default {
   'settings.connectivity.peers.heading': 'Pairs',
   'settings.connectivity.peers.max.label': 'Pairs Maximum (Réception)',
   'settings.connectivity.peers.min.label': 'Pairs Minimum (Réception)',
-  'settings.connectivity.peers.seeding.max.label':
-    'Pairs en Partage Maximum (Envoi)',
-  'settings.connectivity.peers.seeding.min.label':
-    'Pairs en Partage Minimum (Envoi)',
+  'settings.connectivity.peers.seeding.max.label': 'Pairs en Partage Maximum (Envoi)',
+  'settings.connectivity.peers.seeding.min.label': 'Pairs en Partage Minimum (Envoi)',
   'settings.connectivity.port.open.label': 'Port Ouvert',
   'settings.connectivity.port.randomize.label': 'Port Aléatoire',
   'settings.connectivity.port.range.label': 'Plage de Ports',
 
-  'settings.resources.disk.check.hash.label':
-    'Vérifier le hash après le Téléchargement',
-  'settings.resources.disk.download.location.label':
-    'Répertoire de Téléchargement par défaut',
+  'settings.resources.disk.check.hash.label': 'Vérifier le hash après le Téléchargement',
+  'settings.resources.disk.download.location.label': 'Répertoire de Téléchargement par défaut',
   'settings.resources.disk.heading': 'Disque Dur',
   'settings.resources.max.open.files': 'Fichiers Ouverts Maximum',
   'settings.resources.memory.heading': 'Mémoire Vive',
@@ -220,16 +207,14 @@ export default {
   'torrents.details.general.type.private': 'Privé',
   'torrents.details.general.type.public': 'Public',
   'torrents.details.general.type': 'Type',
-  'torrents.details.peers.no.data':
-    "Il n'y a aucun Pair actif pour ce Torrent.",
+  'torrents.details.peers.no.data': "Il n'y a aucun Pair actif pour ce Torrent.",
   'torrents.details.peers': 'Pairs',
   'torrents.details.selected.files': `{count, plural,
     =1 {{countElement} fichier sélectionné}
     other {{countElement} fichiers sélectionnés}
   }`,
   'torrents.details.selected.files.set.priority': 'Priorité',
-  'torrents.details.trackers.no.data':
-    "Il n'y a aucun Traqueur actif pour ce Torrent.",
+  'torrents.details.trackers.no.data': "Il n'y a aucun Traqueur actif pour ce Torrent.",
   'torrents.details.trackers.type': 'Type',
   'torrents.details.trackers': 'Traqueurs',
 
@@ -268,8 +253,7 @@ export default {
       other {# torrents}
     } ?`,
   'torrents.remove.delete.data': 'Supprimer les Données',
-  'torrents.remove.error.no.torrents.selected':
-    "Vous n'avez sélectionné aucun torrent.",
+  'torrents.remove.error.no.torrents.selected': "Vous n'avez sélectionné aucun torrent.",
   'torrents.remove': 'Supprimer les Torrents',
 
   'torrents.set.tags.button.set': 'Définir un Tag',

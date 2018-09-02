@@ -26,17 +26,11 @@ export default class TorrentTrackrs extends React.Component {
             <thead className="torrent-details__table__heading">
               <tr>
                 <th className="torrent-details__table__heading--primary">
-                  <FormattedMessage
-                    id="torrents.details.trackers"
-                    defaultMessage="Trackers"
-                  />
+                  <FormattedMessage id="torrents.details.trackers" defaultMessage="Trackers" />
                   <Badge>{trackerCount}</Badge>
                 </th>
                 <th className="torrent-details__table__heading--secondary">
-                  <FormattedMessage
-                    id="torrents.details.trackers.type"
-                    defaultMessage="Type"
-                  />
+                  <FormattedMessage id="torrents.details.trackers.type" defaultMessage="Type" />
                 </th>
               </tr>
             </thead>

@@ -95,26 +95,17 @@ class DownloadRulesTab extends React.Component {
   };
 
   componentDidMount() {
-    FeedMonitorStore.listen(
-      EventTypes.SETTINGS_FEED_MONITORS_FETCH_SUCCESS,
-      this.handleFeedMonitorsFetchSuccess
-    );
+    FeedMonitorStore.listen(EventTypes.SETTINGS_FEED_MONITORS_FETCH_SUCCESS, this.handleFeedMonitorsFetchSuccess);
   }
 
   componentWillUnmount() {
-    FeedMonitorStore.unlisten(
-      EventTypes.SETTINGS_FEED_MONITORS_FETCH_SUCCESS,
-      this.handleFeedMonitorsFetchSuccess
-    );
+    FeedMonitorStore.unlisten(EventTypes.SETTINGS_FEED_MONITORS_FETCH_SUCCESS, this.handleFeedMonitorsFetchSuccess);
   }
 
   checkFieldValidity = _.throttle((fieldName, fieldValue) => {
     const { errors } = this.state;
 
-    if (
-      this.state.errors[fieldName] &&
-      this.validatedFields[fieldName].isValid(fieldValue)
-    ) {
+    if (this.state.errors[fieldName] && this.validatedFields[fieldName].isValid(fieldValue)) {
       delete errors[fieldName];
       this.setState({ errors });
     }
@@ -134,10 +125,7 @@ class DownloadRulesTab extends React.Component {
       return [
         <SelectItem key="empty" id="placeholder" placeholder>
           <em>
-            <FormattedMessage
-              id="feeds.no.feeds.available"
-              defaultMessage="No feeds available."
-            />
+            <FormattedMessage id="feeds.no.feeds.available" defaultMessage="No feeds available." />
           </em>
         </SelectItem>,
       ];
@@ -154,10 +142,7 @@ class DownloadRulesTab extends React.Component {
       [
         <SelectItem key="select-feed" id="placeholder" placeholder>
           <em>
-            <FormattedMessage
-              id="feeds.select.feed"
-              defaultMessage="Select feed"
-            />
+            <FormattedMessage id="feeds.select.feed" defaultMessage="Select feed" />
           </em>
         </SelectItem>,
       ]
@@ -231,10 +216,7 @@ class DownloadRulesTab extends React.Component {
         <FormRow>
           <FormRowItem width="auto" />
           <Checkbox id="startOnLoad" matchTextboxHeight>
-            <FormattedMessage
-              id="feeds.start.on.load"
-              defaultMessage="Start on load"
-            />
+            <FormattedMessage id="feeds.start.on.load" defaultMessage="Start on load" />
           </Checkbox>
           <Button type="submit">
             <FormattedMessage id="button.add" defaultMessage="Add" />
@@ -249,10 +231,7 @@ class DownloadRulesTab extends React.Component {
       return (
         <ul className="interactive-list">
           <li className="interactive-list__item">
-            <FormattedMessage
-              id="feeds.no.rules.defined"
-              defaultMessage="No rules defined."
-            />
+            <FormattedMessage id="feeds.no.rules.defined" defaultMessage="No rules defined." />
           </li>
         </ul>
       );
@@ -269,8 +248,7 @@ class DownloadRulesTab extends React.Component {
             className="interactive-list__detail-list__item
             interactive-list__detail interactive-list__detail--tertiary"
           >
-            <FormattedMessage id="feeds.exclude" defaultMessage="Exclude" />{' '}
-            {rule.exclude}
+            <FormattedMessage id="feeds.exclude" defaultMessage="Exclude" /> {rule.exclude}
           </li>
         );
       }
@@ -286,17 +264,13 @@ class DownloadRulesTab extends React.Component {
 
         tags = (
           <li className="interactive-list__detail-list__item interactive-list__detail interactive-list__detail--tertiary">
-            <FormattedMessage id="feeds.tags" defaultMessage="Tags" />{' '}
-            {tagNodes}
+            <FormattedMessage id="feeds.tags" defaultMessage="Tags" /> {tagNodes}
           </li>
         );
       }
 
       return (
-        <li
-          className="interactive-list__item interactive-list__item--stacked-content"
-          key={rule._id}
-        >
+        <li className="interactive-list__item interactive-list__item--stacked-content" key={rule._id}>
           <div className="interactive-list__label">
             <ul className="interactive-list__detail-list">
               <li
@@ -323,8 +297,7 @@ class DownloadRulesTab extends React.Component {
                 className="interactive-list__detail-list__item
                 interactive-list__detail interactive-list__detail--tertiary"
               >
-                <FormattedMessage id="feeds.match" defaultMessage="Match" />{' '}
-                {rule.match}
+                <FormattedMessage id="feeds.match" defaultMessage="Match" /> {rule.match}
               </li>
               {excludeNode}
               {tags}
@@ -373,18 +346,15 @@ class DownloadRulesTab extends React.Component {
   validateForm() {
     const formData = this.getAmendedFormData();
 
-    const errors = Object.keys(this.validatedFields).reduce(
-      (accumulator, fieldName) => {
-        const fieldValue = formData[fieldName];
+    const errors = Object.keys(this.validatedFields).reduce((accumulator, fieldName) => {
+      const fieldValue = formData[fieldName];
 
-        if (!this.validatedFields[fieldName].isValid(fieldValue)) {
-          accumulator[fieldName] = this.validatedFields[fieldName].error;
-        }
+      if (!this.validatedFields[fieldName].isValid(fieldValue)) {
+        accumulator[fieldName] = this.validatedFields[fieldName].error;
+      }
 
-        return accumulator;
-      },
-      {}
-    );
+      return accumulator;
+    }, {});
 
     return { errors, isValid: !Object.keys(errors).length };
   }
@@ -398,19 +368,13 @@ class DownloadRulesTab extends React.Component {
         ref={ref => (this.formRef = ref)}
       >
         <ModalFormSectionHeader>
-          <FormattedMessage
-            id="feeds.existing.rules"
-            defaultMessage="Existing Rules"
-          />
+          <FormattedMessage id="feeds.existing.rules" defaultMessage="Existing Rules" />
         </ModalFormSectionHeader>
         <FormRow>
           <FormRowItem>{this.getRulesList()}</FormRowItem>
         </FormRow>
         <ModalFormSectionHeader>
-          <FormattedMessage
-            id="feeds.add.automatic.download.rule"
-            defaultMessage="Add Download Rule"
-          />
+          <FormattedMessage id="feeds.add.automatic.download.rule" defaultMessage="Add Download Rule" />
         </ModalFormSectionHeader>
         {this.getRuleFields()}
       </Form>

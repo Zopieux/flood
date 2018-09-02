@@ -1,11 +1,4 @@
-import {
-  Checkbox,
-  Form,
-  FormRow,
-  Select,
-  SelectItem,
-  Radio,
-} from 'flood-ui-kit';
+import { Checkbox, Form, FormRow, Select, SelectItem, Radio } from 'flood-ui-kit';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import React from 'react';
 
@@ -98,9 +91,7 @@ class UITab extends SettingsTab {
         <span className="sortable-list__content sortable-list__content--secondary">
           <Checkbox
             checked={visible}
-            onChange={event =>
-              this.handleDetailCheckboxValueChange(id, event.target.checked)
-            }
+            onChange={event => this.handleDetailCheckboxValueChange(id, event.target.checked)}
             modifier="dark"
           >
             Enabled
@@ -141,10 +132,7 @@ class UITab extends SettingsTab {
       <div className="sortable-list__content sortable-list__content__wrapper">
         {warning}
         <span className="sortable-list__content sortable-list__content--primary">
-          <FormattedMessage
-            id={TorrentProperties[id].id}
-            defaultMessage={TorrentProperties[id].defaultMessage}
-          />
+          <FormattedMessage id={TorrentProperties[id].id} defaultMessage={TorrentProperties[id].defaultMessage} />
         </span>
         {checkbox}
       </div>
@@ -188,21 +176,13 @@ class UITab extends SettingsTab {
           <Select
             defaultID={this.state.selectedLanguage}
             id="language"
-            label={
-              <FormattedMessage
-                defaultMessage="Language"
-                id="settings.ui.language"
-              />
-            }
+            label={<FormattedMessage defaultMessage="Language" id="settings.ui.language" />}
           >
             {this.getLanguageSelectOptions()}
           </Select>
         </FormRow>
         <ModalFormSectionHeader>
-          <FormattedMessage
-            defaultMessage="Torrent List Display"
-            id="settings.ui.torrent.list"
-          />
+          <FormattedMessage defaultMessage="Torrent List Display" id="settings.ui.torrent.list" />
         </ModalFormSectionHeader>
         <FormRow>
           <Radio
@@ -211,10 +191,7 @@ class UITab extends SettingsTab {
             id="expanded"
             width="auto"
           >
-            <FormattedMessage
-              id="settings.ui.torrent.size.expanded"
-              defaultMessage="Expanded View"
-            />
+            <FormattedMessage id="settings.ui.torrent.size.expanded" defaultMessage="Expanded View" />
           </Radio>
           <Radio
             checked={this.state.torrentListViewSize === 'condensed'}
@@ -222,17 +199,11 @@ class UITab extends SettingsTab {
             id="condensed"
             width="auto"
           >
-            <FormattedMessage
-              id="settings.ui.torrent.size.condensed"
-              defaultMessage="Condensed View"
-            />
+            <FormattedMessage id="settings.ui.torrent.size.condensed" defaultMessage="Condensed View" />
           </Radio>
         </FormRow>
         <ModalFormSectionHeader>
-          <FormattedMessage
-            defaultMessage="Torrent Detail Columns"
-            id="settings.ui.displayed.details"
-          />
+          <FormattedMessage defaultMessage="Torrent Detail Columns" id="settings.ui.displayed.details" />
         </ModalFormSectionHeader>
         <FormRow>
           <SortableList

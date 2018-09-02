@@ -79,10 +79,7 @@ class Tooltip extends React.Component {
       return;
     }
 
-    let { anchor, position, coordinates } = this.getIdealLocation(
-      props.anchor,
-      props.position
-    );
+    let { anchor, position, coordinates } = this.getIdealLocation(props.anchor, props.position);
 
     this.setState({
       anchor,
@@ -138,22 +135,10 @@ class Tooltip extends React.Component {
 
   getAnchor(isVertical, anchor, clearance, tooltipWidth, tooltipHeight) {
     if (isVertical) {
-      return this.transformAnchor(
-        anchor,
-        clearance.left,
-        clearance.right,
-        tooltipWidth,
-        clearance.boundingRect.width
-      );
+      return this.transformAnchor(anchor, clearance.left, clearance.right, tooltipWidth, clearance.boundingRect.width);
     }
 
-    return this.transformAnchor(
-      anchor,
-      clearance.top,
-      clearance.bottom,
-      tooltipHeight,
-      clearance.boundingRect.height
-    );
+    return this.transformAnchor(anchor, clearance.top, clearance.bottom, tooltipHeight, clearance.boundingRect.height);
   }
 
   getCoordinates(position, clearance, tooltipWidth, tooltipHeight) {
@@ -167,10 +152,7 @@ class Tooltip extends React.Component {
       } else if (align === 'start') {
         left = clearance.boundingRect.left;
       } else if (align === 'end') {
-        left =
-          clearance.boundingRect.left +
-          clearance.boundingRect.width -
-          tooltipWidth;
+        left = clearance.boundingRect.left + clearance.boundingRect.width - tooltipWidth;
       }
     } else {
       top = clearance.boundingRect.top + clearance.boundingRect.height / 2;
@@ -203,11 +185,7 @@ class Tooltip extends React.Component {
 
     if (position === 'top' && clearance.top < tooltipHeight) {
       position = 'bottom';
-    } else if (
-      position === 'bottom' &&
-      clearance.bottom < tooltipHeight &&
-      clearance.top > clearance.bottom
-    ) {
+    } else if (position === 'bottom' && clearance.bottom < tooltipHeight && clearance.top > clearance.bottom) {
       position = 'top';
     }
 
@@ -221,39 +199,17 @@ class Tooltip extends React.Component {
     let tooltipHeight = tooltipRect.height + ARROW_SIZE;
     let tooltipWidth = tooltipRect.width + ARROW_SIZE;
 
-    anchor = this.getAnchor(
-      isVertical,
-      anchor,
-      clearance,
-      tooltipWidth,
-      tooltipHeight
-    );
-    position = this.getPosition(
-      position,
-      clearance,
-      tooltipWidth,
-      tooltipHeight
-    );
+    anchor = this.getAnchor(isVertical, anchor, clearance, tooltipWidth, tooltipHeight);
+    position = this.getPosition(position, clearance, tooltipWidth, tooltipHeight);
 
-    let coordinates = this.getCoordinates(
-      position,
-      clearance,
-      tooltipWidth,
-      tooltipHeight
-    );
+    let coordinates = this.getCoordinates(position, clearance, tooltipWidth, tooltipHeight);
 
     return { anchor, position, coordinates };
   }
 
   getNodeClearance(domNode) {
-    let viewportHeight = Math.max(
-      document.documentElement.clientHeight || 0,
-      window.innerHeight || 0
-    );
-    let viewportWidth = Math.max(
-      document.documentElement.clientWidth || 0,
-      window.innerWidth || 0
-    );
+    let viewportHeight = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+    let viewportWidth = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
     let boundingRect = domNode.getBoundingClientRect();
 
     return {
@@ -284,13 +240,7 @@ class Tooltip extends React.Component {
     this.handleMouseEnter({ forceOpen: true });
   }
 
-  transformAnchor(
-    anchor,
-    clearanceStart,
-    clearanceEnd,
-    tooltipDimension,
-    triggerDimension
-  ) {
+  transformAnchor(anchor, clearanceStart, clearanceEnd, tooltipDimension, triggerDimension) {
     // Change the provided anchor based on the clearance available.
     if (anchor === 'start' && clearanceEnd < tooltipDimension) {
       return 'end';

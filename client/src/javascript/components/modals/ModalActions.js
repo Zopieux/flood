@@ -13,12 +13,7 @@ export default class ModalActions extends React.Component {
 
       if (action.type === 'checkbox') {
         return (
-          <Checkbox
-            checked={action.checked}
-            id={action.id}
-            key={index}
-            onChange={this.getClickHandler(action)}
-          >
+          <Checkbox checked={action.checked} id={action.id} key={index} onChange={this.getClickHandler(action)}>
             {action.content}
           </Checkbox>
         );
@@ -54,11 +49,7 @@ export default class ModalActions extends React.Component {
   }
 
   render() {
-    return (
-      <div className="modal__actions">
-        {this.getModalButtons(this.props.actions)}
-      </div>
-    );
+    return <div className="modal__actions">{this.getModalButtons(this.props.actions)}</div>;
   }
 }
 

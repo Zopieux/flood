@@ -39,25 +39,13 @@ class SettingsModal extends React.Component {
   }
 
   componentDidMount() {
-    SettingsStore.listen(
-      EventTypes.SETTINGS_CHANGE,
-      this.handleSettingsStoreChange
-    );
-    SettingsStore.listen(
-      EventTypes.SETTINGS_SAVE_REQUEST_ERROR,
-      this.handleSaveSettingsError
-    );
+    SettingsStore.listen(EventTypes.SETTINGS_CHANGE, this.handleSettingsStoreChange);
+    SettingsStore.listen(EventTypes.SETTINGS_SAVE_REQUEST_ERROR, this.handleSaveSettingsError);
   }
 
   componentWillUnmount() {
-    SettingsStore.unlisten(
-      EventTypes.SETTINGS_CHANGE,
-      this.handleSettingsStoreChange
-    );
-    SettingsStore.unlisten(
-      EventTypes.SETTINGS_SAVE_REQUEST_ERROR,
-      this.handleSaveSettingsError
-    );
+    SettingsStore.unlisten(EventTypes.SETTINGS_CHANGE, this.handleSettingsStoreChange);
+    SettingsStore.unlisten(EventTypes.SETTINGS_SAVE_REQUEST_ERROR, this.handleSaveSettingsError);
   }
 
   getActions() {
@@ -86,34 +74,29 @@ class SettingsModal extends React.Component {
 
   handleCustomsSettingChange(data) {
     this.setState({
-      changedClientSettings: this.mergeObjects(
-        this.state.changedClientSettings,
-        { [data.id]: { ...data, overrideLocalSetting: true } }
-      ),
+      changedClientSettings: this.mergeObjects(this.state.changedClientSettings, {
+        [data.id]: { ...data, overrideLocalSetting: true },
+      }),
     });
   }
 
   handleSaveSettingsClick() {
-    let floodSettings = Object.keys(this.state.changedFloodSettings).map(
-      settingsKey => {
-        return {
-          id: settingsKey,
-          data: this.state.changedFloodSettings[settingsKey],
-        };
+    let floodSettings = Object.keys(this.state.changedFloodSettings).map(settingsKey => {
+      return {
+        id: settingsKey,
+        data: this.state.changedFloodSettings[settingsKey],
+      };
+    });
+
+    let clientSettings = Object.keys(this.state.changedClientSettings).map(settingsKey => {
+      let data = this.state.changedClientSettings[settingsKey];
+
+      if (data.overrideLocalSetting) {
+        return data;
       }
-    );
 
-    let clientSettings = Object.keys(this.state.changedClientSettings).map(
-      settingsKey => {
-        let data = this.state.changedClientSettings[settingsKey];
-
-        if (data.overrideLocalSetting) {
-          return data;
-        }
-
-        return { id: settingsKey, data };
-      }
-    );
+      return { id: settingsKey, data };
+    });
 
     this.setState({ isSavingSettings: true });
 
@@ -144,27 +127,15 @@ class SettingsModal extends React.Component {
   }
 
   handleFloodSettingsChange(changedSettings) {
-    let floodSettings = this.mergeObjects(
-      this.state.floodSettings,
-      changedSettings
-    );
-    let changedFloodSettings = this.mergeObjects(
-      this.state.changedFloodSettings,
-      changedSettings
-    );
+    let floodSettings = this.mergeObjects(this.state.floodSettings, changedSettings);
+    let changedFloodSettings = this.mergeObjects(this.state.changedFloodSettings, changedSettings);
 
     this.setState({ floodSettings, changedFloodSettings });
   }
 
   handleClientSettingsChange(changedSettings) {
-    let clientSettings = this.mergeObjects(
-      this.state.clientSettings,
-      changedSettings
-    );
-    let changedClientSettings = this.mergeObjects(
-      this.state.changedClientSettings,
-      changedSettings
-    );
+    let clientSettings = this.mergeObjects(this.state.clientSettings, changedSettings);
+    let changedClientSettings = this.mergeObjects(this.state.changedClientSettings, changedSettings);
 
     this.setState({ clientSettings, changedClientSettings });
   }
@@ -204,10 +175,7 @@ class SettingsModal extends React.Component {
         props: {
           onClientSettingsChange: this.handleClientSettingsChange,
           onSettingsChange: this.handleFloodSettingsChange,
-          settings: this.mergeObjects(
-            this.state.floodSettings,
-            this.state.clientSettings
-          ),
+          settings: this.mergeObjects(this.state.floodSettings, this.state.clientSettings),
         },
         label: this.props.intl.formatMessage({
           id: 'settings.tabs.bandwidth',

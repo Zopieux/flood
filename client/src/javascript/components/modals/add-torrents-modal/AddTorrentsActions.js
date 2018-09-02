@@ -42,9 +42,7 @@ class AddTorrentsActions extends PureComponent {
   }
 
   render() {
-    return (
-      <ModalActions actions={this.getActions()} dismiss={this.props.dismiss} />
-    );
+    return <ModalActions actions={this.getActions()} dismiss={this.props.dismiss} />;
   }
 }
 

@@ -82,9 +82,7 @@ class PriorityMeter extends React.Component {
     let label = null;
 
     if (this.props.showLabel) {
-      label = (
-        <span className="priority-meter__label">{this.getPriorityLabel()}</span>
-      );
+      label = <span className="priority-meter__label">{this.getPriorityLabel()}</span>;
     }
 
     return (

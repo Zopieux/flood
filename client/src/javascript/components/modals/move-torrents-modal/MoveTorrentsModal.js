@@ -23,26 +23,17 @@ class MoveTorrents extends React.Component {
     const sources = TorrentStore.getSelectedTorrentsDownloadLocations();
 
     if (sources.length === 1) {
-      const originalSource = this.removeTrailingFilename(
-        sources[0],
-        filenames[0]
-      );
+      const originalSource = this.removeTrailingFilename(sources[0], filenames[0]);
       this.setState({ originalSource });
     }
   }
 
   componentDidMount() {
-    TorrentStore.listen(
-      EventTypes.CLIENT_MOVE_TORRENTS_REQUEST_ERROR,
-      this.onMoveError
-    );
+    TorrentStore.listen(EventTypes.CLIENT_MOVE_TORRENTS_REQUEST_ERROR, this.onMoveError);
   }
 
   componentWillUnmount() {
-    TorrentStore.unlisten(
-      EventTypes.CLIENT_MOVE_TORRENTS_REQUEST_ERROR,
-      this.onMoveError
-    );
+    TorrentStore.unlisten(EventTypes.CLIENT_MOVE_TORRENTS_REQUEST_ERROR, this.onMoveError);
   }
 
   onMoveError = () => {
@@ -83,19 +74,9 @@ class MoveTorrents extends React.Component {
   getContent() {
     return (
       <div className="modal__content">
-        <Form
-          className="inverse"
-          onChange={this.handleFormChange}
-          onSubmit={this.handleFormSubmit}
-        >
-          <TorrentDestination
-            id="destination"
-            suggested={this.state.originalSource}
-          />
-          <ModalActions
-            actions={this.getActions()}
-            dismiss={this.props.dismiss}
-          />
+        <Form className="inverse" onChange={this.handleFormChange} onSubmit={this.handleFormSubmit}>
+          <TorrentDestination id="destination" suggested={this.state.originalSource} />
+          <ModalActions actions={this.getActions()} dismiss={this.props.dismiss} />
         </Form>
       </div>
     );

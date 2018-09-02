@@ -1,12 +1,4 @@
-import {
-  Button,
-  Form,
-  FormError,
-  FormRowItem,
-  FormRow,
-  LoadingRing,
-  Textbox,
-} from 'flood-ui-kit';
+import { Button, Form, FormError, FormRowItem, FormRow, LoadingRing, Textbox } from 'flood-ui-kit';
 import classnames from 'classnames';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
 import { FormattedMessage, injectIntl } from 'react-intl';
@@ -34,43 +26,19 @@ class AuthTab extends SettingsTab {
   }
 
   componentDidMount() {
-    AuthStore.listen(
-      EventTypes.AUTH_LIST_USERS_SUCCESS,
-      this.handleUserListChange
-    );
-    AuthStore.listen(
-      EventTypes.AUTH_CREATE_USER_ERROR,
-      this.handleUserAddError
-    );
-    AuthStore.listen(
-      EventTypes.AUTH_CREATE_USER_SUCCESS,
-      this.handleUserAddSuccess
-    );
-    AuthStore.listen(
-      EventTypes.AUTH_DELETE_USER_SUCCESS,
-      this.handleUserDeleteSuccess
-    );
+    AuthStore.listen(EventTypes.AUTH_LIST_USERS_SUCCESS, this.handleUserListChange);
+    AuthStore.listen(EventTypes.AUTH_CREATE_USER_ERROR, this.handleUserAddError);
+    AuthStore.listen(EventTypes.AUTH_CREATE_USER_SUCCESS, this.handleUserAddSuccess);
+    AuthStore.listen(EventTypes.AUTH_DELETE_USER_SUCCESS, this.handleUserDeleteSuccess);
 
     AuthStore.fetchUserList();
   }
 
   componentWillUnmount() {
-    AuthStore.unlisten(
-      EventTypes.AUTH_LIST_USERS_SUCCESS,
-      this.handleUserListChange
-    );
-    AuthStore.unlisten(
-      EventTypes.AUTH_CREATE_USER_ERROR,
-      this.handleUserAddError
-    );
-    AuthStore.unlisten(
-      EventTypes.AUTH_CREATE_USER_SUCCESS,
-      this.handleUserAddSuccess
-    );
-    AuthStore.unlisten(
-      EventTypes.AUTH_DELETE_USER_SUCCESS,
-      this.handleUserDeleteSuccess
-    );
+    AuthStore.unlisten(EventTypes.AUTH_LIST_USERS_SUCCESS, this.handleUserListChange);
+    AuthStore.unlisten(EventTypes.AUTH_CREATE_USER_ERROR, this.handleUserAddError);
+    AuthStore.unlisten(EventTypes.AUTH_CREATE_USER_SUCCESS, this.handleUserAddSuccess);
+    AuthStore.unlisten(EventTypes.AUTH_DELETE_USER_SUCCESS, this.handleUserDeleteSuccess);
   }
 
   getUserList() {
@@ -98,10 +66,7 @@ class AuthTab extends SettingsTab {
       } else {
         badge = (
           <span className="interactive-list__label__tag tag">
-            <FormattedMessage
-              id="auth.current.user"
-              defaultMessage="Current User"
-            />
+            <FormattedMessage id="auth.current.user" defaultMessage="Current User" />
           </span>
         );
       }
@@ -168,8 +133,7 @@ class AuthTab extends SettingsTab {
   }
 
   render() {
-    const isLoading =
-      !this.state.hasFetchedUserList && this.state.users.length === 0;
+    const isLoading = !this.state.hasFetchedUserList && this.state.users.length === 0;
     const interactiveListClasses = classnames('interactive-list', {
       'interactive-list--loading': isLoading,
     });
@@ -186,26 +150,16 @@ class AuthTab extends SettingsTab {
 
     if (isLoading) {
       loadingIndicator = (
-        <div
-          className="interactive-list__loading-indicator"
-          key="loading-indicator"
-        >
+        <div className="interactive-list__loading-indicator" key="loading-indicator">
           <LoadingRing />
         </div>
       );
     }
 
     return (
-      <Form
-        onChange={this.handleFormChange}
-        onSubmit={this.handleFormSubmit}
-        ref={ref => (this.formRef = ref)}
-      >
+      <Form onChange={this.handleFormChange} onSubmit={this.handleFormSubmit} ref={ref => (this.formRef = ref)}>
         <ModalFormSectionHeader>
-          <FormattedMessage
-            id="auth.user.accounts"
-            defaultMessage="User Accounts"
-          />
+          <FormattedMessage id="auth.user.accounts" defaultMessage="User Accounts" />
         </ModalFormSectionHeader>
         <FormRow>
           <FormRowItem>
@@ -228,9 +182,7 @@ class AuthTab extends SettingsTab {
         <FormRow>
           <Textbox
             id="username"
-            label={
-              <FormattedMessage id="auth.username" defaultMessage="Username" />
-            }
+            label={<FormattedMessage id="auth.username" defaultMessage="Username" />}
             placeholder={this.props.intl.formatMessage({
               id: 'auth.username',
               defaultMessage: 'Username',
@@ -238,21 +190,13 @@ class AuthTab extends SettingsTab {
           />
           <Textbox
             id="password"
-            label={
-              <FormattedMessage id="auth.password" defaultMessage="Password" />
-            }
+            label={<FormattedMessage id="auth.password" defaultMessage="Password" />}
             placeholder={this.props.intl.formatMessage({
               id: 'auth.password',
               defaultMessage: 'Password',
             })}
           />
-          <Button
-            isLoading={this.state.isAddingUser}
-            labelOffset
-            priority="primary"
-            type="submit"
-            width="auto"
-          >
+          <Button isLoading={this.state.isAddingUser} labelOffset priority="primary" type="submit" width="auto">
             <FormattedMessage id="button.add" defaultMessage="Add" />
           </Button>
         </FormRow>

@@ -35,10 +35,7 @@ class TorrentStoreClass extends BaseStore {
   }
 
   fetchTorrentDetails(options = {}) {
-    if (
-      !this.isRequestPending('fetch-torrent-details') ||
-      options.forceUpdate
-    ) {
+    if (!this.isRequestPending('fetch-torrent-details') || options.forceUpdate) {
       this.beginRequest('fetch-torrent-details');
       TorrentActions.fetchTorrentDetails(UIStore.getTorrentDetailsHash());
     }
@@ -235,9 +232,7 @@ class TorrentStoreClass extends BaseStore {
           break;
         case serverEventTypes.TORRENT_LIST_ACTION_TORRENT_DELETED:
           if (this.selectedTorrents.includes(torrentHash)) {
-            this.selectedTorrents = this.selectedTorrents.filter(
-              hash => hash !== torrentHash
-            );
+            this.selectedTorrents = this.selectedTorrents.filter(hash => hash !== torrentHash);
           }
 
           delete this.torrents[torrentHash];
@@ -285,10 +280,7 @@ class TorrentStoreClass extends BaseStore {
   }
 
   startPollingTorrentDetails() {
-    this.pollTorrentDetailsIntervalID = setInterval(
-      this.fetchTorrentDetails.bind(this),
-      pollInterval
-    );
+    this.pollTorrentDetailsIntervalID = setInterval(this.fetchTorrentDetails.bind(this), pollInterval);
   }
 
   stopPollingTorrentDetails() {
@@ -314,10 +306,7 @@ TorrentStore.dispatcherID = AppDispatcher.register(payload => {
 
   switch (action.type) {
     case ActionTypes.CLIENT_FETCH_TORRENT_DETAILS_SUCCESS:
-      TorrentStore.setTorrentDetails(
-        action.data.hash,
-        action.data.torrentDetails
-      );
+      TorrentStore.setTorrentDetails(action.data.hash, action.data.torrentDetails);
       break;
     case ActionTypes.CLIENT_ADD_TORRENT_ERROR:
       TorrentStore.handleAddTorrentError(action.error);

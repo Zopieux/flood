@@ -42,12 +42,7 @@ class FloodApp extends React.Component {
 
     UIStore.registerDependency({
       id: 'flood-settings',
-      message: (
-        <FormattedMessage
-          id="dependency.loading.flood.settings"
-          defaultMessage="Flood Settings"
-        />
-      ),
+      message: <FormattedMessage id="dependency.loading.flood.settings" defaultMessage="Flood Settings" />,
     });
 
     FloodActions.startActivityStream();
@@ -58,10 +53,7 @@ class FloodApp extends React.Component {
   }
 
   componentWillUnmount() {
-    SettingsStore.unlisten(
-      EventTypes.SETTINGS_CHANGE,
-      this.handleSettingsChange
-    );
+    SettingsStore.unlisten(EventTypes.SETTINGS_CHANGE, this.handleSettingsChange);
   }
 
   handleSettingsChange() {

@@ -70,11 +70,9 @@ export default {
   'feeds.url': 'URL',
   'feeds.validation.invalid.regular.expression': 'RegEx invalida.',
   'feeds.validation.must.select.feed': 'Debe seleccionar una fuente',
-  'feeds.validation.must.specify.destination':
-    'Debe seleccionar una destinación.',
+  'feeds.validation.must.specify.destination': 'Debe seleccionar una destinación.',
   'feeds.validation.must.specify.label': 'Debe seleccionar un rotulo',
-  'feeds.validation.must.specify.valid.feed.url':
-    'Debe seleccionar un URL de fuente valido.',
+  'feeds.validation.must.specify.valid.feed.url': 'Debe seleccionar un URL de fuente valido.',
 
   'filesystem.empty.directory': 'Carpeta vacía',
   'filesystem.error.eacces': 'Flood no tiene permisos para leer esta carpeta.',
@@ -122,53 +120,38 @@ export default {
   'priority.low': 'Baja',
   'priority.normal': 'Normal',
 
-  'settings.bandwidth.slots.download.divider.label':
-    'Divisor de Espacios de Descarga',
-  'settings.bandwidth.slots.download.global.label':
-    'Cant. Global de Espacios de Descargas',
-  'settings.bandwidth.slots.download.label':
-    'Cant. por Torrent de Espacios de Descarga',
+  'settings.bandwidth.slots.download.divider.label': 'Divisor de Espacios de Descarga',
+  'settings.bandwidth.slots.download.global.label': 'Cant. Global de Espacios de Descargas',
+  'settings.bandwidth.slots.download.label': 'Cant. por Torrent de Espacios de Descarga',
   'settings.bandwidth.slots.heading': 'Disponibilidad de Espacios',
-  'settings.bandwidth.slots.upload.divider.label':
-    'Divisor de Espacios de Subida',
-  'settings.bandwidth.slots.upload.global.label':
-    'Cant. Global de Espacios de Subida',
-  'settings.bandwidth.slots.upload.label':
-    'Cant. por Torrent de Espacios de Descarga',
-  'settings.bandwidth.transferrate.dropdown.preset.download.label':
-    'Predeterminados de Desplegable: Descarga',
-  'settings.bandwidth.transferrate.dropdown.preset.upload.label':
-    'Predeterminados de Desplegable: Subida',
-  'settings.bandwidth.transferrate.global.throttle.download':
-    'Regulador Global de Velocidad de Descarga',
-  'settings.bandwidth.transferrate.global.throttle.upload':
-    'Regulador Global de Velocidad de Subida',
+  'settings.bandwidth.slots.upload.divider.label': 'Divisor de Espacios de Subida',
+  'settings.bandwidth.slots.upload.global.label': 'Cant. Global de Espacios de Subida',
+  'settings.bandwidth.slots.upload.label': 'Cant. por Torrent de Espacios de Descarga',
+  'settings.bandwidth.transferrate.dropdown.preset.download.label': 'Predeterminados de Desplegable: Descarga',
+  'settings.bandwidth.transferrate.dropdown.preset.upload.label': 'Predeterminados de Desplegable: Subida',
+  'settings.bandwidth.transferrate.global.throttle.download': 'Regulador Global de Velocidad de Descarga',
+  'settings.bandwidth.transferrate.global.throttle.upload': 'Regulador Global de Velocidad de Subida',
   'settings.bandwidth.transferrate.heading': 'Reguladores de Velocidad',
 
   'settings.connectivity.dht.label': 'Habilitar DHT',
   'settings.connectivity.dht.port.label': 'Puerto para DHT',
-  'settings.connectivity.dpd.heading':
-    'Descubrimiento de Peers Descentralizado',
+  'settings.connectivity.dpd.heading': 'Descubrimiento de Peers Descentralizado',
   'settings.connectivity.incoming.heading': 'Conexiones Entrantes',
   'settings.connectivity.ip.hostname.label': 'IP/Hostname Presentado',
-  'settings.connectivity.max.http.connections':
-    'Máxima Cant. de Conexiones HTTP',
+  'settings.connectivity.max.http.connections': 'Máxima Cant. de Conexiones HTTP',
   'settings.connectivity.peer.exchange.label': 'Habilitar Intercambio de Peers',
   'settings.connectivity.peers.desired.label': 'Cant. de Peers Deseada',
   'settings.connectivity.peers.heading': 'Peers',
   'settings.connectivity.peers.max.label': 'Cant. Máxima de Peers',
   'settings.connectivity.peers.min.label': 'Cant. Mínima de Peers',
-  'settings.connectivity.peers.seeding.max.label':
-    'Cant. Máxima de Peers en Seeding',
-  'settings.connectivity.peers.seeding.min.label':
-    'Cant. Mínima de Peers en Seeding',
+  'settings.connectivity.peers.seeding.max.label': 'Cant. Máxima de Peers en Seeding',
+  'settings.connectivity.peers.seeding.min.label': 'Cant. Mínima de Peers en Seeding',
   'settings.connectivity.port.open.label': 'Puerto Abierto',
   'settings.connectivity.port.randomize.label': 'Puerto Aleatorio',
   'settings.connectivity.port.range.label': 'Rango de Puertos',
 
   'settings.resources.disk.check.hash.label': 'Verificar Hash al Terminar',
-  'settings.resources.disk.download.location.label':
-    'Carpeta de Descargas Predeterminada',
+  'settings.resources.disk.download.location.label': 'Carpeta de Descargas Predeterminada',
   'settings.resources.disk.heading': 'Disco',
   'settings.resources.max.open.files': 'Cant. Máxima de Archivos Abiertos',
   'settings.resources.memory.heading': 'Memoria',
@@ -271,8 +254,7 @@ export default {
     other {{countElement} archivos seleccionados}
   }`,
   'torrents.details.selected.files.set.priority': 'Ajustar Prioridad',
-  'torrents.details.trackers.no.data':
-    'No existe información de tracker para este torrent.',
+  'torrents.details.trackers.no.data': 'No existe información de tracker para este torrent.',
   'torrents.details.trackers.type': 'Tipo',
   'torrents.details.trackers': 'Trackers',
 
@@ -321,8 +303,7 @@ export default {
       other {# torrents}
     }?`,
   'torrents.remove.delete.data': 'Delete data',
-  'torrents.remove.error.no.torrents.selected':
-    'No ha seleccionado un torrent.',
+  'torrents.remove.error.no.torrents.selected': 'No ha seleccionado un torrent.',
   'torrents.remove': 'Eliminar Torrents',
 
   'torrents.set.tags.button.set': 'Configurar',

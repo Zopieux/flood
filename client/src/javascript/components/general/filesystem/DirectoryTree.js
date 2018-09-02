@@ -44,9 +44,7 @@ class DirectoryTree extends React.Component {
         let subSelectedItems = {};
 
         if (this.props.selectedItems.directories) {
-          subSelectedItems = this.props.selectedItems.directories[
-            directoryName
-          ];
+          subSelectedItems = this.props.selectedItems.directories[directoryName];
         }
 
         let subTree = directories[directoryName];
@@ -98,9 +96,7 @@ class DirectoryTree extends React.Component {
 
   render() {
     return (
-      <div className="directory-tree__tree">
-        {this.getDirectoryTreeDomNodes(this.props.tree, this.props.depth)}
-      </div>
+      <div className="directory-tree__tree">{this.getDirectoryTreeDomNodes(this.props.tree, this.props.depth)}</div>
     );
   }
 }

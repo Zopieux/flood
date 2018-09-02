@@ -44,11 +44,9 @@ export default {
   'feeds.url': 'URL',
   'feeds.validation.invalid.regular.expression': 'Fout in regular expression.',
   'feeds.validation.must.select.feed': 'Je moet een feed selecteren.',
-  'feeds.validation.must.specify.destination':
-    'Je moet een downloadlocatie opgeven.',
+  'feeds.validation.must.specify.destination': 'Je moet een downloadlocatie opgeven.',
   'feeds.validation.must.specify.label': 'Je moet een label selecteren.',
-  'feeds.validation.must.specify.valid.feed.url':
-    'Je moet een geldige feed URL opgeven.',
+  'feeds.validation.must.specify.valid.feed.url': 'Je moet een geldige feed URL opgeven.',
 
   'filter.all': 'Alles',
   'filter.status.title': 'Filter op status',
@@ -103,14 +101,10 @@ export default {
   'settings.bandwidth.slots.upload.divider.label': 'Upload slots divider',
   'settings.bandwidth.slots.upload.global.label': 'Upload slots globaal',
   'settings.bandwidth.slots.upload.label': 'Upload slots per torrent',
-  'settings.bandwidth.transferrate.dropdown.preset.download.label':
-    'Dropdown downloadbeperking items',
-  'settings.bandwidth.transferrate.dropdown.preset.upload.label':
-    'Dropdown uploadbeperking items',
-  'settings.bandwidth.transferrate.global.throttle.download':
-    'Globale downloadbeperking',
-  'settings.bandwidth.transferrate.global.throttle.upload':
-    'Gobale uploadbeperking',
+  'settings.bandwidth.transferrate.dropdown.preset.download.label': 'Dropdown downloadbeperking items',
+  'settings.bandwidth.transferrate.dropdown.preset.upload.label': 'Dropdown uploadbeperking items',
+  'settings.bandwidth.transferrate.global.throttle.download': 'Globale downloadbeperking',
+  'settings.bandwidth.transferrate.global.throttle.upload': 'Gobale uploadbeperking',
   'settings.bandwidth.transferrate.heading': 'Sneldheidsbeperkingen',
 
   'settings.connectivity.dht.label': 'Gebruik DHT',
@@ -118,24 +112,20 @@ export default {
   'settings.connectivity.dpd.heading': 'Decentralized Peer Discovery',
   'settings.connectivity.incoming.heading': 'Inkomende connecties',
   'settings.connectivity.ip.hostname.label': 'Vermeld IP/Hostnaam',
-  'settings.connectivity.max.http.connections':
-    'Maximaal aantal HTTP connecties',
+  'settings.connectivity.max.http.connections': 'Maximaal aantal HTTP connecties',
   'settings.connectivity.peer.exchange.label': 'Gebruik Peer Exchange',
   'settings.connectivity.peers.desired.label': 'Gewenst aantal peers',
   'settings.connectivity.peers.heading': 'Peers',
   'settings.connectivity.peers.max.label': 'Maximaal aantal peers',
   'settings.connectivity.peers.min.label': 'Minimaal aantal peers',
-  'settings.connectivity.peers.seeding.max.label':
-    'Maximaal aantal peers seeding',
-  'settings.connectivity.peers.seeding.min.label':
-    'Minimaal aantal peers seeding',
+  'settings.connectivity.peers.seeding.max.label': 'Maximaal aantal peers seeding',
+  'settings.connectivity.peers.seeding.min.label': 'Minimaal aantal peers seeding',
   'settings.connectivity.port.open.label': 'Open poort',
   'settings.connectivity.port.randomize.label': 'Willekeurige poort',
   'settings.connectivity.port.range.label': 'Poortbereik',
 
   'settings.resources.disk.check.hash.label': 'Controleer hash na downloaden',
-  'settings.resources.disk.download.location.label':
-    'Standaard downloadlocatie',
+  'settings.resources.disk.download.location.label': 'Standaard downloadlocatie',
   'settings.resources.disk.heading': 'Disk',
   'settings.resources.max.open.files': 'Maximaal aantal open bestanden',
   'settings.resources.memory.heading': 'Geheugen',
@@ -217,16 +207,14 @@ export default {
   'torrents.details.general.type.private': 'Privé',
   'torrents.details.general.type.public': 'Publiek',
   'torrents.details.general.type': 'Type',
-  'torrents.details.peers.no.data':
-    'Er zijn geen peer-gegevens voor deze torrent.',
+  'torrents.details.peers.no.data': 'Er zijn geen peer-gegevens voor deze torrent.',
   'torrents.details.peers': 'Peers',
   'torrents.details.selected.files': `{count, plural,
     =1 {{countElement} bestand geselecteerd}
     other {{countElement} bestanden geselecteerd}
   }`,
   'torrents.details.selected.files.set.priority': 'Wijzig prioriteit',
-  'torrents.details.trackers.no.data':
-    'Er zijn geen tracker-gegevens voor deze torrent.',
+  'torrents.details.trackers.no.data': 'Er zijn geen tracker-gegevens voor deze torrent.',
   'torrents.details.trackers.type': 'Type',
   'torrents.details.trackers': 'Trackers',
 
@@ -264,8 +252,7 @@ export default {
     =1 {één torrent}
     other {# torrents}
   } wilt verwijderen?`,
-  'torrents.remove.error.no.torrents.selected':
-    'Je hebt geen torrents geselecteerd.',
+  'torrents.remove.error.no.torrents.selected': 'Je hebt geen torrents geselecteerd.',
   'torrents.remove': 'Torrents verwijderen',
 
   'torrents.set.tags.button.set': 'Tags instellen',

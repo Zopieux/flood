@@ -94,50 +94,25 @@ class NotificationsButton extends React.Component {
 
     UIStore.registerDependency({
       id: 'notifications',
-      message: (
-        <FormattedMessage
-          id="dependency.loading.notifications"
-          defaultMessage="Notifications"
-        />
-      ),
+      message: <FormattedMessage id="dependency.loading.notifications" defaultMessage="Notifications" />,
     });
   }
 
   componentDidMount() {
-    NotificationStore.listen(
-      EventTypes.NOTIFICATIONS_FETCH_SUCCESS,
-      this.handleNotificationFetchSuccess
-    );
-    NotificationStore.listen(
-      EventTypes.NOTIFICATIONS_FETCH_ERROR,
-      this.handleNotificationFetchError
-    );
-    NotificationStore.listen(
-      EventTypes.NOTIFICATIONS_COUNT_CHANGE,
-      this.handleNotificationCountChange
-    );
+    NotificationStore.listen(EventTypes.NOTIFICATIONS_FETCH_SUCCESS, this.handleNotificationFetchSuccess);
+    NotificationStore.listen(EventTypes.NOTIFICATIONS_FETCH_ERROR, this.handleNotificationFetchError);
+    NotificationStore.listen(EventTypes.NOTIFICATIONS_COUNT_CHANGE, this.handleNotificationCountChange);
   }
 
   componentWillUnmount() {
-    NotificationStore.unlisten(
-      EventTypes.NOTIFICATIONS_FETCH_SUCCESS,
-      this.handleNotificationFetchSuccess
-    );
-    NotificationStore.unlisten(
-      EventTypes.NOTIFICATIONS_FETCH_ERROR,
-      this.handleNotificationFetchError
-    );
-    NotificationStore.unlisten(
-      EventTypes.NOTIFICATIONS_COUNT_CHANGE,
-      this.handleNotificationCountChange
-    );
+    NotificationStore.unlisten(EventTypes.NOTIFICATIONS_FETCH_SUCCESS, this.handleNotificationFetchSuccess);
+    NotificationStore.unlisten(EventTypes.NOTIFICATIONS_FETCH_ERROR, this.handleNotificationFetchError);
+    NotificationStore.unlisten(EventTypes.NOTIFICATIONS_COUNT_CHANGE, this.handleNotificationCountChange);
   }
 
   getBadge() {
     if (this.state.count.total > 0) {
-      return (
-        <span className="notifications__badge">{this.state.count.total}</span>
-      );
+      return <span className="notifications__badge">{this.state.count.total}</span>;
     }
 
     return null;
@@ -145,20 +120,12 @@ class NotificationsButton extends React.Component {
 
   getBottomToolbar() {
     if (this.state.count.total > 0) {
-      let newerButtonClass = classnames(
-        'toolbar__item toolbar__item--button',
-        'tooltip__content--padding-surrogate',
-        { 'is-disabled': this.state.paginationStart === 0 }
-      );
-      let olderButtonClass = classnames(
-        'toolbar__item toolbar__item--button',
-        'tooltip__content--padding-surrogate',
-        {
-          'is-disabled':
-            this.state.paginationStart + NOTIFICATIONS_PER_PAGE >=
-            this.state.count.total,
-        }
-      );
+      let newerButtonClass = classnames('toolbar__item toolbar__item--button', 'tooltip__content--padding-surrogate', {
+        'is-disabled': this.state.paginationStart === 0,
+      });
+      let olderButtonClass = classnames('toolbar__item toolbar__item--button', 'tooltip__content--padding-surrogate', {
+        'is-disabled': this.state.paginationStart + NOTIFICATIONS_PER_PAGE >= this.state.count.total,
+      });
 
       let olderFrom = this.state.paginationStart + NOTIFICATIONS_PER_PAGE + 1;
       let olderTo = this.state.paginationStart + NOTIFICATIONS_PER_PAGE * 2;
@@ -178,10 +145,7 @@ class NotificationsButton extends React.Component {
           className="notifications__toolbar toolbar toolbar--dark
           toolbar--bottom"
         >
-          <li
-            className={newerButtonClass}
-            onClick={this.handleNewerNotificationsClick}
-          >
+          <li className={newerButtonClass} onClick={this.handleNewerNotificationsClick}>
             <ChevronLeftIcon /> {newerFrom + 1} &ndash; {newerTo}
           </li>
           <li
@@ -191,10 +155,7 @@ class NotificationsButton extends React.Component {
           >
             {this.props.intl.formatMessage(MESSAGES.clearAll)}
           </li>
-          <li
-            className={olderButtonClass}
-            onClick={this.handleOlderNotificationsClick}
-          >
+          <li className={olderButtonClass} onClick={this.handleOlderNotificationsClick}>
             {olderFrom} &ndash; {olderTo} <ChevronRightIcon />
           </li>
         </ul>
@@ -232,19 +193,14 @@ class NotificationsButton extends React.Component {
         />
       );
     } else {
-      notificationBody = this.props.intl.formatMessage(
-        MESSAGES[`${notification.id}.body`],
-        notification.data
-      );
+      notificationBody = this.props.intl.formatMessage(MESSAGES[`${notification.id}.body`], notification.data);
     }
 
     return (
       <li className="notifications__list__item" key={index}>
         <div className="notification__heading">
           <span className="notification__category">
-            {this.props.intl.formatMessage(
-              MESSAGES[`${notification.id}.heading`]
-            )}
+            {this.props.intl.formatMessage(MESSAGES[`${notification.id}.heading`])}
           </span>
           {` — `}
           <span className="notification__timestamp">
@@ -309,15 +265,8 @@ class NotificationsButton extends React.Component {
     return (
       <div className={notificationsWrapperClasses}>
         {this.getTopToolbar()}
-        <div className="notifications__loading-indicator">
-          {loadingIndicatorIcon}
-        </div>
-        <CustomScrollbars
-          autoHeight={true}
-          autoHeightMin={0}
-          autoHeightMax={300}
-          inverted={true}
-        >
+        <div className="notifications__loading-indicator">{loadingIndicatorIcon}</div>
+        <CustomScrollbars autoHeight={true} autoHeightMin={0} autoHeightMax={300} inverted={true}>
           <ul className="notifications__list tooltip__content--padding-surrogate">
             {notifications.map(this.getNotification)}
           </ul>
@@ -388,10 +337,7 @@ class NotificationsButton extends React.Component {
   }
 
   handleOlderNotificationsClick() {
-    if (
-      this.state.count.total >
-      this.state.paginationStart + NOTIFICATIONS_PER_PAGE
-    ) {
+    if (this.state.count.total > this.state.paginationStart + NOTIFICATIONS_PER_PAGE) {
       this.setState({
         isLoading: true,
         paginationStart: this.state.paginationStart + NOTIFICATIONS_PER_PAGE,

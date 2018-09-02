@@ -32,11 +32,7 @@ class NavigationList extends React.Component {
       });
 
       return (
-        <li
-          className={classes}
-          key={index}
-          onClick={this.handleItemClick.bind(this, item)}
-        >
+        <li className={classes} key={index} onClick={this.handleItemClick.bind(this, item)}>
           {item.label}
         </li>
       );
@@ -52,11 +48,7 @@ class NavigationList extends React.Component {
   }
 
   render() {
-    return (
-      <ul className={this.props.listClassName}>
-        {this.getNavigationItems(this.props.items)}
-      </ul>
-    );
+    return <ul className={this.props.listClassName}>{this.getNavigationItems(this.props.items)}</ul>;
   }
 }
 

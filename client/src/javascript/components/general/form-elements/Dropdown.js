@@ -26,8 +26,7 @@ class Dropdown extends React.Component {
     header: PropTypes.node,
     trigger: PropTypes.node,
     matchButtonWidth: PropTypes.bool,
-    menuItems: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.object))
-      .isRequired,
+    menuItems: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.object)).isRequired,
     noWrap: PropTypes.bool,
     onOpen: PropTypes.func,
     width: PropTypes.oneOf(['small', 'medium', 'large']),
@@ -61,10 +60,7 @@ class Dropdown extends React.Component {
   closeDropdown() {
     global.removeEventListener('keydown', this.handleKeyPress);
     global.removeEventListener('click', this.closeDropdown);
-    UIStore.unlisten(
-      EventTypes.UI_DROPDOWN_MENU_CHANGE,
-      this.handleActiveDropdownChange
-    );
+    UIStore.unlisten(EventTypes.UI_DROPDOWN_MENU_CHANGE, this.handleActiveDropdownChange);
 
     this.setState({ isOpen: false });
   }
@@ -72,10 +68,7 @@ class Dropdown extends React.Component {
   openDropdown() {
     global.addEventListener('keydown', this.handleKeyPress);
     global.addEventListener('click', this.closeDropdown);
-    UIStore.listen(
-      EventTypes.UI_DROPDOWN_MENU_CHANGE,
-      this.handleActiveDropdownChange
-    );
+    UIStore.listen(EventTypes.UI_DROPDOWN_MENU_CHANGE, this.handleActiveDropdownChange);
 
     this.setState({ isOpen: true });
 
@@ -121,10 +114,7 @@ class Dropdown extends React.Component {
     }
 
     return (
-      <div
-        className={this.props.dropdownButtonClass}
-        onClick={this.handleDropdownClick}
-      >
+      <div className={this.props.dropdownButtonClass} onClick={this.handleDropdownClick}>
         {label}
       </div>
     );
@@ -156,14 +146,10 @@ class Dropdown extends React.Component {
 
   getDropdownMenuItems(listItems) {
     return listItems.map((property, index) => {
-      let classes = classnames(
-        'dropdown__item menu__item',
-        property.className,
-        {
-          'is-selectable': property.selectable !== false,
-          'is-selected': property.selected,
-        }
-      );
+      let classes = classnames('dropdown__item menu__item', property.className, {
+        'is-selectable': property.selectable !== false,
+        'is-selected': property.selected,
+      });
       let clickHandler = null;
 
       if (property.selectable !== false) {
@@ -183,10 +169,8 @@ class Dropdown extends React.Component {
       this.props.dropdownWrapperClass,
       `${this.props.baseClassName}--direction-${this.props.direction}`,
       {
-        [`${this.props.baseClassName}--match-button-width`]: this.props
-          .matchButtonWidth,
-        [`${this.props.baseClassName}--width-${this.props.width}`]:
-          this.props.width != null,
+        [`${this.props.baseClassName}--match-button-width`]: this.props.matchButtonWidth,
+        [`${this.props.baseClassName}--width-${this.props.width}`]: this.props.width != null,
         [`${this.props.baseClassName}--no-wrap`]: this.props.nowrap,
         'is-expanded': this.state.isOpen,
       }
@@ -201,11 +185,7 @@ class Dropdown extends React.Component {
     return (
       <div className={dropdownWrapperClass}>
         {this.getDropdownButton({ header: false, trigger: true })}
-        <CSSTransitionGroup
-          transitionName="menu"
-          transitionEnterTimeout={250}
-          transitionLeaveTimeout={250}
-        >
+        <CSSTransitionGroup transitionName="menu" transitionEnterTimeout={250} transitionLeaveTimeout={250}>
           {menu}
         </CSSTransitionGroup>
       </div>

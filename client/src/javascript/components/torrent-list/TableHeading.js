@@ -95,13 +95,7 @@ class TableHeading extends React.Component {
   }
 
   getHeadingElements() {
-    const {
-      defaultWidth,
-      defaultPropWidths,
-      columns,
-      propWidths,
-      sortProp,
-    } = this.props;
+    const { defaultWidth, defaultPropWidths, columns, propWidths, sortProp } = this.props;
 
     return columns.reduce((accumulator, { id, visible }) => {
       if (!visible) {
@@ -129,10 +123,7 @@ class TableHeading extends React.Component {
       });
 
       const label = (
-        <FormattedMessage
-          id={TorrentProperties[id].id}
-          defaultMessage={TorrentProperties[id].defaultMessage}
-        />
+        <FormattedMessage id={TorrentProperties[id].id} defaultMessage={TorrentProperties[id].defaultMessage} />
       );
 
       accumulator.push(
@@ -161,16 +152,10 @@ class TableHeading extends React.Component {
 
   render() {
     return (
-      <div
-        className="table__row table__row--heading"
-        ref={ref => (this.tableHeading = ref)}
-      >
+      <div className="table__row table__row--heading" ref={ref => (this.tableHeading = ref)}>
         {this.getHeadingElements()}
         <div className="table__cell table__heading table__heading--fill" />
-        <div
-          className="table__heading__resize-line"
-          ref={ref => (this.resizeLine = ref)}
-        />
+        <div className="table__heading__resize-line" ref={ref => (this.resizeLine = ref)} />
       </div>
     );
   }
